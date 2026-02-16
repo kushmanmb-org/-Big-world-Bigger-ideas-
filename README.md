@@ -4,7 +4,7 @@
 **Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)  
 **Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
-**Mission Statement:** *To feed the world*
+**Mission Statement:** *Empowering crypto clarity, fueled by innovation and style—relaxing, investing and leveling up, one stat at a time*
 
 ---
 
