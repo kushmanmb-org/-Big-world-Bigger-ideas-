@@ -91,7 +91,7 @@
 - Slot Time: 12 seconds
 - Epoch: 32 slots (~6.4 minutes)
 - Minimum Stake: 32 ETH per validator
-- Annual Staking Rewards: ~4-5% APR (variable based on network participation)
+- Annual Staking Rewards: Variable (see [Beaconcha.in](https://beaconcha.in) for current APR)
 
 **Key Features:**
 - Coordinates network validators
