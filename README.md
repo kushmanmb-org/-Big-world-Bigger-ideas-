@@ -1,7 +1,8 @@
 ---
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
-**Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)
+**Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)  
+**Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
 **Mission Statement:** *To feed the world*
 
