@@ -91,14 +91,14 @@
 - Slot Time: 12 seconds
 - Epoch: 32 slots (~6.4 minutes)
 - Minimum Stake: 32 ETH per validator
-- Annual Staking Rewards: ~4-5% APR (variable)
+- Annual Staking Rewards: ~4-5% APR (variable based on network participation)
 
 **Key Features:**
 - Coordinates network validators
 - Manages staking and rewards
 - Provides finality to Ethereum blocks
 - Energy-efficient consensus (99.95% reduction vs PoW)
-- Validator network of 900,000+ validators
+- Active validator network (see [Beaconcha.in](https://beaconcha.in) for current count)
 
 **Staking Information:**
 - Minimum: 32 ETH to run a validator
