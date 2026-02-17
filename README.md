@@ -14,6 +14,24 @@
 
 ---
 
+## 🌐 Web Interface
+
+This repository now includes a web interface for viewing the blockchain documentation.
+
+**Files:**
+- `index.html` - Main HTML page with blockchain documentation
+- `styles.css` - Stylesheet with background image configuration
+
+**Background Image:**
+The web interface is configured with a custom background image located at:
+`C:\Users\mattb\iCloudPhotos\Photos\IMG_0032.HEIC`
+
+**To view the web interface:**
+1. Open `index.html` in a web browser
+2. Or run a local web server: `python3 -m http.server 8000` and navigate to `http://localhost:8000`
+
+---
+
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
 **GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
