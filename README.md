@@ -1,6 +1,22 @@
+# -Big-world-Bigger-ideas-
+
+<div align="center">
+
+![GitHub Owner](https://img.shields.io/badge/Owner-Kushmanmb-blue?style=for-the-badge&logo=github)
+![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
+
+[![Profile](https://img.shields.io/badge/Profile-kushmanmb.org-informational?style=flat-square&logo=ethereum)](https://kushmanmb.org)
+[![ENS](https://img.shields.io/badge/ENS-kushmanmb.eth-9cf?style=flat-square&logo=ethereum)](https://app.ens.domains/name/kushmanmb.eth)
+[![Email](https://img.shields.io/badge/Contact-kushmanmb@gmx.com-red?style=flat-square&logo=gmail)](mailto:kushmanmb@gmx.com)
+
+</div>
+
 ---
+
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
+**GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
 **Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)  
 **Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
@@ -122,5 +138,32 @@ All blockchain information has been verified through official documentation:
 
 ---
 
-# -Big-world-Bigger-ideas-
-WWJD
+## 📢 Repository Announcement
+
+**This repository is owned, maintained, and curated by Kushmanmb (Matthew Brace)**
+
+All content, documentation, and blockchain information presented here represents verified research and careful curation by the owner. This project demonstrates commitment to:
+
+- 🎯 **Accurate blockchain documentation**
+- 🔒 **Verified network information**
+- 🚀 **Innovation in crypto clarity**
+- 📚 **Educational resources for the community**
+
+For questions, collaborations, or inquiries, please reach out via:
+- 📧 Email: [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
+- 🌐 Website: [kushmanmb.org](https://kushmanmb.org)
+- 🏷️ ENS: kushmanmb.eth
+
+---
+
+<div align="center">
+
+**-Big-world-Bigger-ideas-**  
+*WWJD*
+
+![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=flat-square)
+![By Kushmanmb](https://img.shields.io/badge/By-Kushmanmb-blue?style=flat-square&logo=github)
+
+**© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved**
+
+</div>
