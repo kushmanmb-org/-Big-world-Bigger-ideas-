@@ -1,0 +1,24 @@
+{
+  "name": "big-world-bigger-ideas",
+  "version": "1.0.0",
+  "description": "Blockchain network documentation and crypto clarity platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kushmanmb/-Big-world-Bigger-ideas-.git"
+  },
+  "keywords": [],
+  "author": "Matthew Brace <kushmanmb@gmx.com>",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/issues"
+  },
+  "homepage": "https://github.com/Kushmanmb/-Big-world-Bigger-ideas-#readme",
+  "dependencies": {
+    "@discord/embedded-app-sdk": "^2.4.0"
+  }
+}
