@@ -9,11 +9,17 @@ body {
     min-height: 100vh;
     
     /* Background Image Configuration using the specified path */
+    /* NOTE: This uses an absolute Windows file path that only works locally */
+    /* For production: Use a relative path like url('./images/background.jpg') */
+    /* HEIC format has limited browser support - convert to JPEG/PNG/WebP for wider compatibility */
     background-image: url('C:\\Users\\mattb\\iCloudPhotos\\Photos\\IMG_0032.HEIC');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    
+    /* Fallback background color if image doesn't load */
+    background-color: #2c3e50;
 }
 
 /* Semi-transparent overlay for better readability */

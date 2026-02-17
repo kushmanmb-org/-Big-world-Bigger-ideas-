@@ -22,9 +22,17 @@ This repository now includes a web interface for viewing the blockchain document
 - `index.html` - Main HTML page with blockchain documentation
 - `styles.css` - Stylesheet with background image configuration
 
-**Background Image:**
+**Background Image Configuration:**
 The web interface is configured with a custom background image located at:
 `C:\Users\mattb\iCloudPhotos\Photos\IMG_0032.HEIC`
+
+**Important Notes:**
+- The configured path is an absolute Windows file path that only works on the local machine
+- HEIC format has limited browser support (primarily Safari)
+- For production deployment, consider:
+  - Converting the image to JPEG, PNG, or WebP format
+  - Using a relative path (e.g., `./images/background.jpg`)
+  - Hosting the image on a web server or CDN
 
 **To view the web interface:**
 1. Open `index.html` in a web browser
