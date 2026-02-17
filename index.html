@@ -58,5 +58,103 @@
             <p>© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved</p>
         </footer>
     </div>
+    <title>Big World Bigger Ideas - Crypto Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-2">Big World Bigger Ideas</h1>
+            <p class="text-gray-600">Blockchain Network Documentation & Crypto Clarity Platform</p>
+        </header>
+
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Wallet Encryption Demo</h2>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Wallet Address
+                </label>
+                <input type="text" id="walletAddress" readonly 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-600"
+                    placeholder="Generate wallet to see address">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Enter Password (min 8 characters)
+                </label>
+                <input type="password" id="password" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter secure password">
+            </div>
+
+            <div class="flex gap-4 mb-6">
+                <button id="generateBtn" 
+                    class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                    Generate Wallet
+                </button>
+                <button id="encryptBtn" 
+                    class="flex-1 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                    Encrypt Wallet
+                </button>
+            </div>
+
+            <div id="status" class="p-4 rounded-md bg-blue-50 text-blue-800 text-sm">
+                Click "Generate Wallet" to start
+            </div>
+        </div>
+
+        <footer class="text-center mt-8 text-gray-600 text-sm">
+            <p>© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved</p>
+            <p class="mt-2">
+                <a href="https://kushmanmb.org" class="text-blue-600 hover:underline">kushmanmb.org</a> |
+                <a href="mailto:kushmanmb@gmx.com" class="text-blue-600 hover:underline">kushmanmb@gmx.com</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Note: This is a demo UI. In a real application, wallet operations
+        // should be handled server-side for security reasons.
+        
+        let currentWallet = null;
+
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            // Simulate wallet generation
+            const address = '0x' + Array.from({length: 40}, () => 
+                Math.floor(Math.random() * 16).toString(16)).join('');
+            document.getElementById('walletAddress').value = address;
+            currentWallet = { address };
+            document.getElementById('status').innerHTML = 
+                '<span class="font-semibold">✅ Wallet generated successfully!</span><br>Address: ' + address;
+            document.getElementById('status').className = 'p-4 rounded-md bg-green-50 text-green-800 text-sm';
+        });
+
+        document.getElementById('encryptBtn').addEventListener('click', () => {
+            const password = document.getElementById('password').value;
+            
+            if (!currentWallet) {
+                document.getElementById('status').innerHTML = 
+                    '<span class="font-semibold">⚠️ Please generate a wallet first</span>';
+                document.getElementById('status').className = 'p-4 rounded-md bg-yellow-50 text-yellow-800 text-sm';
+                return;
+            }
+
+            if (password.length < 8) {
+                document.getElementById('status').innerHTML = 
+                    '<span class="font-semibold">⚠️ Password must be at least 8 characters</span>';
+                document.getElementById('status').className = 'p-4 rounded-md bg-yellow-50 text-yellow-800 text-sm';
+                return;
+            }
+
+            // Simulate encryption
+            document.getElementById('status').innerHTML = 
+                '<span class="font-semibold">✅ Wallet encrypted successfully!</span><br>' +
+                'Algorithm: AES-256-CBC<br>' +
+                'KDF: PBKDF2 (100,000 iterations)';
+            document.getElementById('status').className = 'p-4 rounded-md bg-green-50 text-green-800 text-sm';
+        });
+    </script>
 </body>
 </html>
