@@ -40,6 +40,44 @@ The web interface is configured with a custom background image located at:
 
 ---
 
+## 🤖 ChatOps & Feature Flags
+
+This repository includes a powerful ChatOps system for managing feature flags directly from GitHub issues and pull requests.
+
+### Quick Start
+
+Use these commands in any issue or PR comment:
+
+- **Enable a feature:** `/chatops run feature set <flag_name>`
+- **Disable a feature:** `/chatops run feature unset <flag_name>`
+- **List all flags:** `/chatops run feature list`
+
+**Example:**
+```
+/chatops run feature set dark_mode
+```
+
+### Why Feature Flags?
+
+- 🎯 Toggle features without code changes
+- 🚀 Gradual feature rollouts
+- 🔬 A/B testing capabilities
+- 🛡️ Emergency feature disable
+
+### Documentation
+
+For complete documentation on ChatOps and feature flags, see [CHATOPS.md](./CHATOPS.md)
+
+### Testing
+
+```bash
+npm test                    # Run all tests
+npm run test:feature-flags  # Test feature flags only
+npm run feature-flags:demo  # See feature flags in action
+```
+
+---
+
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
 **GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
