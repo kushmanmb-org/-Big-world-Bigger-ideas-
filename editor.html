@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Editor - Big World Bigger Ideas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 
+                         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            height: calc(100vh - 200px);
+        }
+        
+        @media (max-width: 768px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+        }
+        
+        textarea {
+            font-family: 'Monaco', 'Courier New', monospace;
+            resize: none;
+        }
+        
+        .preview-content {
+            line-height: 1.6;
+        }
+        
+        .preview-content h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+        
+        .preview-content h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.25em;
+        }
+        
+        .preview-content h3 {
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-top: 0.75em;
+            margin-bottom: 0.5em;
+        }
+        
+        .preview-content p {
+            margin-bottom: 1em;
+        }
+        
+        .preview-content code {
+            background-color: #f5f5f5;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .preview-content pre {
+            background-color: #f5f5f5;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1em;
+        }
+        
+        .preview-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .preview-content ul, .preview-content ol {
+            margin-left: 2em;
+            margin-bottom: 1em;
+        }
+        
+        .preview-content li {
+            margin-bottom: 0.5em;
+        }
+        
+        .preview-content a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .preview-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .preview-content blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 1em;
+            margin-left: 0;
+            margin-bottom: 1em;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-6">
+        <!-- Header -->
+        <header class="mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">🌏 Web Editor</h1>
+                    <p class="text-gray-600 mt-1">Big World Bigger Ideas - Blockchain Documentation</p>
+                </div>
+                <div>
+                    <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        View Documentation
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+            <div class="flex flex-wrap gap-2">
+                <select id="templateSelect" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Select Template...</option>
+                    <option value="blockchain">Blockchain Documentation</option>
+                    <option value="smart-contract">Smart Contract</option>
+                    <option value="readme">README.md</option>
+                    <option value="markdown">Markdown Guide</option>
+                </select>
+                
+                <button id="clearBtn" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                    Clear
+                </button>
+                
+                <button id="downloadBtn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+                    Download
+                </button>
+                
+                <button id="copyBtn" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                    Copy to Clipboard
+                </button>
+                
+                <div class="ml-auto flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Characters: <span id="charCount" class="font-semibold">0</span></span>
+                    <span class="text-sm text-gray-600">Words: <span id="wordCount" class="font-semibold">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Container -->
+        <div class="editor-container">
+            <!-- Editor Panel -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gray-800 text-white px-4 py-2 flex items-center justify-between">
+                    <span class="font-semibold">Editor</span>
+                    <div class="flex gap-2">
+                        <button id="formatBtn" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm transition-colors">
+                            Format
+                        </button>
+                    </div>
+                </div>
+                <textarea 
+                    id="editor" 
+                    class="w-full h-full p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 border-0"
+                    placeholder="Start typing your markdown or documentation here...
+
+# Example Heading
+
+This is a **bold** text and this is *italic*.
+
+## Code Example
+
+```javascript
+function example() {
+    return 'Hello World';
+}
+```
+
+- List item 1
+- List item 2
+- List item 3"
+                ></textarea>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-blue-600 text-white px-4 py-2 flex items-center justify-between">
+                    <span class="font-semibold">Live Preview</span>
+                    <button id="refreshPreview" class="px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded text-sm transition-colors">
+                        Refresh
+                    </button>
+                </div>
+                <div id="preview" class="w-full h-full p-4 overflow-auto preview-content">
+                    <p class="text-gray-400 italic">Your preview will appear here as you type...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-6 text-center text-gray-600 text-sm">
+            <p>© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved</p>
+            <p class="mt-1">
+                <a href="https://kushmanmb.org" class="text-blue-600 hover:underline">kushmanmb.org</a> |
+                <a href="mailto:kushmanmb@gmx.com" class="text-blue-600 hover:underline">kushmanmb@gmx.com</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Editor functionality
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+        const charCount = document.getElementById('charCount');
+        const wordCount = document.getElementById('wordCount');
+        const templateSelect = document.getElementById('templateSelect');
+        const clearBtn = document.getElementById('clearBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const formatBtn = document.getElementById('formatBtn');
+        const refreshPreview = document.getElementById('refreshPreview');
+
+        // Templates
+        const templates = {
+            blockchain: `# Blockchain Network Documentation
+
+## Network Name
+**Chain ID:** [Enter Chain ID]  
+**Network Type:** [Enter Type]  
+**Launch Date:** [Enter Date]
+
+### RPC Endpoints
+- \`https://example-rpc.com\`
+- \`https://backup-rpc.com\`
+
+### Block Explorers
+- [Explorer Name](https://explorer-url.com)
+
+### Network Details
+- Native Currency: [Currency Name]
+- Block Time: ~X seconds
+- Status: Production/Testnet
+
+### Key Features
+- Feature 1
+- Feature 2
+- Feature 3`,
+            
+            'smart-contract': `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/**
+ * @title Smart Contract Template
+ * @author Your Name
+ * @notice This is a basic smart contract template
+ */
+contract MyContract {
+    // State variables
+    address public owner;
+    uint256 public value;
+    
+    // Events
+    event ValueChanged(uint256 newValue);
+    
+    // Constructor
+    constructor() {
+        owner = msg.sender;
+    }
+    
+    // Modifiers
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not the owner");
+        _;
+    }
+    
+    // Functions
+    function setValue(uint256 _value) public onlyOwner {
+        value = _value;
+        emit ValueChanged(_value);
+    }
+}`,
+            
+            readme: `# Project Name
+
+## Description
+A brief description of your project.
+
+## Features
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Installation
+
+\`\`\`bash
+npm install
+\`\`\`
+
+## Usage
+
+\`\`\`javascript
+const example = require('./example');
+example.run();
+\`\`\`
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+MIT License
+
+## Contact
+- Email: your.email@example.com
+- Website: https://your-website.com`,
+            
+            markdown: `# Markdown Syntax Guide
+
+## Headers
+# H1 Header
+## H2 Header
+### H3 Header
+
+## Emphasis
+*italic* or _italic_
+**bold** or __bold__
+***bold and italic***
+
+## Lists
+
+### Unordered List
+- Item 1
+- Item 2
+  - Nested item
+
+### Ordered List
+1. First item
+2. Second item
+3. Third item
+
+## Links and Images
+[Link text](https://example.com)
+![Alt text](image-url.jpg)
+
+## Code
+
+Inline \`code\` with backticks
+
+\`\`\`javascript
+// Code block
+function example() {
+    return "Hello World";
+}
+\`\`\`
+
+## Blockquotes
+> This is a blockquote
+> Multiple lines
+
+## Horizontal Rule
+---
+
+## Tables
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |`
+        };
+
+        // Simple markdown parser
+        function parseMarkdown(text) {
+            if (!text) return '<p class="text-gray-400 italic">Your preview will appear here as you type...</p>';
+            
+            let html = text;
+            
+            // Code blocks (must be processed before inline code)
+            html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+                return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+            });
+            
+            // Inline code
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // Headers
+            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            
+            // Bold
+            html = html.replace(/\*\*\*([\s\S]+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__([\s\S]+?)__/g, '<strong>$1</strong>');
+            
+            // Italic
+            html = html.replace(/\*([\s\S]+?)\*/g, '<em>$1</em>');
+            html = html.replace(/_([\s\S]+?)_/g, '<em>$1</em>');
+            
+            // Links
+            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // Unordered lists - wrap consecutive list items
+            html = html.replace(/^\- (.+)$/gim, '<li>$1</li>');
+            // Wrap consecutive <li> elements in <ul> tags
+            html = html.replace(/(<li>[\s\S]*?<\/li>(?:\s*<li>[\s\S]*?<\/li>)*)/g, '<ul>$1</ul>');
+            
+            // Blockquotes
+            html = html.replace(/^&gt; (.+)$/gim, '<blockquote>$1</blockquote>');
+            
+            // Horizontal rule
+            html = html.replace(/^---$/gim, '<hr class="my-4 border-gray-300">');
+            
+            // Line breaks
+            html = html.replace(/\n\n/g, '</p><p>');
+            html = html.replace(/\n/g, '<br>');
+            
+            // Wrap in paragraphs if not already wrapped
+            if (!html.startsWith('<')) {
+                html = '<p>' + html + '</p>';
+            }
+            
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Update preview
+        function updatePreview() {
+            const text = editor.value;
+            preview.innerHTML = parseMarkdown(text);
+            
+            // Update counts
+            charCount.textContent = text.length;
+            const trimmedText = text.trim();
+            if (trimmedText.length === 0) {
+                wordCount.textContent = 0;
+            } else {
+                const words = trimmedText.split(/\s+/).filter(w => w.length > 0);
+                wordCount.textContent = words.length;
+            }
+        }
+
+        // Event listeners
+        editor.addEventListener('input', updatePreview);
+        refreshPreview.addEventListener('click', updatePreview);
+
+        // Template selection
+        templateSelect.addEventListener('change', (e) => {
+            const template = e.target.value;
+            if (template && templates[template]) {
+                editor.value = templates[template];
+                updatePreview();
+            }
+            e.target.value = '';
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                editor.value = '';
+                updatePreview();
+            }
+        });
+
+        // Download button
+        downloadBtn.addEventListener('click', () => {
+            const text = editor.value;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'document.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Copy to clipboard
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(editor.value);
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy to clipboard');
+            }
+        });
+
+        // Format button (basic formatting)
+        formatBtn.addEventListener('click', () => {
+            const text = editor.value;
+            // Remove excessive blank lines
+            const formatted = text.replace(/\n{3,}/g, '\n\n');
+            editor.value = formatted;
+            updatePreview();
+        });
+
+        // Initialize
+        updatePreview();
+    </script>
+</body>
+</html>
