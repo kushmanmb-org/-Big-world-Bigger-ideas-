@@ -2,12 +2,16 @@
   "flags": {
     "dark_mode": {
       "enabled": false,
-      "updatedAt": "2026-02-18T17:09:22.830Z"
+      "updatedAt": "2026-02-18T17:12:25.412Z"
     },
     "new_ui": {
       "enabled": false,
-      "updatedAt": "2026-02-18T17:09:22.827Z"
+      "updatedAt": "2026-02-18T17:12:25.410Z"
+    },
+    "test_chatops": {
+      "enabled": true,
+      "updatedAt": "2026-02-18T17:10:42.465Z"
     }
   },
-  "lastUpdated": "2026-02-18T17:09:22.830Z"
+  "lastUpdated": "2026-02-18T17:12:25.413Z"
 }
