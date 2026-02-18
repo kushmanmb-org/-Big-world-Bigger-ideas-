@@ -16,11 +16,30 @@
 
 ## 🌐 Web Interface
 
-This repository now includes a web interface for viewing the blockchain documentation.
+This repository includes a comprehensive web interface for viewing and editing blockchain documentation.
 
-**Files:**
-- `index.html` - Main HTML page with blockchain documentation
+**Main Files:**
+- `index.html` - Main HTML page with blockchain documentation and navigation
+- `editor.html` - Interactive web editor with live preview
 - `styles.css` - Stylesheet with background image configuration
+
+### 🖊️ Web Editor
+
+The **Web Editor** (`editor.html`) is a powerful, browser-based tool for creating and editing blockchain documentation, smart contracts, and markdown files.
+
+**Features:**
+- ✨ **Live Preview**: Real-time markdown rendering as you type
+- 📝 **Templates**: Pre-built templates for blockchain docs, smart contracts, README files, and markdown guides
+- 💾 **Export Options**: Download files or copy to clipboard
+- 📊 **Character/Word Counter**: Live tracking of document length
+- 🎨 **Responsive Design**: Works on desktop, tablet, and mobile devices
+- 👁️ **Dual-Pane View**: Side-by-side editor and preview panels
+
+**To use the web editor:**
+1. Open `editor.html` in a web browser
+2. Select a template from the dropdown or start typing
+3. Watch the live preview update automatically
+4. Download your work or copy to clipboard
 
 **Background Image Configuration:**
 The web interface is configured with a custom background image located at:
@@ -35,8 +54,9 @@ The web interface is configured with a custom background image located at:
   - Hosting the image on a web server or CDN
 
 **To view the web interface:**
-1. Open `index.html` in a web browser
-2. Or run a local web server: `python3 -m http.server 8000` and navigate to `http://localhost:8000`
+1. Open `index.html` in a web browser to see documentation
+2. Click "Open Web Editor →" to launch the editor
+3. Or run a local web server: `python3 -m http.server 8000` and navigate to `http://localhost:8000`
 
 ---
 
