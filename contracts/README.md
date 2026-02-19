@@ -41,3 +41,16 @@ This contract was submitted for verification at basescan.org on 2023-07-24.
    - `ImplementationNotInitialized()`: Thrown when implementation is not initialized
 3. **Zero Address Validation**: Added validation in `_setImplementation()` to prevent setting implementation to zero address
 4. **Gas Optimization**: Custom errors save approximately 200-400 gas per revert compared to require strings
+
+**Testing Recommendations:**
+If deploying this updated contract, ensure you test:
+- Zero address validation in `_setImplementation()` reverts with `ImplementationIsZeroAddress()`
+- Failed delegatecall in `upgradeToAndCall()` reverts with `DelegatecallFailed()`
+- Uninitialized implementation access reverts with `ImplementationNotInitialized()`
+- All existing functionality remains unchanged (upgradeTo, changeAdmin, admin, implementation queries)
+
+**Deployment Notes:**
+- This contract maintains full backward compatibility with EIP-1967
+- The ABI will include the new custom errors
+- Gas savings will be realized on error conditions
+- Consider recompiling with Solidity 0.8.20 for full optimization benefits
