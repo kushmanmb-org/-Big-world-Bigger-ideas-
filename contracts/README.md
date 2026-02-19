@@ -27,6 +27,17 @@ A transparent proxy contract following the EIP-1967 standard.
 **Verification:**
 This contract was submitted for verification at basescan.org on 2023-07-24.
 
-**Solidity Version:** 0.8.15
+**Solidity Version:** 0.8.20
 
 **License:** MIT
+
+## Recent Updates (2026-02-19)
+
+**Improvements Made:**
+1. **Upgraded Solidity Version**: Updated from 0.8.15 to 0.8.20 for better optimization and latest features
+2. **Custom Error Handling**: Replaced `require()` statements with custom errors for gas efficiency:
+   - `DelegatecallFailed()`: Thrown when delegatecall to implementation fails
+   - `ImplementationIsZeroAddress()`: Thrown when trying to set implementation to zero address
+   - `ImplementationNotInitialized()`: Thrown when implementation is not initialized
+3. **Zero Address Validation**: Added validation in `_setImplementation()` to prevent setting implementation to zero address
+4. **Gas Optimization**: Custom errors save approximately 200-400 gas per revert compared to require strings

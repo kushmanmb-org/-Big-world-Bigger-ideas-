@@ -3,7 +3,7 @@
 */
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity 0.8.20;
 
 /**
  * @title Proxy
@@ -12,6 +12,20 @@ pragma solidity 0.8.15;
  *         simulation.
  */
 contract Proxy {
+    /**
+     * @notice An error that is thrown when the delegatecall to the implementation fails.
+     */
+    error DelegatecallFailed();
+
+    /**
+     * @notice An error that is thrown when trying to set an implementation to the zero address.
+     */
+    error ImplementationIsZeroAddress();
+
+    /**
+     * @notice An error that is thrown when the implementation is not initialized.
+     */
+    error ImplementationNotInitialized();
     /**
      * @notice The storage slot that holds the address of the implementation.
      *         bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
@@ -107,7 +121,9 @@ contract Proxy {
     {
         _setImplementation(_implementation);
         (bool success, bytes memory returndata) = _implementation.delegatecall(_data);
-        require(success, "Proxy: delegatecall to new implementation contract failed");
+        if (!success) {
+            revert DelegatecallFailed();
+        }
         return returndata;
     }
 
@@ -144,6 +160,9 @@ contract Proxy {
      * @param _implementation New implementation address.
      */
     function _setImplementation(address _implementation) internal {
+        if (_implementation == address(0)) {
+            revert ImplementationIsZeroAddress();
+        }
         assembly {
             sstore(IMPLEMENTATION_KEY, _implementation)
         }
@@ -168,7 +187,9 @@ contract Proxy {
      */
     function _doProxyCall() internal {
         address impl = _getImplementation();
-        require(impl != address(0), "Proxy: implementation not initialized");
+        if (impl == address(0)) {
+            revert ImplementationNotInitialized();
+        }
 
         assembly {
             // Copy calldata into memory at 0x0....calldatasize.
