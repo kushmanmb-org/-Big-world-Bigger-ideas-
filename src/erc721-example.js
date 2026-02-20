@@ -6,7 +6,7 @@
 const ERC721Fetcher = require('./erc721');
 
 console.log('🎨 ERC-721 Token Fetcher Demo\n');
-console.log('=' .repeat(50));
+console.log('='.repeat(50));
 
 // Example NFT contract addresses (for demonstration)
 const EXAMPLE_CONTRACTS = {
