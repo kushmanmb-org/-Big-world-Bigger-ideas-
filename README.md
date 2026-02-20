@@ -98,6 +98,102 @@ npm run feature-flags:demo  # See feature flags in action
 
 ---
 
+## 📜 Token Ownership History Tracker
+
+This repository includes a powerful git-style ownership history tracker for ERC-721 tokens, designed specifically for tracking NFT ownership changes over time.
+
+### Quick Start
+
+```javascript
+const { TokenHistoryTracker } = require('./src/token-history');
+
+// Create a history tracker for kushmanmb
+const tracker = new TokenHistoryTracker(
+  '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Contract address
+  'kushmanmb'  // Owner identifier
+);
+
+// Record token transfers
+tracker.recordTransfer(
+  '1234',  // Token ID
+  '0x0000000000000000000000000000000000000000',  // From address
+  '0x1234567890123456789012345678901234567890',  // To address (kushmanmb)
+  1609459200,  // Timestamp
+  '0xabc123...',  // Transaction hash
+  11565019  // Block number
+);
+
+// View git-style history
+console.log(tracker.toGitLog());
+
+// Get tokens owned by kushmanmb
+const ownedTokens = tracker.getTokensByOwner('0x1234567890...');
+```
+
+### Features
+
+- 🔍 **Git-Style History**: Track ownership changes like git commits
+- 📊 **Comprehensive Tracking**: Monitor all token transfers for a specific owner
+- 🎯 **Ownership Verification**: Verify current and historical token ownership
+- 📈 **Statistics**: Get insights into transfer patterns and ownership
+- 💾 **JSON Export/Import**: Save and restore history data
+- ✅ **Address Validation**: Built-in Ethereum address validation
+- 📝 **Multiple Formats**: View history in git log, short log, or JSON format
+
+### Available Functions
+
+- `recordTransfer(tokenId, from, to, timestamp, txHash, blockNumber)` - Record a token transfer event
+- `getTokenHistory(tokenId)` - Get complete ownership history for a token
+- `getTokensByOwner(address)` - Get all tokens currently owned by an address
+- `getCurrentOwner(tokenId)` - Get the current owner of a token
+- `getHistoryForOwner(address)` - Get all transfers involving an owner
+- `toGitLog(limit)` - Format history as git-style log
+- `toShortLog(limit)` - Format history in compact format
+- `getStatistics()` - Get comprehensive statistics about the history
+- `toJSON()` - Export history as JSON
+- `fromJSON(data)` - Import history from JSON
+
+### Testing & Demo
+
+```bash
+npm run test:token-history      # Run token history tests
+npm run token-history:demo      # See the tracker in action
+```
+
+### Example Output
+
+**Git-Style Log:**
+```
+commit 0000000059141cf6
+Author: 0x1234567890123456789012345678901234567890
+Date:   2021-01-01T00:00:00.000Z
+
+    Transfer token #1234 from 0x0000... to 0x1234...
+    
+    Transaction: 0xabc123...
+    Block: 11565019
+```
+
+**Short Log:**
+```
+00000000 - Token #1234: 0x00000000... → 0x12345678...
+00000000 - Token #5678: 0xabcdefab... → 0x12345678...
+```
+
+**Statistics:**
+```json
+{
+  "totalTransfers": 4,
+  "uniqueTokens": 3,
+  "uniqueAddresses": 5,
+  "currentOwners": 3,
+  "contract": "0xbc4ca0...",
+  "trackedOwner": "kushmanmb"
+}
+```
+
+---
+
 ## 🎨 ERC-721 Token Fetcher
 
 This repository includes a comprehensive ERC-721 (NFT) token fetching module for interacting with Non-Fungible Tokens on blockchain networks.
