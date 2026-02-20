@@ -4,13 +4,15 @@
   "description": "Blockchain network documentation and crypto clarity platform",
   "main": "index.js",
   "scripts": {
-    "test": "node src/wallet.test.js && node src/feature-flags.test.js",
+    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js",
     "test:wallet": "node src/wallet.test.js",
     "test:feature-flags": "node src/feature-flags.test.js",
+    "test:erc721": "node src/erc721.test.js",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "wallet:demo": "node src/example.js",
     "feature-flags:demo": "node src/feature-flags-example.js",
+    "erc721:demo": "node src/erc721-example.js",
     "metadata": "node src/metadata.js",
     "metadata:demo": "node src/metadata-example.js"
   },
