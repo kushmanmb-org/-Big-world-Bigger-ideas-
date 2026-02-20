@@ -98,6 +98,84 @@ npm run feature-flags:demo  # See feature flags in action
 
 ---
 
+## 🎨 ERC-721 Token Fetcher
+
+This repository includes a comprehensive ERC-721 (NFT) token fetching module for interacting with Non-Fungible Tokens on blockchain networks.
+
+### Quick Start
+
+```javascript
+const ERC721Fetcher = require('./src/erc721');
+
+// Create a fetcher for an NFT contract
+const fetcher = new ERC721Fetcher('0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D');
+
+// Get token owner
+const owner = await fetcher.getOwner(123);
+console.log(`Token #123 owner: ${owner.owner}`);
+
+// Get token metadata
+const metadata = await fetcher.getTokenMetadata(123);
+console.log(`Token name: ${metadata.name}`);
+
+// Check balance
+const balance = await fetcher.getBalance('0xYourAddress');
+console.log(`Balance: ${balance.balance} tokens`);
+```
+
+### Features
+
+- 🎯 **ERC-721 Standard**: Full support for ERC-721 read functions
+- 🔍 **Token Information**: Fetch owner, URI, metadata, and more
+- 📊 **Collection Data**: Get name, symbol, and total supply
+- ✅ **Validation**: Built-in address and token ID validation
+- 💾 **Caching**: Automatic metadata caching for performance
+- 🌐 **Network Agnostic**: Works with Ethereum, Base, Polygon, and more
+- 📚 **ABI Access**: Direct access to function ABIs and signatures
+
+### Available Functions
+
+- `getBalance(address)` - Get token balance for an address
+- `getOwner(tokenId)` - Get the owner of a specific token
+- `getTokenURI(tokenId)` - Get the metadata URI for a token
+- `getTokenMetadata(tokenId)` - Fetch and parse token metadata
+- `getCollectionName()` - Get the NFT collection name
+- `getCollectionSymbol()` - Get the collection symbol
+- `getTotalSupply()` - Get total supply of tokens
+- `verifyOwnership(address, tokenId)` - Verify if an address owns a token
+- `getTokenInfo(tokenId)` - Get comprehensive token information
+
+### Testing & Demo
+
+```bash
+npm run test:erc721   # Run ERC-721 tests
+npm run erc721:demo   # See the ERC-721 fetcher in action
+```
+
+### Documentation
+
+For complete documentation, see [src/ERC721.md](./src/ERC721.md)
+
+### Network Support
+
+Works with any EVM-compatible blockchain:
+
+```javascript
+// Ethereum Mainnet
+const ethFetcher = new ERC721Fetcher(
+  '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+  'https://ethereum.publicnode.com'
+);
+
+// Base Mainnet
+const baseFetcher = new ERC721Fetcher(
+  '0x1234567890123456789012345678901234567890',
+  'https://mainnet.base.org'
+);
+```
+
+---
+
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
 **GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
