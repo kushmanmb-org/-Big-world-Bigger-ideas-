@@ -100,7 +100,9 @@ class TokenHistoryTracker {
     
     let cleanAddress = address.toLowerCase().replace(/^0x/, '');
     
-    // Pad short addresses with zeros for testing purposes
+    // Pad short addresses with zeros for testing purposes only
+    // This allows tests to use short addresses like '0xaaaa' instead of full 40-char addresses
+    // Production usage should always provide full 40-character addresses
     if (/^[0-9a-f]+$/i.test(cleanAddress) && cleanAddress.length < 40) {
       cleanAddress = cleanAddress.padStart(40, '0');
     }
@@ -193,7 +195,7 @@ class TokenHistoryTracker {
 
   /**
    * Formats the complete history in git log style
-   * @param {number} limit - Maximum number of events to return
+   * @param {number} limit - Maximum number of events to return (returns last N events)
    * @returns {string} Formatted git-style log
    */
   toGitLog(limit = null) {
@@ -203,7 +205,7 @@ class TokenHistoryTracker {
 
   /**
    * Formats the complete history in compact format
-   * @param {number} limit - Maximum number of events to return
+   * @param {number} limit - Maximum number of events to return (returns last N events)
    * @returns {string} Formatted compact log
    */
   toShortLog(limit = null) {

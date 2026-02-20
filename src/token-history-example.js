@@ -11,6 +11,8 @@ console.log();
 
 // Example: Bored Ape Yacht Club contract
 const boredApeContract = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D';
+// Note: This is a placeholder address for demonstration purposes
+// Replace with actual kushmanmb address in production usage
 const kushmanmbAddress = '0x1234567890123456789012345678901234567890';
 
 // Create a history tracker for kushmanmb
