@@ -13,7 +13,9 @@ async function basicExample() {
   console.log('\n📋 Example 1: Basic Usage');
   console.log('-'.repeat(60));
   
-  // This API key corresponds to the one in the problem statement
+  // NOTE: This is an example API key from the problem statement.
+  // In production, use environment variables: process.env.ETHERSCAN_API_KEY
+  // Never commit real API keys to version control.
   const apiKey = 'ZITG8EMXRFSWU2CDTNT4XEI7GDYB2JBMGD';
   const chainId = 1; // Ethereum Mainnet
   const contractAddress = '0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43';
@@ -34,6 +36,8 @@ async function fetchABIExample() {
   console.log('\n\n📋 Example 2: Fetching Contract ABI');
   console.log('-'.repeat(60));
   
+  // NOTE: This is an example API key from the problem statement.
+  // In production, use environment variables: process.env.ETHERSCAN_API_KEY
   const apiKey = 'ZITG8EMXRFSWU2CDTNT4XEI7GDYB2JBMGD';
   const contractAddress = '0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43';
   
