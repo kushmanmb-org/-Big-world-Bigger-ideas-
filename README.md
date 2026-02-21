@@ -167,6 +167,177 @@ Entry 2:
 
 ---
 
+## 🔗 Consensus Mechanism Tracker
+
+This repository includes a comprehensive consensus mechanism tracker that monitors Proof of Work (PoW) and Proof of Stake (PoS) across multiple blockchain networks.
+
+### Quick Start
+
+```javascript
+const { ConsensusTracker } = require('./src/consensus-tracker.js');
+
+// Create a consensus tracker
+const tracker = new ConsensusTracker();
+
+// Get all Proof of Work networks
+const powNetworks = tracker.getPowNetworks();
+console.log(`PoW: ${powNetworks.map(n => n.name).join(', ')}`);
+
+// Get all Proof of Stake networks
+const posNetworks = tracker.getPosNetworks();
+console.log(`PoS: ${posNetworks.map(n => n.name).join(', ')}`);
+
+// Compare networks
+const comparison = tracker.compareNetworks('bitcoin', 'ethereum');
+console.log(`Consensus: ${comparison.consensus.join(' vs ')}`);
+```
+
+### Supported Networks
+
+**Proof of Work (PoW):**
+- Bitcoin (SHA-256)
+- Litecoin (Scrypt)
+
+**Proof of Stake (PoS):**
+- Ethereum (Post-Merge)
+- Ethereum Beacon Chain
+- Base (Layer 2)
+- Polygon
+
+### Features
+
+- 🔍 **Multi-Chain Support**: Track consensus across Bitcoin, Ethereum, Base, Litecoin, Polygon, and more
+- ⚡ **PoW/PoS Classification**: Easily identify which networks use Proof of Work vs Proof of Stake
+- 📊 **Network Comparison**: Compare consensus mechanisms, block times, and energy efficiency
+- 📈 **Statistics**: Get comprehensive statistics about tracked networks
+- 🌐 **Network Details**: Access detailed information about each blockchain's consensus mechanism
+
+### Available Functions
+
+- `getNetworkInfo(networkName)` - Get detailed network information
+- `getPowNetworks()` - Get all Proof of Work networks
+- `getPosNetworks()` - Get all Proof of Stake networks
+- `getAllNetworks()` - Get all tracked networks
+- `getConsensusStatistics()` - Get comprehensive statistics
+- `compareNetworks(network1, network2)` - Compare two networks
+- `isProofOfWork(networkName)` - Check if network uses PoW
+- `isProofOfStake(networkName)` - Check if network uses PoS
+- `getConsensusSummary()` - Get formatted consensus summary
+
+### Testing & Demo
+
+```bash
+npm run test:consensus-tracker      # Run consensus tracker tests
+npm run consensus-tracker:demo      # See the tracker in action
+```
+
+### Documentation
+
+For complete documentation, see [src/CONSENSUS-TRACKER.md](./src/CONSENSUS-TRACKER.md)
+
+### Example Output
+
+```
+Blockchain Consensus Mechanism Summary
+==================================================
+
+Total Networks Tracked: 6
+Average Block Time: 128 seconds
+
+Consensus Distribution:
+  Proof of Work (PoW): 2 networks
+    - Bitcoin, Litecoin
+  
+  Proof of Stake (PoS): 4 networks
+    - Ethereum, Ethereum Beacon Chain, Base, Polygon
+
+Energy Profile:
+  Energy Efficient: 4 networks
+  Energy Intensive: 2 networks
+```
+
+---
+
+## 📍 Crypto Address Tracker
+
+This repository includes a powerful address tracking module for monitoring crypto addresses and owner token tracking across multiple blockchain networks.
+
+### Quick Start
+
+```javascript
+const { AddressTracker } = require('./src/address-tracker.js');
+
+// Create an address tracker
+const tracker = new AddressTracker('kushmanmb');
+
+// Add addresses to track
+tracker.addAddress(
+  '0x1234567890123456789012345678901234567890',
+  'ethereum',
+  'Main Ethereum Wallet'
+);
+
+// Record tokens
+tracker.recordToken('0x1234567890123456789012345678901234567890', {
+  tokenId: '123',
+  contract: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+  name: 'Bored Ape Yacht Club',
+  symbol: 'BAYC'
+});
+
+// Get tokens for an address
+const tokens = tracker.getTokensForAddress('0x1234567890123456789012345678901234567890');
+console.log(`Tokens owned: ${tokens.length}`);
+
+// Get statistics
+const stats = tracker.getStatistics();
+console.log(`Tracking ${stats.totalAddresses} addresses`);
+```
+
+### Features
+
+- 🔍 **Multi-Chain Address Tracking**: Track addresses across Ethereum, Base, Polygon, and other networks
+- 🎨 **Token Management**: Record and track NFT tokens owned by addresses
+- 💸 **Transaction History**: Monitor transaction activity for tracked addresses
+- 📊 **Statistics**: Get comprehensive statistics about tracked addresses
+- 🏷️ **Address Labeling**: Label addresses for easy identification
+- 💾 **JSON Import/Export**: Save and restore tracking data
+- 🌐 **Network Organization**: Group addresses by blockchain network
+
+### Available Functions
+
+- `addAddress(address, network, label)` - Add an address to track
+- `removeAddress(address)` - Remove an address from tracking
+- `getAddress(address)` - Get information about a tracked address
+- `isTracking(address)` - Check if an address is being tracked
+- `getAllAddresses()` - Get all tracked addresses
+- `getAddressesByNetwork(network)` - Get addresses on a specific network
+- `recordToken(address, tokenInfo)` - Record a token for an address
+- `recordTransaction(address, transactionInfo)` - Record a transaction
+- `getTokensForAddress(address)` - Get all tokens owned by an address
+- `getTransactionCount(address)` - Get transaction count for an address
+- `getStatistics()` - Get comprehensive statistics
+
+### Testing & Demo
+
+```bash
+npm run test:address-tracker      # Run address tracker tests
+npm run address-tracker:demo      # See the tracker in action
+```
+
+### Documentation
+
+For complete documentation, see [src/ADDRESS-TRACKER.md](./src/ADDRESS-TRACKER.md)
+
+### Use Cases
+
+- **NFT Portfolio Tracking**: Track NFT holdings across multiple addresses and chains
+- **Multi-Chain Wallet Monitoring**: Monitor wallet activity across different blockchains
+- **Transaction History**: Record and monitor transaction activity
+- **Portfolio Export/Import**: Save and restore tracking data
+
+---
+
 ## 🤖 ChatOps & Feature Flags
 
 This repository includes a powerful ChatOps system for managing feature flags directly from GitHub issues and pull requests.
