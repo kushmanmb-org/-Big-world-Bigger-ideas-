@@ -167,6 +167,88 @@ Entry 2:
 
 ---
 
+## 🪙 Litecoin Blockchair
+
+This repository includes a comprehensive Litecoin blockchain data fetcher that provides real-time and historical blockchain statistics from the Blockchair API.
+
+### Quick Start
+
+```javascript
+const LitecoinBlockchairFetcher = require('./src/litecoin-blockchair.js');
+
+// Create a fetcher instance
+const fetcher = new LitecoinBlockchairFetcher();
+
+// Fetch blockchain statistics
+const stats = await fetcher.getStats();
+console.log(fetcher.formatStats(stats));
+
+// Get specific block information
+const block = await fetcher.getBlock(2500000);
+console.log(fetcher.formatBlock(block));
+
+// Get address information
+const address = await fetcher.getAddress('LhKTpQgfcNPy3aL4xG3HCVc8mXb9qTbKJ1');
+console.log(fetcher.formatAddress(address));
+
+// Get recent blocks
+const recentBlocks = await fetcher.getRecentBlocks(10);
+```
+
+### Features
+
+- 📊 **Blockchain Statistics**: Comprehensive Litecoin blockchain stats including block count, transactions, and market data
+- 🧱 **Block Information**: Get detailed information about specific blocks by height or hash
+- 💼 **Address Data**: Query address balances, transaction counts, and history
+- 📝 **Transaction Details**: Access detailed transaction information
+- 📚 **Recent Blocks**: Fetch the most recent blocks on the blockchain
+- 💾 **Smart Caching**: Automatic caching with configurable timeout (default: 60 seconds)
+- ✅ **Validation**: Robust input validation for addresses and transaction hashes
+- 📋 **Data Formatting**: Built-in formatting utilities for display
+
+### Available Functions
+
+- `getStats()` - Fetch general Litecoin blockchain statistics
+- `getBlock(blockId)` - Get information about a specific block (by height or hash)
+- `getAddress(address)` - Get address information (balance, transactions)
+- `getTransaction(txHash)` - Get transaction details
+- `getRecentBlocks(limit)` - Fetch recent blocks (1-100)
+- `formatStats(data)` - Format statistics for display
+- `formatBlock(data)` - Format block information for display
+- `formatAddress(data)` - Format address information for display
+- `clearCache()` - Clear cached data
+- `getCacheStats()` - Get cache statistics
+
+### Testing & Demo
+
+```bash
+npm run test:litecoin-blockchair     # Run Litecoin Blockchair tests
+npm run litecoin-blockchair:demo     # See the Litecoin fetcher in action
+```
+
+### Documentation
+
+For complete documentation, see [src/LITECOIN-BLOCKCHAIR.md](./src/LITECOIN-BLOCKCHAIR.md)
+
+### Example Output
+
+```
+Litecoin Blockchain Statistics
+================================
+
+Latest Block: 2,500,000
+Total Transactions: 50,000,000
+Circulating Supply: 70,000,000 LTC
+Difficulty: 15,000,000
+24h Hashrate: 500 TH/s
+Blockchain Size: 46.57 GB
+Network Nodes: 1500
+Market Price: $75.50 USD
+Market Cap: $5500.00M USD
+```
+
+---
+
 ## 🔗 Consensus Mechanism Tracker
 
 This repository includes a comprehensive consensus mechanism tracker that monitors Proof of Work (PoW) and Proof of Stake (PoS) across multiple blockchain networks.
