@@ -31,7 +31,7 @@ const BLOCKCHAIN_NETWORKS = {
     details: {
       miningAlgorithm: 'SHA-256',
       difficulty: 'Dynamic',
-      blockReward: 6.25, // BTC (as of 2024, will halve in 2024)
+      blockReward: 3.125, // BTC (post-2024 halving in April 2024)
       energyIntensive: true
     }
   },
@@ -105,7 +105,7 @@ const BLOCKCHAIN_NETWORKS = {
     explorerUrl: 'https://blockchair.com/litecoin',
     details: {
       miningAlgorithm: 'Scrypt',
-      blockReward: 12.5, // LTC (as of 2023)
+      blockReward: 6.25, // LTC (post-August 2023 halving)
       maxSupply: 84000000,
       halving: true
     }
