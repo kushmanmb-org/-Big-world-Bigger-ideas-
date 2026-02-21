@@ -8,7 +8,7 @@ This is a blockchain documentation and crypto clarity platform that provides mul
 - **Language:** JavaScript (Node.js CommonJS modules)
 - **Size:** Small to medium repository (~30 source files)
 - **Main Focus:** Blockchain utilities, NFT tracking, feature flags, and web documentation
-- **Owner:** Matthew Brace (Kushmanmb) - kushmanmb@gmx.com
+- **Owner:** Matthew Brace (Kushmanmb)
 
 ## Project Structure
 
@@ -192,9 +192,9 @@ All blockchain modules validate Ethereum addresses:
 ## Known Issues & Workarounds
 
 ### Background Image Path
-- `styles.css` references a local Windows file path: `C:\Users\mattb\iCloudPhotos\Photos\IMG_0032.HEIC`
-- This only works on the owner's local machine
-- For production, convert to web-compatible format and use relative paths
+- `styles.css` references a local file system path for a background image
+- This path only works on the owner's local machine
+- For production, convert the image to a web-compatible format (JPEG/PNG/WebP) and use relative paths
 - HEIC format has limited browser support (mainly Safari)
 
 ### Module Imports
