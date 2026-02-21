@@ -41,6 +41,120 @@ The `.gitignore` file includes comprehensive patterns to prevent accidental comm
 
 ---
 
+## 🔐 Zero-Knowledge PDF Verification (zkpdf)
+
+This repository includes a powerful zero-knowledge proof-based PDF verification system that enables document authentication and integrity verification without revealing document contents.
+
+### Quick Start
+
+```javascript
+const ZKPDFVerifier = require('./src/zkpdf.js');
+
+// Create a verifier instance
+const verifier = new ZKPDFVerifier('kushmanmb');
+
+// Register a PDF document
+const doc = verifier.registerDocument(
+  'contract-001',
+  pdfContentBuffer,
+  { title: 'Service Agreement', type: 'application/pdf' }
+);
+
+// Generate a zero-knowledge proof
+const proof = verifier.generateProof('contract-001', {
+  contractSigned: true,
+  authorized: true
+});
+
+// Verify the proof
+const verification = verifier.verifyProof(proof.proofId);
+console.log(`Proof is ${verification.isValid ? 'VALID' : 'INVALID'}`);
+
+// Submit for verification
+const submission = verifier.submitForVerification('contract-001', {
+  type: 'integrity-check',
+  requester: 'legal-department'
+});
+```
+
+### Features
+
+- 📄 **Document Registration**: Register PDF documents with cryptographic hashing
+- 🔑 **Zero-Knowledge Proofs**: Generate proofs that verify document properties without revealing content
+- ✅ **Proof Verification**: Verify proofs to confirm document authenticity and integrity
+- 📤 **Submission Workflow**: Submit documents for verification with metadata tracking
+- 📊 **Multi-Document Support**: Manage and track multiple documents simultaneously
+- 💾 **Metadata Management**: Store and retrieve document metadata securely
+- 🔒 **Commitment Schemes**: Use cryptographic commitments for proof generation
+
+### Available Functions
+
+- `registerDocument(documentId, documentData, metadata)` - Register a PDF document for verification
+- `generateProof(documentId, claims)` - Generate a zero-knowledge proof
+- `verifyProof(proofId, verificationData)` - Verify a zero-knowledge proof
+- `submitForVerification(documentId, submissionData)` - Submit document for verification
+- `getDocumentInfo(documentId)` - Get information about a registered document
+- `getProofInfo(proofId)` - Get information about a proof
+- `listDocuments()` - List all registered documents
+- `listProofs()` - List all generated proofs
+- `getStatistics()` - Get verifier statistics
+- `formatDocumentInfo(docInfo)` - Format document info for display
+- `formatProofInfo(proofInfo)` - Format proof info for display
+- `formatVerificationResult(result)` - Format verification result for display
+
+### Use Cases
+
+**Confidential Contract Verification:**
+Prove that a signed contract exists without revealing its terms.
+
+**Document Integrity Checking:**
+Verify document hasn't been tampered with using cryptographic hashes.
+
+**Compliance & Audit Trail:**
+Create verifiable audit trail for compliance requirements.
+
+**Multi-Party Document Verification:**
+Multiple parties verify document validity without sharing it.
+
+### Testing & Demo
+
+```bash
+npm run test:zkpdf    # Run zkpdf tests
+npm run zkpdf:demo    # See the zkpdf verifier in action
+```
+
+### Documentation
+
+For complete documentation, see [src/ZKPDF.md](./src/ZKPDF.md)
+
+### How It Works
+
+1. **Document Hashing**: SHA-256 hash computed for each registered document
+2. **Commitment Generation**: Cryptographic commitment created using hash, timestamp, and nonce
+3. **Proof Creation**: Proof includes commitment and claims about the document
+4. **Verification**: Anyone can verify the proof without seeing the original document
+
+### Example Output
+
+```
+Zero-Knowledge Proof
+================================
+
+Proof ID: 9d4a38a130a405dea20df34d159ba5d0
+Document ID: contract-2024-001
+Document Hash: fc84c91ae2d656a1fbf94a19b1c78a01...
+Commitment: 13c50dcae15097461e9193d0963566ee...
+Created: 2026-02-21T19:19:58.611Z
+
+Claims:
+  owner: kushmanmb
+  documentExists: true
+  integrityVerified: true
+  contractSigned: true
+```
+
+---
+
 ## 🏆 ISO/IEC 27001:2013 Certification
 
 This repository includes comprehensive tools for tracking and managing ISO/IEC 27001:2013 Information Security Management System (ISMS) certification compliance.
