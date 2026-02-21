@@ -60,6 +60,86 @@ The web interface is configured with a custom background image located at:
 
 ---
 
+## ₿ Bitcoin Mining Block Rewards
+
+This repository includes a powerful Bitcoin mining data fetcher that provides real-time and historical mining statistics from the mempool.space API.
+
+### Quick Start
+
+```javascript
+const BitcoinMiningFetcher = require('./src/bitcoin-mining.js');
+
+// Create a fetcher instance
+const fetcher = new BitcoinMiningFetcher();
+
+// Fetch 1-day block rewards
+const rewards = await fetcher.getBlockRewards('1d');
+console.log(fetcher.formatBlockRewards(rewards));
+
+// Get mining pool statistics
+const pools = await fetcher.getMiningPools('1w');
+
+// Get network hashrate
+const hashrate = await fetcher.getHashrate('1w');
+
+// Get difficulty adjustments
+const difficulty = await fetcher.getDifficultyAdjustment();
+```
+
+### Features
+
+- 📊 **Block Rewards**: Fetch historical block reward data for various time periods
+- ⛏️ **Mining Pools**: Get statistics about mining pool performance and market share
+- 💪 **Hashrate Data**: Access network hashrate information over time
+- 🎯 **Difficulty Adjustments**: Track Bitcoin network difficulty changes
+- 💾 **Smart Caching**: Automatic caching with configurable timeout (default: 60 seconds)
+- 📝 **Data Formatting**: Built-in formatting utilities for display
+- ✅ **Error Handling**: Robust error handling with informative messages
+
+### Available Functions
+
+- `getBlockRewards(period)` - Fetch mining block rewards for a time period ('1d', '3d', '1w', '1m', '3m', '6m', '1y', '2y', '3y', 'all')
+- `getMiningPools(period)` - Get mining pool statistics
+- `getHashrate(period)` - Get network hashrate data
+- `getDifficultyAdjustment()` - Get difficulty adjustment information
+- `formatBlockRewards(data)` - Format data for display
+- `clearCache()` - Clear cached data
+- `getCacheStats()` - Get cache statistics
+
+### Testing & Demo
+
+```bash
+npm run test:bitcoin-mining     # Run Bitcoin mining tests
+npm run bitcoin-mining:demo     # See the Bitcoin mining fetcher in action
+```
+
+### Documentation
+
+For complete documentation, see [src/BITCOIN-MINING.md](./src/BITCOIN-MINING.md)
+
+### Example Output
+
+```
+Bitcoin Mining Block Rewards
+================================
+
+Total entries: 144
+
+Entry 1:
+  Average Rewards: 6.25 BTC
+  Timestamp: 2024-02-21T00:00:00.000Z
+  Total Rewards: 625 BTC
+  Block Count: 100
+
+Entry 2:
+  Average Rewards: 6.24 BTC
+  Timestamp: 2024-02-21T01:00:00.000Z
+  Total Rewards: 624 BTC
+  Block Count: 100
+```
+
+---
+
 ## 🤖 ChatOps & Feature Flags
 
 This repository includes a powerful ChatOps system for managing feature flags directly from GitHub issues and pull requests.
