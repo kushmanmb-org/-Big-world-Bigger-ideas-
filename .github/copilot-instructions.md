@@ -73,7 +73,7 @@ npm run test:bitcoin-mining
 ```
 
 **Test Execution:**
-- Tests use Node.js directly (no test framework like Jest or Mocha)
+- Tests currently use Node.js directly without an external test framework
 - Each test file is self-contained and outputs results to console
 - Expected output: "✅ All tests passed!" for successful tests
 - Tests complete quickly (typically < 5 seconds total)
