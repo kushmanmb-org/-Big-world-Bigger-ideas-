@@ -14,6 +14,33 @@
 
 ---
 
+## 🔐 Security & Branch Protection
+
+This repository implements comprehensive security measures to protect sensitive data and maintain code quality.
+
+### Branch Protection Rules
+
+Branch protection rulesets are configured for:
+- **Main/Master branches**: Require 1 approval, signed commits, linear history
+- **Release/Hotfix branches**: Require 2 approvals, stricter review requirements
+
+📖 **See [.github/APPLY-RULESETS.md](./.github/APPLY-RULESETS.md)** for instructions on applying these rules to your repository.
+
+### Enhanced .gitignore
+
+The `.gitignore` file includes comprehensive patterns to prevent accidental commits of:
+- 🔑 Private keys and certificates
+- 🔐 SSH keys
+- 🔒 Environment variables and secrets
+- 💰 Blockchain wallet files
+- ☁️ Cloud provider credentials
+- 🗄️ Database credentials
+- 📝 Log files with sensitive data
+
+📖 **See [.github/SECURITY.md](./.github/SECURITY.md)** for complete security documentation and best practices.
+
+---
+
 ## 🌐 Web Interface
 
 This repository includes a comprehensive web interface for viewing and editing blockchain documentation.
