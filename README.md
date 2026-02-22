@@ -792,6 +792,9 @@ npm run feature-flags:demo  # See feature flags in action
 
 ---
 
+## 🔍 Contract ABI Fetcher
+
+This repository includes a Contract ABI Fetcher module for fetching contract ABIs (Application Binary Interfaces) from the Etherscan API.
 ## 📜 Token Ownership History Tracker
 
 This repository includes a powerful git-style ownership history tracker for ERC-721 tokens, designed specifically for tracking NFT ownership changes over time.
@@ -799,6 +802,18 @@ This repository includes a powerful git-style ownership history tracker for ERC-
 ### Quick Start
 
 ```javascript
+const ContractABIFetcher = require('./src/contract-abi');
+
+// Create a fetcher with your API key
+const fetcher = new ContractABIFetcher('YOUR_ETHERSCAN_API_KEY', 1);
+
+// Fetch contract ABI
+const result = await fetcher.getContractABI('0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43');
+console.log(`Functions: ${result.abi.filter(item => item.type === 'function').length}`);
+
+// Extract function signatures
+const functions = ContractABIFetcher.extractFunctionSignatures(result.abi);
+functions.forEach(func => console.log(func.signature));
 const { TokenHistoryTracker } = require('./src/token-history');
 
 // Create a history tracker for kushmanmb
@@ -826,6 +841,21 @@ const ownedTokens = tracker.getTokensByOwner('0x1234567890...');
 
 ### Features
 
+- 🔌 **Etherscan API Integration**: Direct integration with Etherscan API
+- ✅ **Address Validation**: Built-in Ethereum address validation
+- 🌐 **Multi-Chain Support**: Works with Ethereum, Base, Polygon, and more
+- 💾 **Automatic Caching**: Caches ABIs for improved performance
+- 📝 **Signature Extraction**: Extract function and event signatures from ABIs
+- 🛡️ **Error Handling**: Comprehensive error handling for API failures
+
+### Available Functions
+
+- `getContractABI(address)` - Fetch contract ABI from Etherscan
+- `validateAddress(address)` - Validate Ethereum address format
+- `clearCache()` - Clear the internal cache
+- `getAPIInfo()` - Get API configuration information
+- `extractFunctionSignatures(abi)` - Extract function signatures (static)
+- `extractEventSignatures(abi)` - Extract event signatures (static)
 - 🔍 **Git-Style History**: Track ownership changes like git commits
 - 📊 **Comprehensive Tracking**: Monitor all token transfers for a specific owner
 - 🎯 **Ownership Verification**: Verify current and historical token ownership
@@ -850,6 +880,27 @@ const ownedTokens = tracker.getTokensByOwner('0x1234567890...');
 ### Testing & Demo
 
 ```bash
+npm run test:contract-abi   # Run Contract ABI tests
+npm run contract-abi:demo   # See the Contract ABI fetcher in action
+```
+
+### Documentation
+
+For complete documentation, see [src/CONTRACT-ABI.md](./src/CONTRACT-ABI.md)
+
+### Chain Support
+
+Works with any EVM-compatible blockchain with an Etherscan-compatible API:
+
+```javascript
+// Ethereum Mainnet
+const ethFetcher = new ContractABIFetcher('YOUR_API_KEY', 1);
+
+// Base Mainnet
+const baseFetcher = new ContractABIFetcher('YOUR_API_KEY', 8453);
+
+// Polygon Mainnet
+const polygonFetcher = new ContractABIFetcher('YOUR_API_KEY', 137);
 npm run test:token-history      # Run token history tests
 npm run token-history:demo      # See the tracker in action
 ```
