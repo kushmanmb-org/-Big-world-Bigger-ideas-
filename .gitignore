@@ -1,2 +1,136 @@
+# Dependencies
 node_modules/
 dist/
+
+# Private Keys and Certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+*.der
+*.csr
+*.keystore
+*.jks
+*.p7b
+*.p7c
+
+# SSH Keys
+id_rsa
+id_rsa.*
+id_dsa
+id_dsa.*
+id_ecdsa
+id_ecdsa.*
+id_ed25519
+id_ed25519.*
+*.ppk
+
+# Environment Variables and Configuration Files with Secrets
+.env
+.env.*
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+*.env
+
+# Secret Files
+*secret*
+*secrets*
+*.secret
+*.secrets
+secret.json
+secrets.json
+secret.yaml
+secrets.yaml
+secret.yml
+secrets.yml
+.secrets
+
+# API Keys and Tokens
+*apikey*
+*api-key*
+*api_key*
+*.token
+*.tokens
+token.json
+tokens.json
+
+# Blockchain Private Keys and Wallet Files
+*.wallet
+wallet.json
+wallet.dat
+keystore/
+keystore.json
+mnemonic.txt
+seed.txt
+private-key.txt
+privatekey.txt
+
+# AWS Credentials
+.aws/
+*.aws
+aws-credentials
+credentials.csv
+
+# Google Cloud Credentials
+*.json.key
+*service-account*.json
+gcloud-service-key.json
+google-credentials.json
+
+# Azure Credentials
+*.azureauth
+*.publishsettings
+
+# Database Credentials
+database.yml
+database.yaml
+database.json
+*.db-credentials
+*.sql-credentials
+
+# Configuration Files That May Contain Secrets
+config.local.*
+*.config.local
+local.config.*
+local-config.*
+
+# Backup Files That May Contain Sensitive Data
+*.backup
+*.bak
+*.old
+*.orig
+*~
+*.swp
+*.swo
+
+# Log Files That May Contain Sensitive Information
+*.log
+logs/
+log/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-*
+*.code-workspace
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
