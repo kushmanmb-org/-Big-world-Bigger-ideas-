@@ -1,0 +1,53 @@
+# Test files
+*.test.js
+**/*.test.js
+
+# Example files
+*-example.js
+**/*-example.js
+
+# Development files
+.github/
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# HTML demo files
+index.html
+editor.html
+
+# CSS source and config
+src/input.css
+styles.css
+postcss.config.js
+tailwind.config.js
+
+# Documentation (keep only essential docs)
+CHATOPS.md
+.github/
+
+# Build artifacts
+dist/
+node_modules/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Feature flags (runtime configuration)
+feature-flags.json
+
+# Contracts (if not needed for package)
+contracts/
