@@ -14,6 +14,96 @@
 
 ---
 
+## 📦 NPM Package Installation & Usage
+
+This package is available on npm as `big-world-bigger-ideas`, providing comprehensive blockchain utilities and crypto clarity tools.
+
+### Installation
+
+```bash
+npm install big-world-bigger-ideas
+```
+
+### Quick Start
+
+```javascript
+// Import the entire package
+const bigWorld = require('big-world-bigger-ideas');
+
+// Or import specific modules
+const { 
+  ERC721Fetcher, 
+  BitcoinMiningFetcher,
+  ZKPDFVerifier,
+  ConsensusTracker,
+  AddressTracker 
+} = require('big-world-bigger-ideas');
+
+// Example: Fetch ERC-721 NFT data
+const nftFetcher = new ERC721Fetcher('0x1234...abcd');
+const owner = await nftFetcher.getOwner('1');
+
+// Example: Track Bitcoin mining data
+const btcFetcher = new BitcoinMiningFetcher();
+const miningData = await btcFetcher.getHashRate('1w');
+
+// Example: Zero-knowledge PDF verification
+const zkVerifier = new ZKPDFVerifier('your-name');
+const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Document' });
+```
+
+### Available Modules
+
+This package includes the following modules:
+
+- **`wallet`** - Wallet encryption and decryption utilities
+- **`featureFlags`** - Feature flag management system
+- **`ERC721Fetcher`** - ERC-721 NFT token data fetcher
+- **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
+- **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
+- **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
+- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`ConsensusTracker`** - Blockchain consensus mechanism tracker
+- **`AddressTracker`** - Multi-chain address tracking and management
+- **`PackageMetadata`** - Metadata processing utilities
+- **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
+
+### Package Structure
+
+The published package includes only the essential files (59.6 kB):
+- Main entry point (`index.js`)
+- Core JavaScript modules (`src/*.js`)
+- Module documentation (`src/*.md`)
+- Main README
+
+Test files, examples, and development files are excluded from the npm package to keep it lightweight.
+
+### Publishing to NPM
+
+**For maintainers:** To publish a new version:
+
+1. Ensure all tests pass:
+```bash
+npm test
+```
+
+2. Update the version in `package.json`:
+```bash
+npm version patch  # or minor, or major
+```
+
+3. Publish to npm:
+```bash
+npm publish
+```
+
+4. Create a git tag and push:
+```bash
+git push --tags
+```
+
+---
+
 ## 🔐 Security & Branch Protection
 
 This repository implements comprehensive security measures to protect sensitive data and maintain code quality.
