@@ -8,7 +8,7 @@ This is a blockchain documentation and crypto clarity platform that provides mul
 - **Language:** JavaScript (Node.js CommonJS modules)
 - **Size:** Small to medium repository (~30 source files)
 - **Main Focus:** Blockchain utilities, NFT tracking, feature flags, and web documentation
-- **Owner:** Matthew Brace (Kushmanmb)
+- **Owner:** Matthew Brace (kushmanmb)
 
 ## Project Structure
 

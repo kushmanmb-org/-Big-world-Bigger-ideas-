@@ -1,7 +1,7 @@
 /**
  * zkpdf-example.js - Example usage of Zero-Knowledge PDF Verification Module
  * 
- * @author Matthew Brace (Kushmanmb)
+ * @author Matthew Brace (kushmanmb)
  * @license ISC
  */
 

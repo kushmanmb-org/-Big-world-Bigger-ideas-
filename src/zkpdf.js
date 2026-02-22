@@ -5,7 +5,7 @@
  * verification, allowing users to prove document authenticity and integrity
  * without revealing the document contents.
  * 
- * @author Matthew Brace (Kushmanmb)
+ * @author Matthew Brace (kushmanmb)
  * @license ISC
  */
 

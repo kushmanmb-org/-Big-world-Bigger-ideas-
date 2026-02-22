@@ -224,4 +224,4 @@ For questions about security configurations or to report security issues:
 
 ---
 
-**© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved**
+**© 2024-2026 Matthew Brace (kushmanmb) | All Rights Reserved**
