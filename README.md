@@ -70,7 +70,7 @@ This package includes the following modules:
 
 ### Package Structure
 
-The published package includes only the essential files (59.6 kB):
+The published package includes only the essential files (60.6 kB):
 - Main entry point (`index.js`)
 - Core JavaScript modules (`src/*.js`)
 - Module documentation (`src/*.md`)
