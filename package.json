@@ -34,7 +34,29 @@
     "type": "git",
     "url": "git+https://github.com/Kushmanmb/-Big-world-Bigger-ideas-.git"
   },
-  "keywords": [],
+  "keywords": [
+    "blockchain",
+    "crypto",
+    "ethereum",
+    "bitcoin",
+    "litecoin",
+    "nft",
+    "erc721",
+    "wallet",
+    "web3",
+    "cryptocurrency",
+    "mining",
+    "consensus",
+    "proof-of-work",
+    "proof-of-stake",
+    "iso27001",
+    "compliance",
+    "zkp",
+    "zero-knowledge",
+    "pdf-verification",
+    "token-history",
+    "address-tracker"
+  ],
   "author": "Matthew Brace <kushmanmb@gmx.com>",
   "license": "ISC",
   "type": "commonjs",
@@ -42,6 +64,25 @@
     "url": "https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/issues"
   },
   "homepage": "https://github.com/Kushmanmb/-Big-world-Bigger-ideas-#readme",
+  "files": [
+    "index.js",
+    "src/wallet.js",
+    "src/feature-flags.js",
+    "src/erc721.js",
+    "src/token-history.js",
+    "src/bitcoin-mining.js",
+    "src/litecoin-blockchair.js",
+    "src/iso27001.js",
+    "src/consensus-tracker.js",
+    "src/address-tracker.js",
+    "src/metadata.js",
+    "src/zkpdf.js",
+    "src/*.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "@discord/embedded-app-sdk": "^2.4.0"
   },
