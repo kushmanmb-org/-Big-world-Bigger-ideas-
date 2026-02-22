@@ -527,7 +527,7 @@ ISC License - See repository root for details
 
 ## Author
 
-**Matthew Brace (Kushmanmb)**
+**Matthew Brace (kushmanmb)**
 - GitHub: [@Kushmanmb](https://github.com/Kushmanmb)
 - Website: [kushmanmb.org](https://kushmanmb.org)
 - Email: kushmanmb@gmx.com

@@ -1,7 +1,7 @@
 /**
  * zkpdf.test.js - Tests for Zero-Knowledge PDF Verification Module
  * 
- * @author Matthew Brace (Kushmanmb)
+ * @author Matthew Brace (kushmanmb)
  * @license ISC
  */
 

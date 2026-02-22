@@ -544,7 +544,7 @@ ISC License - See repository LICENSE file for details.
 
 ## Author
 
-**Matthew Brace (Kushmanmb)**
+**Matthew Brace (kushmanmb)**
 - Email: kushmanmb@gmx.com
 - ENS: kushmanmb.eth
 - Website: kushmanmb.org

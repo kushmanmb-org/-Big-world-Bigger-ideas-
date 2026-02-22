@@ -459,4 +459,4 @@ ISC License - See main repository for details.
 
 ---
 
-**© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved**
+**© 2024-2026 Matthew Brace (kushmanmb) | All Rights Reserved**

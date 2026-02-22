@@ -1167,6 +1167,6 @@ For questions, collaborations, or inquiries, please reach out via:
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=flat-square)
 ![By Kushmanmb](https://img.shields.io/badge/By-Kushmanmb-blue?style=flat-square&logo=github)
 
-**© 2024-2026 Matthew Brace (Kushmanmb) | All Rights Reserved**
+**© 2024-2026 Matthew Brace (kushmanmb) | All Rights Reserved**
 
 </div>
