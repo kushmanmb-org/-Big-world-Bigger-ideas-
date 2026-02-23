@@ -8,11 +8,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     
-    /* Background Image Configuration using the specified path */
-    /* NOTE: This uses an absolute Windows file path that only works locally */
-    /* For production: Use a relative path like url('./images/background.jpg') */
-    /* HEIC format has limited browser support - convert to JPEG/PNG/WebP for wider compatibility */
-    background-image: url('C:\\Users\\mattb\\iCloudPhotos\\Photos\\IMG_0032.HEIC');
+    /* Background Image Configuration */
+    /* NOTE: Background image removed - absolute Windows file path not compatible with web deployment */
+    /* To add a background: Place image in project root and use url('./background.jpg') */
+    /* Recommended formats: JPEG, PNG, or WebP for best browser compatibility */
+    /* background-image: url('./background.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

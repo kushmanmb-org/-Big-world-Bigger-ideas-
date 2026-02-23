@@ -42,6 +42,9 @@ const PackageMetadata = require('./src/metadata.js');
 // Zero-knowledge PDF verification
 const ZKPDFVerifier = require('./src/zkpdf.js');
 
+// Contract ABI fetcher
+const ContractABIFetcher = require('./src/contract-abi.js');
+
 /**
  * Main exports for the package
  */
@@ -77,5 +80,8 @@ module.exports = {
   PackageMetadata,
   
   // Zero-knowledge proofs
-  ZKPDFVerifier
+  ZKPDFVerifier,
+  
+  // Contract utilities
+  ContractABIFetcher
 };
