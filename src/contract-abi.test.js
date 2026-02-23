@@ -64,6 +64,38 @@ runner.test('Constructor initializes with custom values', () => {
   const fetcher = new ContractABIFetcher('test-api-key', 8453);
   assert(fetcher.chainId === 8453, 'Chain ID should be 8453');
   assert(fetcher.apiKey === 'test-api-key', 'API key should be set');
+  assert(fetcher.apiBaseUrl === 'api.basescan.org', 'Base mainnet API URL should be correct');
+});
+
+// Test: API endpoint mapping
+runner.test('getApiEndpoint returns correct endpoint for Goerli testnet', () => {
+  const fetcher = new ContractABIFetcher(null, 5);
+  assert(fetcher.apiBaseUrl === 'api-goerli.etherscan.io', 'Goerli API endpoint should be correct');
+});
+
+runner.test('getApiEndpoint returns correct endpoint for Sepolia testnet', () => {
+  const fetcher = new ContractABIFetcher(null, 11155111);
+  assert(fetcher.apiBaseUrl === 'api-sepolia.etherscan.io', 'Sepolia API endpoint should be correct');
+});
+
+runner.test('getApiEndpoint returns correct endpoint for Polygon mainnet', () => {
+  const fetcher = new ContractABIFetcher(null, 137);
+  assert(fetcher.apiBaseUrl === 'api.polygonscan.com', 'Polygon API endpoint should be correct');
+});
+
+runner.test('getApiEndpoint returns correct endpoint for BSC mainnet', () => {
+  const fetcher = new ContractABIFetcher(null, 56);
+  assert(fetcher.apiBaseUrl === 'api.bscscan.com', 'BSC API endpoint should be correct');
+});
+
+runner.test('getApiEndpoint returns correct endpoint for Arbitrum One', () => {
+  const fetcher = new ContractABIFetcher(null, 42161);
+  assert(fetcher.apiBaseUrl === 'api.arbiscan.io', 'Arbitrum API endpoint should be correct');
+});
+
+runner.test('getApiEndpoint falls back to mainnet for unknown chain', () => {
+  const fetcher = new ContractABIFetcher(null, 99999);
+  assert(fetcher.apiBaseUrl === 'api.etherscan.io', 'Unknown chain should default to Ethereum mainnet API');
 });
 
 // Test: Address validation
@@ -251,7 +283,7 @@ runner.test('clearCache clears the internal cache', () => {
 runner.test('getAPIInfo returns correct information', () => {
   const fetcher = new ContractABIFetcher('my-api-key', 8453);
   const info = fetcher.getAPIInfo();
-  assert(info.baseUrl === 'api.etherscan.io', 'Base URL should be correct');
+  assert(info.baseUrl === 'api.basescan.org', 'Base URL should be correct for Base mainnet');
   assert(info.chainId === 8453, 'Chain ID should be correct');
   assert(info.hasApiKey === true, 'Should indicate API key is set');
 });

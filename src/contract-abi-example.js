@@ -180,6 +180,32 @@ async function cacheExample() {
   console.log('✅ Cache cleared successfully');
 }
 
+// Example 6: Multi-network support (Goerli testnet)
+async function multiNetworkExample() {
+  console.log('\n\n📋 Example 6: Multi-Network Support (Testnets)');
+  console.log('-'.repeat(60));
+  
+  const networks = [
+    { chainId: 1, name: 'Ethereum Mainnet' },
+    { chainId: 5, name: 'Goerli Testnet' },
+    { chainId: 11155111, name: 'Sepolia Testnet' },
+    { chainId: 8453, name: 'Base Mainnet' },
+    { chainId: 84531, name: 'Base Goerli' },
+    { chainId: 137, name: 'Polygon Mainnet' },
+    { chainId: 42161, name: 'Arbitrum One' }
+  ];
+  
+  console.log('Demonstrating automatic API endpoint selection:\n');
+  
+  networks.forEach(network => {
+    const fetcher = new ContractABIFetcher('test-key', network.chainId);
+    const info = fetcher.getAPIInfo();
+    console.log(`${network.name.padEnd(20)} (${network.chainId.toString().padStart(8)}): ${info.baseUrl}`);
+  });
+  
+  console.log('\n✅ API endpoints are automatically selected based on chain ID');
+}
+
 // Run all examples
 async function runAllExamples() {
   try {
@@ -187,6 +213,7 @@ async function runAllExamples() {
     await addressValidationExample();
     await mockABIExample();
     await cacheExample();
+    await multiNetworkExample();
     await fetchABIExample();
     
     console.log('\n' + '='.repeat(60));
@@ -195,7 +222,7 @@ async function runAllExamples() {
     console.log('  1. A valid Etherscan API key');
     console.log('  2. Network connectivity');
     console.log('  3. The contract to exist on the specified chain');
-    console.log('\nFor testing purposes, examples 1, 3, 4, and 5 demonstrate');
+    console.log('\nFor testing purposes, examples 1, 3, 4, 5, and 6 demonstrate');
     console.log('the functionality without requiring an API call.');
     console.log('='.repeat(60) + '\n');
   } catch (error) {

@@ -4,10 +4,11 @@
   "description": "Blockchain network documentation and crypto clarity platform",
   "main": "index.js",
   "scripts": {
-    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/etherscan-token-balance.test.js",
+    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js",
     "test:wallet": "node src/wallet.test.js",
     "test:feature-flags": "node src/feature-flags.test.js",
     "test:erc721": "node src/erc721.test.js",
+    "test:contract-abi": "node src/contract-abi.test.js",
     "test:token-history": "node src/token-history.test.js",
     "test:bitcoin-mining": "node src/bitcoin-mining.test.js",
     "test:iso27001": "node src/iso27001.test.js",
@@ -15,7 +16,7 @@
     "test:address-tracker": "node src/address-tracker.test.js",
     "test:litecoin-blockchair": "node src/litecoin-blockchair.test.js",
     "test:zkpdf": "node src/zkpdf.test.js",
-    "test:etherscan-token-balance": "node src/etherscan-token-balance.test.js",
+    "test:blockchain-council": "node src/blockchain-council.test.js",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "wallet:demo": "node src/example.js",
@@ -29,7 +30,7 @@
     "address-tracker:demo": "node src/address-tracker-example.js",
     "litecoin-blockchair:demo": "node src/litecoin-blockchair-example.js",
     "zkpdf:demo": "node src/zkpdf-example.js",
-    "etherscan-token-balance:demo": "node src/etherscan-token-balance-example.js",
+    "blockchain-council:demo": "node src/blockchain-council-example.js",
     "metadata": "node src/metadata.js",
     "metadata:demo": "node src/metadata-example.js"
   },
@@ -61,7 +62,11 @@
     "zero-knowledge",
     "pdf-verification",
     "token-history",
-    "address-tracker"
+    "address-tracker",
+    "governance",
+    "council",
+    "voting",
+    "dao"
   ],
   "author": "Matthew Brace <kushmanmb@gmx.com>",
   "license": "ISC",
@@ -75,6 +80,7 @@
     "src/wallet.js",
     "src/feature-flags.js",
     "src/erc721.js",
+    "src/contract-abi.js",
     "src/token-history.js",
     "src/bitcoin-mining.js",
     "src/litecoin-blockchair.js",
@@ -83,7 +89,7 @@
     "src/address-tracker.js",
     "src/metadata.js",
     "src/zkpdf.js",
-    "src/etherscan-token-balance.js",
+    "src/blockchain-council.js",
     "src/*.md",
     "README.md"
   ],
@@ -96,6 +102,6 @@
   "devDependencies": {
     "autoprefixer": "^10.4.24",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.2.1"
   }
 }

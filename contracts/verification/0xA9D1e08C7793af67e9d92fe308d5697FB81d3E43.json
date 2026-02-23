@@ -1,0 +1,45 @@
+{
+  "contractName": "Proxy",
+  "contractAddress": "0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43",
+  "network": "Base",
+  "chainId": 8453,
+  "compiler": {
+    "version": "0.8.20",
+    "optimizationEnabled": true,
+    "runs": 200
+  },
+  "sourceCode": {
+    "language": "Solidity",
+    "sources": {
+      "Proxy.sol": {
+        "content": "See contracts/Proxy.sol"
+      }
+    }
+  },
+  "constructorArguments": {
+    "types": ["address"],
+    "values": ["0x0000000000000000000000000000000000000000"],
+    "description": "Admin address parameter for proxy initialization"
+  },
+  "verification": {
+    "status": "verified",
+    "platform": "basescan.org",
+    "verifiedAt": "2023-07-24",
+    "explorerUrl": "https://basescan.org/address/0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43"
+  },
+  "license": "MIT",
+  "standards": ["EIP-1967"],
+  "features": [
+    "Transparent Proxy Pattern",
+    "Upgradeable Implementation",
+    "Admin-only Access Control",
+    "Delegatecall Proxy",
+    "Custom Error Handling"
+  ],
+  "metadata": {
+    "deployedBy": "Big World Bigger Ideas Project",
+    "purpose": "Upgradeable proxy contract for Base blockchain deployments",
+    "documentedAt": "2026-02-23",
+    "documentation": "contracts/README.md"
+  }
+}

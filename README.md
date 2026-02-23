@@ -3,14 +3,40 @@
 <div align="center">
 
 ![GitHub Owner](https://img.shields.io/badge/Owner-Kushmanmb-blue?style=for-the-badge&logo=github)
+![Creator](https://img.shields.io/badge/Creator-Matthew%20Brace-purple?style=for-the-badge&logo=github)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
+[![Deploy](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml/badge.svg)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml)
 
+[![npm version](https://img.shields.io/npm/v/big-world-bigger-ideas?style=flat-square)](https://www.npmjs.com/package/big-world-bigger-ideas)
 [![Profile](https://img.shields.io/badge/Profile-kushmanmb.org-informational?style=flat-square&logo=ethereum)](https://kushmanmb.org)
 [![ENS](https://img.shields.io/badge/ENS-kushmanmb.eth-9cf?style=flat-square&logo=ethereum)](https://app.ens.domains/name/kushmanmb.eth)
 [![Email](https://img.shields.io/badge/Contact-kushmanmb@gmx.com-red?style=flat-square&logo=gmail)](mailto:kushmanmb@gmx.com)
 
+[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/actions)
+[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/security)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D14.0.0-brightgreen?style=flat-square&logo=node.js)](https://nodejs.org/)
+
 </div>
+
+---
+
+## 👤 Ownership & Attribution
+
+**Created by:** [Matthew Brace (kushmanmb)](https://github.com/kushmanmb)  
+**Organization:** [kushmanmb-org](https://github.com/kushmanmb-org)  
+**Email:** kushmanmb@gmx.com  
+**ENS:** kushmanmb.eth  
+
+This repository is the original work and intellectual property of Matthew Brace. All blockchain utilities, crypto clarity tools, and documentation contained herein were created, designed, and maintained by the owner.
+
+### Verification
+
+- ✅ **Creator Verified**: Matthew Brace (kushmanmb)
+- ✅ **Organization Verified**: kushmanmb-org
+- ✅ **Repository Ownership**: Confirmed and documented
+- ✅ **Commit History**: All contributions tracked and verified
+- ✅ **NPM Package**: Published and maintained by author
 
 ---
 
@@ -36,7 +62,8 @@ const {
   BitcoinMiningFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
-  AddressTracker 
+  AddressTracker,
+  BlockchainCouncil
 } = require('big-world-bigger-ideas');
 
 // Example: Fetch ERC-721 NFT data
@@ -46,6 +73,11 @@ const owner = await nftFetcher.getOwner('1');
 // Example: Track Bitcoin mining data
 const btcFetcher = new BitcoinMiningFetcher();
 const miningData = await btcFetcher.getHashRate('1w');
+
+// Example: Blockchain governance with council
+const council = new BlockchainCouncil('DAO Council');
+council.addMember('0x1234...', 'Alice', MEMBER_ROLES.FOUNDER);
+const proposal = council.createProposal('0x1234...', 'Upgrade Protocol', 'Details...');
 
 // Example: Zero-knowledge PDF verification
 const zkVerifier = new ZKPDFVerifier('your-name');
@@ -65,6 +97,7 @@ This package includes the following modules:
 - **`ISO27001Fetcher`** - ISO 27001 certification management
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
+- **`BlockchainCouncil`** - Governance and council management for DAOs
 - **`PackageMetadata`** - Metadata processing utilities
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
 
@@ -108,6 +141,33 @@ git push --tags
 
 This repository implements comprehensive security measures to protect sensitive data and maintain code quality.
 
+### 🛡️ Private Key & Credential Protection
+
+**CRITICAL SECURITY NOTICE**: This repository follows strict security practices to protect private keys and sensitive data:
+
+- ✅ **No hardcoded private keys** in source code
+- ✅ **Environment variables** for all sensitive configuration (`.env` files)
+- ✅ **Comprehensive .gitignore** prevents accidental commits of credentials
+- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-GCM)
+- ✅ **Example files** use placeholder values, never real credentials
+- ✅ **Security.md** documents best practices and reporting procedures
+- ✅ **Regular security audits** via npm audit and CodeQL
+
+**Best Practices for Users:**
+
+```javascript
+// ❌ NEVER DO THIS
+const privateKey = '0x1234567890abcdef...'; // Hardcoded private key
+
+// ✅ ALWAYS DO THIS
+require('dotenv').config();
+const privateKey = process.env.PRIVATE_KEY; // From environment variable
+
+// ✅ OR USE WALLET ENCRYPTION
+const wallet = require('./src/wallet.js');
+const encrypted = wallet.encrypt(myWallet, process.env.PASSWORD);
+```
+
 ### Branch Protection Rules
 
 Branch protection rulesets are configured for:
@@ -119,15 +179,56 @@ Branch protection rulesets are configured for:
 ### Enhanced .gitignore
 
 The `.gitignore` file includes comprehensive patterns to prevent accidental commits of:
-- 🔑 Private keys and certificates
-- 🔐 SSH keys
-- 🔒 Environment variables and secrets
-- 💰 Blockchain wallet files
-- ☁️ Cloud provider credentials
-- 🗄️ Database credentials
-- 📝 Log files with sensitive data
+- 🔑 Private keys and certificates (*.key, *.pem, *.p12, *.pfx)
+- 🔐 SSH keys (id_rsa, id_ed25519, authorized_keys)
+- 🔒 Environment variables and secrets (.env, .env.*, secrets.*)
+- 💰 Blockchain wallet files (keystore, UTC--, *.wallet)
+- ☁️ Cloud provider credentials (AWS, GCP, Azure keys)
+- 🗄️ Database credentials (*.sql with passwords, connection strings)
+- 📝 Log files with sensitive data (*.log with credentials)
 
 📖 **See [.github/SECURITY.md](./.github/SECURITY.md)** for complete security documentation and best practices.
+
+---
+
+## 🌐 Website Deployment
+
+The project website is automatically deployed to **[kushmanmb.org](https://kushmanmb.org)** using GitHub Pages.
+
+### Deployment Workflow
+
+The repository uses GitHub Actions to automatically deploy the frontend when changes are pushed to the `main` branch.
+
+**Workflow:** `.github/workflows/deploy.yml`
+
+**Features:**
+- 🚀 Automatic deployment on push to main
+- 🧪 Runs full test suite before deployment
+- 📦 Deploys static HTML, CSS, and JavaScript files
+- ✅ Manual deployment trigger available via GitHub Actions
+
+### Local Development
+
+To work on the website locally:
+
+```bash
+# Install dependencies
+npm ci
+
+# For editor preview, you can use any HTTP server
+python3 -m http.server 8000
+
+# Then visit http://localhost:8000
+```
+
+### Files Deployed
+
+- `index.html` - Main documentation page
+- `editor.html` - Interactive web editor
+- `styles.css` - Main stylesheet
+- All supporting assets and documentation
+
+📖 **For complete setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
 
 ---
 
@@ -754,6 +855,126 @@ For complete documentation, see [src/ADDRESS-TRACKER.md](./src/ADDRESS-TRACKER.m
 
 ---
 
+## 🏛️ Blockchain Council Governance
+
+This repository includes a comprehensive governance and council management module for blockchain projects, DAOs, and decentralized organizations. Manage council members, create proposals, conduct voting, and track governance outcomes.
+
+### Quick Start
+
+```javascript
+const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
+
+// Create a blockchain council
+const council = new BlockchainCouncil('DAO Council', {
+  votingThreshold: 0.6,    // 60% approval needed
+  quorumPercentage: 0.4    // 40% participation required
+});
+
+// Add council members
+council.addMember(
+  '0x1234567890123456789012345678901234567890',
+  'Alice Johnson',
+  MEMBER_ROLES.FOUNDER
+);
+
+council.addMember(
+  '0x2222222222222222222222222222222222222222',
+  'Bob Smith',
+  MEMBER_ROLES.CORE_DEVELOPER
+);
+
+// Create a proposal
+const proposal = council.createProposal(
+  '0x1234567890123456789012345678901234567890',
+  'Upgrade Protocol to V2',
+  'Proposal to upgrade the protocol with improved features'
+);
+
+// Vote on the proposal
+council.vote(proposal.id, '0x2222222222222222222222222222222222222222', 'for');
+
+// Close voting and check outcome
+const result = council.closeVoting(proposal.id);
+console.log(`Proposal ${result.status}: ${result.outcome}`);
+
+// Execute passed proposals
+if (result.status === PROPOSAL_STATUS.PASSED) {
+  council.executeProposal(proposal.id);
+}
+
+// Get statistics
+const stats = council.getStatistics();
+console.log(`Council has ${stats.activeMembers} active members`);
+console.log(`${stats.totalProposals} proposals created`);
+```
+
+### Features
+
+- 👥 **Member Management**: Add, remove, update council members with different roles
+- 📝 **Proposal System**: Create and manage governance proposals
+- 🗳️ **Democratic Voting**: Vote on proposals with configurable thresholds
+- 🎯 **Quorum Requirements**: Set minimum participation requirements
+- 📊 **Role-Based System**: Multiple roles (Founder, Core Developer, Validator, Advisor, etc.)
+- 📈 **Participation Tracking**: Monitor member engagement and voting patterns
+- ⚡ **Proposal Execution**: Execute passed proposals with audit trail
+- 💾 **JSON Export/Import**: Save and restore council state
+
+### Member Roles
+
+- **Founder**: Project founders and creators
+- **Core Developer**: Main protocol developers
+- **Validator**: Network validators
+- **Advisor**: Strategic advisors
+- **Community Lead**: Community engagement leaders
+- **Security Auditor**: Security researchers and auditors
+- **Documentation Lead**: Documentation maintainers
+
+### Proposal Status
+
+- **Active**: Currently open for voting
+- **Passed**: Approved by council (met threshold and quorum)
+- **Rejected**: Did not meet approval requirements
+- **Executed**: Passed proposal that has been executed
+- **Cancelled**: Proposal cancelled before completion
+
+### Available Functions
+
+- `addMember(address, name, role, metadata)` - Add a council member
+- `removeMember(address)` - Remove a member
+- `getMember(address)` - Get member information
+- `getAllMembers(filters)` - Get all members (optionally filtered)
+- `updateMember(address, updates)` - Update member information
+- `createProposal(creator, title, description, options)` - Create a proposal
+- `vote(proposalId, voterAddress, vote)` - Cast a vote ('for', 'against', 'abstain')
+- `closeVoting(proposalId)` - Close voting and determine outcome
+- `executeProposal(proposalId)` - Execute a passed proposal
+- `getProposal(proposalId)` - Get proposal information
+- `getAllProposals(filters)` - Get all proposals (optionally filtered)
+- `getStatistics()` - Get council statistics
+- `getMemberParticipation(address)` - Get member participation statistics
+- `toJSON()` - Export council data as JSON
+
+### Testing & Demo
+
+```bash
+npm run test:blockchain-council      # Run blockchain council tests
+npm run blockchain-council:demo      # See the council in action
+```
+
+### Documentation
+
+For complete documentation, see [src/BLOCKCHAIN-COUNCIL.md](./src/BLOCKCHAIN-COUNCIL.md)
+
+### Use Cases
+
+- **DAO Governance**: Decentralized autonomous organization management
+- **Protocol Governance**: Blockchain protocol upgrade decisions
+- **Treasury Management**: Multi-sig treasury fund allocation voting
+- **Community Voting**: Community-driven project decisions
+- **Multi-Stakeholder Coordination**: Coordinating multiple parties with different roles
+
+---
+
 ## 🤖 ChatOps & Feature Flags
 
 This repository includes a powerful ChatOps system for managing feature flags directly from GitHub issues and pull requests.
@@ -1078,6 +1299,29 @@ const baseFetcher = new ERC721Fetcher(
 **Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
 **Mission Statement:** *Empowering crypto clarity, fueled by innovation and style—relaxing, investing and leveling up, one stat at a time*
+
+---
+
+## 🔗 External Projects & Integrations
+
+### Octant V2 Core
+
+[Octant V2 Core](https://github.com/golemfoundation/octant-v2-core) is an advanced blockchain protocol developed by the Golem Foundation, providing yield strategies, allocation mechanisms, and Safe integration through the Dragon Protocol.
+
+**Quick Clone:**
+```bash
+git clone https://github.com/golemfoundation/octant-v2-core.git
+cd octant-v2-core
+```
+
+📖 **See [OCTANT-V2-CORE.md](./OCTANT-V2-CORE.md)** for complete setup guide, architecture overview, and integration instructions.
+
+**Key Features:**
+- Multi-strategy yield generation vaults (Lido, Morpho, Sky)
+- Democratic allocation mechanisms
+- Dragon Protocol for Safe integration
+- ERC-4626 compliant tokenized strategies
+- Comprehensive factory contracts for deployment
 
 ---
 
