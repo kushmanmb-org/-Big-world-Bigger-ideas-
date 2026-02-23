@@ -96,9 +96,9 @@ npm test
 npm version patch  # or minor, or major
 ```
 
-3. Create and push a git tag:
+3. Push the version tag and commit:
 ```bash
-git push --tags
+git push --follow-tags
 ```
 
 4. Create a GitHub release from the tag:
@@ -113,7 +113,11 @@ The workflow will automatically:
 - Create a cryptographic attestation of the build process
 - Publish to npm with provenance information
 
-**Note:** Ensure the `NPM_TOKEN` secret is configured in the repository settings.
+**Note:** Ensure the `NPM_TOKEN` secret is configured in the repository settings:
+1. Create an npm access token at https://www.npmjs.com/settings/[username]/tokens
+2. Select "Automation" token type with "Publish" permission
+3. Add the token to GitHub: Settings → Secrets and variables → Actions → New repository secret
+4. Name it `NPM_TOKEN` and paste the token value
 
 #### Manual Publishing (Alternative)
 

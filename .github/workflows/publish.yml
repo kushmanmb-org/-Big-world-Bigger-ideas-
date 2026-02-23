@@ -55,6 +55,6 @@ jobs:
           subject-path: '${{ steps.pack.outputs.package-file }}'
 
       - name: Publish to NPM
-        run: npm publish --provenance --access public
+        run: npm publish ${{ steps.pack.outputs.package-file }} --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
