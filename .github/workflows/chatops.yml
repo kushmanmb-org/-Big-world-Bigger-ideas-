@@ -17,11 +17,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20.x'
+          cache: 'npm'
           
       - name: Install dependencies
         run: npm ci
@@ -87,6 +90,7 @@ jobs:
         if: steps.parse.outputs.valid == 'true'
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const result = `${{ steps.execute.outputs.result }}`;
             await github.rest.issues.createComment({
@@ -100,6 +104,7 @@ jobs:
         if: steps.parse.outputs.valid == 'false'
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
