@@ -80,7 +80,11 @@ Test files, examples, and development files are excluded from the npm package to
 
 ### Publishing to NPM
 
-**For maintainers:** To publish a new version:
+**For maintainers:** This repository uses GitHub Actions for automated publishing with build provenance attestation.
+
+#### Automated Publishing (Recommended)
+
+The repository includes a GitHub Actions workflow that automatically publishes to npm with cryptographic build provenance attestation for enhanced security:
 
 1. Ensure all tests pass:
 ```bash
@@ -92,13 +96,33 @@ npm test
 npm version patch  # or minor, or major
 ```
 
-3. Publish to npm:
+3. Create and push a git tag:
 ```bash
-npm publish
+git push --tags
 ```
 
-4. Create a git tag and push:
+4. Create a GitHub release from the tag:
+   - Go to the repository's Releases page
+   - Click "Draft a new release"
+   - Select the version tag you just pushed
+   - Publish the release
+
+The workflow will automatically:
+- Run all tests
+- Build the package
+- Create a cryptographic attestation of the build process
+- Publish to npm with provenance information
+
+**Note:** Ensure the `NPM_TOKEN` secret is configured in the repository settings.
+
+#### Manual Publishing (Alternative)
+
+If you need to publish manually:
+
 ```bash
+npm test
+npm version patch  # or minor, or major
+npm publish
 git push --tags
 ```
 
