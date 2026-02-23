@@ -179,25 +179,93 @@ events.forEach(event => {
 
 ## Chain Support
 
-The module supports any EVM-compatible blockchain that has an Etherscan-compatible API:
+The module automatically selects the correct API endpoint based on the chain ID. Supported networks include:
 
-### Ethereum Mainnet
+### Ethereum Networks
 ```javascript
+// Ethereum Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 1);
+
+// Goerli Testnet
+const fetcher = new ContractABIFetcher(apiKey, 5);
+
+// Sepolia Testnet
+const fetcher = new ContractABIFetcher(apiKey, 11155111);
 ```
 
-### Base Mainnet
+### Layer 2 Networks
 ```javascript
+// Base Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 8453);
+
+// Base Goerli Testnet
+const fetcher = new ContractABIFetcher(apiKey, 84531);
+
+// Optimism Mainnet
+const fetcher = new ContractABIFetcher(apiKey, 10);
+
+// Optimism Goerli Testnet
+const fetcher = new ContractABIFetcher(apiKey, 420);
+
+// Arbitrum One
+const fetcher = new ContractABIFetcher(apiKey, 42161);
+
+// Arbitrum Goerli
+const fetcher = new ContractABIFetcher(apiKey, 421613);
 ```
 
-### Polygon Mainnet
+### Other EVM Networks
 ```javascript
+// Polygon Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 137);
+
+// Polygon Mumbai Testnet
+const fetcher = new ContractABIFetcher(apiKey, 80001);
+
+// BNB Smart Chain (BSC) Mainnet
+const fetcher = new ContractABIFetcher(apiKey, 56);
+
+// BSC Testnet
+const fetcher = new ContractABIFetcher(apiKey, 97);
+
+// Avalanche C-Chain
+const fetcher = new ContractABIFetcher(apiKey, 43114);
+
+// Avalanche Fuji Testnet
+const fetcher = new ContractABIFetcher(apiKey, 43113);
+
+// Fantom Opera
+const fetcher = new ContractABIFetcher(apiKey, 250);
+
+// Fantom Testnet
+const fetcher = new ContractABIFetcher(apiKey, 4002);
 ```
 
-### Other Chains
-Any chain with an Etherscan-compatible API can be used by providing the appropriate chain ID.
+### Supported API Endpoints
+
+The module automatically maps chain IDs to their respective block explorer APIs:
+
+| Chain ID | Network | API Endpoint |
+|----------|---------|--------------|
+| 1 | Ethereum Mainnet | api.etherscan.io |
+| 5 | Goerli Testnet | api-goerli.etherscan.io |
+| 11155111 | Sepolia Testnet | api-sepolia.etherscan.io |
+| 10 | Optimism | api-optimistic.etherscan.io |
+| 420 | Optimism Goerli | api-goerli-optimistic.etherscan.io |
+| 56 | BSC Mainnet | api.bscscan.com |
+| 97 | BSC Testnet | api-testnet.bscscan.com |
+| 137 | Polygon Mainnet | api.polygonscan.com |
+| 80001 | Mumbai Testnet | api-testnet.polygonscan.com |
+| 42161 | Arbitrum One | api.arbiscan.io |
+| 421613 | Arbitrum Goerli | api-goerli.arbiscan.io |
+| 43114 | Avalanche C-Chain | api.snowtrace.io |
+| 43113 | Avalanche Fuji | api-testnet.snowtrace.io |
+| 250 | Fantom Opera | api.ftmscan.com |
+| 4002 | Fantom Testnet | api-testnet.ftmscan.com |
+| 8453 | Base Mainnet | api.basescan.org |
+| 84531 | Base Goerli | api-goerli.basescan.org |
+
+**Note:** For unknown chain IDs, the module defaults to `api.etherscan.io`.
 
 ## Caching
 

@@ -9,13 +9,42 @@ class ContractABIFetcher {
   /**
    * Creates a new Contract ABI Fetcher instance
    * @param {string} apiKey - Etherscan API key
-   * @param {number} chainId - Chain ID (1 for Ethereum mainnet, 8453 for Base, etc.)
+   * @param {number} chainId - Chain ID (1 for Ethereum mainnet, 5 for Goerli, etc.)
    */
   constructor(apiKey = null, chainId = 1) {
     this.apiKey = apiKey;
     this.chainId = chainId;
-    this.apiBaseUrl = 'api.etherscan.io';
+    this.apiBaseUrl = this.getApiEndpoint(chainId);
     this.cache = new Map();
+  }
+
+  /**
+   * Maps chain IDs to their respective Etherscan API endpoints
+   * @param {number} chainId - The blockchain chain ID
+   * @returns {string} API endpoint hostname
+   */
+  getApiEndpoint(chainId) {
+    const endpointMap = {
+      1: 'api.etherscan.io',           // Ethereum Mainnet
+      5: 'api-goerli.etherscan.io',    // Goerli Testnet
+      11155111: 'api-sepolia.etherscan.io', // Sepolia Testnet
+      10: 'api-optimistic.etherscan.io', // Optimism
+      420: 'api-goerli-optimistic.etherscan.io', // Optimism Goerli
+      56: 'api.bscscan.com',           // BSC Mainnet
+      97: 'api-testnet.bscscan.com',   // BSC Testnet
+      137: 'api.polygonscan.com',      // Polygon Mainnet
+      80001: 'api-testnet.polygonscan.com', // Mumbai Testnet
+      42161: 'api.arbiscan.io',        // Arbitrum One
+      421613: 'api-goerli.arbiscan.io', // Arbitrum Goerli
+      43114: 'api.snowtrace.io',       // Avalanche C-Chain
+      43113: 'api-testnet.snowtrace.io', // Avalanche Fuji
+      250: 'api.ftmscan.com',          // Fantom Opera
+      4002: 'api-testnet.ftmscan.com', // Fantom Testnet
+      8453: 'api.basescan.org',        // Base Mainnet
+      84531: 'api-goerli.basescan.org' // Base Goerli
+    };
+
+    return endpointMap[chainId] || 'api.etherscan.io';
   }
 
   /**
