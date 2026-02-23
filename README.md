@@ -169,6 +169,8 @@ python3 -m http.server 8000
 - `styles.css` - Main stylesheet
 - All supporting assets and documentation
 
+📖 **For complete setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
+
 ---
 
 ## 🔐 Zero-Knowledge PDF Verification (zkpdf)
