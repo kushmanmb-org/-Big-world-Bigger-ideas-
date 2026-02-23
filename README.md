@@ -62,7 +62,8 @@ const {
   BitcoinMiningFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
-  AddressTracker 
+  AddressTracker,
+  BlockchainCouncil
 } = require('big-world-bigger-ideas');
 
 // Example: Fetch ERC-721 NFT data
@@ -72,6 +73,11 @@ const owner = await nftFetcher.getOwner('1');
 // Example: Track Bitcoin mining data
 const btcFetcher = new BitcoinMiningFetcher();
 const miningData = await btcFetcher.getHashRate('1w');
+
+// Example: Blockchain governance with council
+const council = new BlockchainCouncil('DAO Council');
+council.addMember('0x1234...', 'Alice', MEMBER_ROLES.FOUNDER);
+const proposal = council.createProposal('0x1234...', 'Upgrade Protocol', 'Details...');
 
 // Example: Zero-knowledge PDF verification
 const zkVerifier = new ZKPDFVerifier('your-name');
@@ -91,6 +97,7 @@ This package includes the following modules:
 - **`ISO27001Fetcher`** - ISO 27001 certification management
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
+- **`BlockchainCouncil`** - Governance and council management for DAOs
 - **`PackageMetadata`** - Metadata processing utilities
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
 
@@ -845,6 +852,126 @@ For complete documentation, see [src/ADDRESS-TRACKER.md](./src/ADDRESS-TRACKER.m
 - **Multi-Chain Wallet Monitoring**: Monitor wallet activity across different blockchains
 - **Transaction History**: Record and monitor transaction activity
 - **Portfolio Export/Import**: Save and restore tracking data
+
+---
+
+## 🏛️ Blockchain Council Governance
+
+This repository includes a comprehensive governance and council management module for blockchain projects, DAOs, and decentralized organizations. Manage council members, create proposals, conduct voting, and track governance outcomes.
+
+### Quick Start
+
+```javascript
+const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
+
+// Create a blockchain council
+const council = new BlockchainCouncil('DAO Council', {
+  votingThreshold: 0.6,    // 60% approval needed
+  quorumPercentage: 0.4    // 40% participation required
+});
+
+// Add council members
+council.addMember(
+  '0x1234567890123456789012345678901234567890',
+  'Alice Johnson',
+  MEMBER_ROLES.FOUNDER
+);
+
+council.addMember(
+  '0x2222222222222222222222222222222222222222',
+  'Bob Smith',
+  MEMBER_ROLES.CORE_DEVELOPER
+);
+
+// Create a proposal
+const proposal = council.createProposal(
+  '0x1234567890123456789012345678901234567890',
+  'Upgrade Protocol to V2',
+  'Proposal to upgrade the protocol with improved features'
+);
+
+// Vote on the proposal
+council.vote(proposal.id, '0x2222222222222222222222222222222222222222', 'for');
+
+// Close voting and check outcome
+const result = council.closeVoting(proposal.id);
+console.log(`Proposal ${result.status}: ${result.outcome}`);
+
+// Execute passed proposals
+if (result.status === PROPOSAL_STATUS.PASSED) {
+  council.executeProposal(proposal.id);
+}
+
+// Get statistics
+const stats = council.getStatistics();
+console.log(`Council has ${stats.activeMembers} active members`);
+console.log(`${stats.totalProposals} proposals created`);
+```
+
+### Features
+
+- 👥 **Member Management**: Add, remove, update council members with different roles
+- 📝 **Proposal System**: Create and manage governance proposals
+- 🗳️ **Democratic Voting**: Vote on proposals with configurable thresholds
+- 🎯 **Quorum Requirements**: Set minimum participation requirements
+- 📊 **Role-Based System**: Multiple roles (Founder, Core Developer, Validator, Advisor, etc.)
+- 📈 **Participation Tracking**: Monitor member engagement and voting patterns
+- ⚡ **Proposal Execution**: Execute passed proposals with audit trail
+- 💾 **JSON Export/Import**: Save and restore council state
+
+### Member Roles
+
+- **Founder**: Project founders and creators
+- **Core Developer**: Main protocol developers
+- **Validator**: Network validators
+- **Advisor**: Strategic advisors
+- **Community Lead**: Community engagement leaders
+- **Security Auditor**: Security researchers and auditors
+- **Documentation Lead**: Documentation maintainers
+
+### Proposal Status
+
+- **Active**: Currently open for voting
+- **Passed**: Approved by council (met threshold and quorum)
+- **Rejected**: Did not meet approval requirements
+- **Executed**: Passed proposal that has been executed
+- **Cancelled**: Proposal cancelled before completion
+
+### Available Functions
+
+- `addMember(address, name, role, metadata)` - Add a council member
+- `removeMember(address)` - Remove a member
+- `getMember(address)` - Get member information
+- `getAllMembers(filters)` - Get all members (optionally filtered)
+- `updateMember(address, updates)` - Update member information
+- `createProposal(creator, title, description, options)` - Create a proposal
+- `vote(proposalId, voterAddress, vote)` - Cast a vote ('for', 'against', 'abstain')
+- `closeVoting(proposalId)` - Close voting and determine outcome
+- `executeProposal(proposalId)` - Execute a passed proposal
+- `getProposal(proposalId)` - Get proposal information
+- `getAllProposals(filters)` - Get all proposals (optionally filtered)
+- `getStatistics()` - Get council statistics
+- `getMemberParticipation(address)` - Get member participation statistics
+- `toJSON()` - Export council data as JSON
+
+### Testing & Demo
+
+```bash
+npm run test:blockchain-council      # Run blockchain council tests
+npm run blockchain-council:demo      # See the council in action
+```
+
+### Documentation
+
+For complete documentation, see [src/BLOCKCHAIN-COUNCIL.md](./src/BLOCKCHAIN-COUNCIL.md)
+
+### Use Cases
+
+- **DAO Governance**: Decentralized autonomous organization management
+- **Protocol Governance**: Blockchain protocol upgrade decisions
+- **Treasury Management**: Multi-sig treasury fund allocation voting
+- **Community Voting**: Community-driven project decisions
+- **Multi-Stakeholder Coordination**: Coordinating multiple parties with different roles
 
 ---
 
