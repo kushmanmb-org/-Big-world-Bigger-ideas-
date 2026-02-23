@@ -48,6 +48,8 @@ The repository is configured with GitHub Actions for automatic deployment:
 
 Configure your DNS provider with these records:
 
+**⚠️ Note:** GitHub Pages IP addresses may change over time. Always verify these values against the [official GitHub Pages documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain) before configuring DNS.
+
 #### For apex domain (kushmanmb.org):
 
 ```

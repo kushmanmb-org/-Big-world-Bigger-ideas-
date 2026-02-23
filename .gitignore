@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 dist/
+_site/
 
 # Private Keys and Certificates
 *.key

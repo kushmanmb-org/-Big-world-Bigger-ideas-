@@ -32,7 +32,8 @@ jobs:
         run: npm test
 
       - name: Check for security issues
-        run: npm audit --audit-level=moderate || true
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
 
   lint:
     runs-on: ubuntu-latest
