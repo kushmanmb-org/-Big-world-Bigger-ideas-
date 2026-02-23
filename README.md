@@ -6,7 +6,7 @@
 ![Creator](https://img.shields.io/badge/Creator-Matthew%20Brace-purple?style=for-the-badge&logo=github)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
-![License](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)
+[![Deploy](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml/badge.svg)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml)
 
 [![npm version](https://img.shields.io/npm/v/big-world-bigger-ideas?style=flat-square)](https://www.npmjs.com/package/big-world-bigger-ideas)
 [![Profile](https://img.shields.io/badge/Profile-kushmanmb.org-informational?style=flat-square&logo=ethereum)](https://kushmanmb.org)
@@ -181,6 +181,47 @@ The `.gitignore` file includes comprehensive patterns to prevent accidental comm
 - 📝 Log files with sensitive data (*.log with credentials)
 
 📖 **See [.github/SECURITY.md](./.github/SECURITY.md)** for complete security documentation and best practices.
+
+---
+
+## 🌐 Website Deployment
+
+The project website is automatically deployed to **[kushmanmb.org](https://kushmanmb.org)** using GitHub Pages.
+
+### Deployment Workflow
+
+The repository uses GitHub Actions to automatically deploy the frontend when changes are pushed to the `main` branch.
+
+**Workflow:** `.github/workflows/deploy.yml`
+
+**Features:**
+- 🚀 Automatic deployment on push to main
+- 🧪 Runs full test suite before deployment
+- 📦 Deploys static HTML, CSS, and JavaScript files
+- ✅ Manual deployment trigger available via GitHub Actions
+
+### Local Development
+
+To work on the website locally:
+
+```bash
+# Install dependencies
+npm ci
+
+# For editor preview, you can use any HTTP server
+python3 -m http.server 8000
+
+# Then visit http://localhost:8000
+```
+
+### Files Deployed
+
+- `index.html` - Main documentation page
+- `editor.html` - Interactive web editor
+- `styles.css` - Main stylesheet
+- All supporting assets and documentation
+
+📖 **For complete setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
 
 ---
 
