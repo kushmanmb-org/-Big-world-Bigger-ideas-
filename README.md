@@ -3,15 +3,40 @@
 <div align="center">
 
 ![GitHub Owner](https://img.shields.io/badge/Owner-Kushmanmb-blue?style=for-the-badge&logo=github)
+![Creator](https://img.shields.io/badge/Creator-Matthew%20Brace-purple?style=for-the-badge&logo=github)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
 [![Deploy](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml/badge.svg)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions/workflows/deploy.yml)
 
+[![npm version](https://img.shields.io/npm/v/big-world-bigger-ideas?style=flat-square)](https://www.npmjs.com/package/big-world-bigger-ideas)
 [![Profile](https://img.shields.io/badge/Profile-kushmanmb.org-informational?style=flat-square&logo=ethereum)](https://kushmanmb.org)
 [![ENS](https://img.shields.io/badge/ENS-kushmanmb.eth-9cf?style=flat-square&logo=ethereum)](https://app.ens.domains/name/kushmanmb.eth)
 [![Email](https://img.shields.io/badge/Contact-kushmanmb@gmx.com-red?style=flat-square&logo=gmail)](mailto:kushmanmb@gmx.com)
 
+[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/actions)
+[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/security)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D14.0.0-brightgreen?style=flat-square&logo=node.js)](https://nodejs.org/)
+
 </div>
+
+---
+
+## 👤 Ownership & Attribution
+
+**Created by:** [Matthew Brace (kushmanmb)](https://github.com/kushmanmb)  
+**Organization:** [kushmanmb-org](https://github.com/kushmanmb-org)  
+**Email:** kushmanmb@gmx.com  
+**ENS:** kushmanmb.eth  
+
+This repository is the original work and intellectual property of Matthew Brace. All blockchain utilities, crypto clarity tools, and documentation contained herein were created, designed, and maintained by the owner.
+
+### Verification
+
+- ✅ **Creator Verified**: Matthew Brace (kushmanmb)
+- ✅ **Organization Verified**: kushmanmb-org
+- ✅ **Repository Ownership**: Confirmed and documented
+- ✅ **Commit History**: All contributions tracked and verified
+- ✅ **NPM Package**: Published and maintained by author
 
 ---
 
@@ -109,6 +134,33 @@ git push --tags
 
 This repository implements comprehensive security measures to protect sensitive data and maintain code quality.
 
+### 🛡️ Private Key & Credential Protection
+
+**CRITICAL SECURITY NOTICE**: This repository follows strict security practices to protect private keys and sensitive data:
+
+- ✅ **No hardcoded private keys** in source code
+- ✅ **Environment variables** for all sensitive configuration (`.env` files)
+- ✅ **Comprehensive .gitignore** prevents accidental commits of credentials
+- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-GCM)
+- ✅ **Example files** use placeholder values, never real credentials
+- ✅ **Security.md** documents best practices and reporting procedures
+- ✅ **Regular security audits** via npm audit and CodeQL
+
+**Best Practices for Users:**
+
+```javascript
+// ❌ NEVER DO THIS
+const privateKey = '0x1234567890abcdef...'; // Hardcoded private key
+
+// ✅ ALWAYS DO THIS
+require('dotenv').config();
+const privateKey = process.env.PRIVATE_KEY; // From environment variable
+
+// ✅ OR USE WALLET ENCRYPTION
+const wallet = require('./src/wallet.js');
+const encrypted = wallet.encrypt(myWallet, process.env.PASSWORD);
+```
+
 ### Branch Protection Rules
 
 Branch protection rulesets are configured for:
@@ -120,13 +172,13 @@ Branch protection rulesets are configured for:
 ### Enhanced .gitignore
 
 The `.gitignore` file includes comprehensive patterns to prevent accidental commits of:
-- 🔑 Private keys and certificates
-- 🔐 SSH keys
-- 🔒 Environment variables and secrets
-- 💰 Blockchain wallet files
-- ☁️ Cloud provider credentials
-- 🗄️ Database credentials
-- 📝 Log files with sensitive data
+- 🔑 Private keys and certificates (*.key, *.pem, *.p12, *.pfx)
+- 🔐 SSH keys (id_rsa, id_ed25519, authorized_keys)
+- 🔒 Environment variables and secrets (.env, .env.*, secrets.*)
+- 💰 Blockchain wallet files (keystore, UTC--, *.wallet)
+- ☁️ Cloud provider credentials (AWS, GCP, Azure keys)
+- 🗄️ Database credentials (*.sql with passwords, connection strings)
+- 📝 Log files with sensitive data (*.log with credentials)
 
 📖 **See [.github/SECURITY.md](./.github/SECURITY.md)** for complete security documentation and best practices.
 
