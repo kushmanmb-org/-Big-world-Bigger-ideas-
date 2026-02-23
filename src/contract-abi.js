@@ -22,26 +22,29 @@ class ContractABIFetcher {
    * Maps chain IDs to their respective Etherscan API endpoints
    * @param {number} chainId - The blockchain chain ID
    * @returns {string} API endpoint hostname
+   * 
+   * Note: Goerli-based testnets (chainIds 5, 420, 421613, 84531) were deprecated in 2024.
+   * Support is maintained for backwards compatibility, but new projects should use Sepolia-based testnets.
    */
   getApiEndpoint(chainId) {
     const endpointMap = {
       1: 'api.etherscan.io',           // Ethereum Mainnet
-      5: 'api-goerli.etherscan.io',    // Goerli Testnet
+      5: 'api-goerli.etherscan.io',    // Goerli Testnet (DEPRECATED)
       11155111: 'api-sepolia.etherscan.io', // Sepolia Testnet
       10: 'api-optimistic.etherscan.io', // Optimism
-      420: 'api-goerli-optimistic.etherscan.io', // Optimism Goerli
+      420: 'api-goerli-optimistic.etherscan.io', // Optimism Goerli (DEPRECATED)
       56: 'api.bscscan.com',           // BSC Mainnet
       97: 'api-testnet.bscscan.com',   // BSC Testnet
       137: 'api.polygonscan.com',      // Polygon Mainnet
       80001: 'api-testnet.polygonscan.com', // Mumbai Testnet
       42161: 'api.arbiscan.io',        // Arbitrum One
-      421613: 'api-goerli.arbiscan.io', // Arbitrum Goerli
+      421613: 'api-goerli.arbiscan.io', // Arbitrum Goerli (DEPRECATED)
       43114: 'api.snowtrace.io',       // Avalanche C-Chain
       43113: 'api-testnet.snowtrace.io', // Avalanche Fuji
       250: 'api.ftmscan.com',          // Fantom Opera
       4002: 'api-testnet.ftmscan.com', // Fantom Testnet
       8453: 'api.basescan.org',        // Base Mainnet
-      84531: 'api-goerli.basescan.org' // Base Goerli
+      84531: 'api-goerli.basescan.org' // Base Goerli (DEPRECATED)
     };
 
     return endpointMap[chainId] || 'api.etherscan.io';

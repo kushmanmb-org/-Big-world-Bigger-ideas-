@@ -186,10 +186,10 @@ The module automatically selects the correct API endpoint based on the chain ID.
 // Ethereum Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 1);
 
-// Goerli Testnet
+// Goerli Testnet (⚠️ DEPRECATED - Network sunset in 2024, use Sepolia instead)
 const fetcher = new ContractABIFetcher(apiKey, 5);
 
-// Sepolia Testnet
+// Sepolia Testnet (Recommended for testing)
 const fetcher = new ContractABIFetcher(apiKey, 11155111);
 ```
 
@@ -198,19 +198,19 @@ const fetcher = new ContractABIFetcher(apiKey, 11155111);
 // Base Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 8453);
 
-// Base Goerli Testnet
+// Base Goerli Testnet (⚠️ DEPRECATED - Use Base Sepolia instead)
 const fetcher = new ContractABIFetcher(apiKey, 84531);
 
 // Optimism Mainnet
 const fetcher = new ContractABIFetcher(apiKey, 10);
 
-// Optimism Goerli Testnet
+// Optimism Goerli Testnet (⚠️ DEPRECATED - Use Optimism Sepolia instead)
 const fetcher = new ContractABIFetcher(apiKey, 420);
 
 // Arbitrum One
 const fetcher = new ContractABIFetcher(apiKey, 42161);
 
-// Arbitrum Goerli
+// Arbitrum Goerli (⚠️ DEPRECATED - Use Arbitrum Sepolia instead)
 const fetcher = new ContractABIFetcher(apiKey, 421613);
 ```
 
@@ -245,27 +245,29 @@ const fetcher = new ContractABIFetcher(apiKey, 4002);
 
 The module automatically maps chain IDs to their respective block explorer APIs:
 
-| Chain ID | Network | API Endpoint |
-|----------|---------|--------------|
-| 1 | Ethereum Mainnet | api.etherscan.io |
-| 5 | Goerli Testnet | api-goerli.etherscan.io |
-| 11155111 | Sepolia Testnet | api-sepolia.etherscan.io |
-| 10 | Optimism | api-optimistic.etherscan.io |
-| 420 | Optimism Goerli | api-goerli-optimistic.etherscan.io |
-| 56 | BSC Mainnet | api.bscscan.com |
-| 97 | BSC Testnet | api-testnet.bscscan.com |
-| 137 | Polygon Mainnet | api.polygonscan.com |
-| 80001 | Mumbai Testnet | api-testnet.polygonscan.com |
-| 42161 | Arbitrum One | api.arbiscan.io |
-| 421613 | Arbitrum Goerli | api-goerli.arbiscan.io |
-| 43114 | Avalanche C-Chain | api.snowtrace.io |
-| 43113 | Avalanche Fuji | api-testnet.snowtrace.io |
-| 250 | Fantom Opera | api.ftmscan.com |
-| 4002 | Fantom Testnet | api-testnet.ftmscan.com |
-| 8453 | Base Mainnet | api.basescan.org |
-| 84531 | Base Goerli | api-goerli.basescan.org |
+| Chain ID | Network | API Endpoint | Status |
+|----------|---------|--------------|--------|
+| 1 | Ethereum Mainnet | api.etherscan.io | ✅ Active |
+| 5 | Goerli Testnet | api-goerli.etherscan.io | ⚠️ Deprecated |
+| 11155111 | Sepolia Testnet | api-sepolia.etherscan.io | ✅ Active |
+| 10 | Optimism | api-optimistic.etherscan.io | ✅ Active |
+| 420 | Optimism Goerli | api-goerli-optimistic.etherscan.io | ⚠️ Deprecated |
+| 56 | BSC Mainnet | api.bscscan.com | ✅ Active |
+| 97 | BSC Testnet | api-testnet.bscscan.com | ✅ Active |
+| 137 | Polygon Mainnet | api.polygonscan.com | ✅ Active |
+| 80001 | Mumbai Testnet | api-testnet.polygonscan.com | ✅ Active |
+| 42161 | Arbitrum One | api.arbiscan.io | ✅ Active |
+| 421613 | Arbitrum Goerli | api-goerli.arbiscan.io | ⚠️ Deprecated |
+| 43114 | Avalanche C-Chain | api.snowtrace.io | ✅ Active |
+| 43113 | Avalanche Fuji | api-testnet.snowtrace.io | ✅ Active |
+| 250 | Fantom Opera | api.ftmscan.com | ✅ Active |
+| 4002 | Fantom Testnet | api-testnet.ftmscan.com | ✅ Active |
+| 8453 | Base Mainnet | api.basescan.org | ✅ Active |
+| 84531 | Base Goerli | api-goerli.basescan.org | ⚠️ Deprecated |
 
-**Note:** For unknown chain IDs, the module defaults to `api.etherscan.io`.
+**Notes:** 
+- For unknown chain IDs, the module defaults to `api.etherscan.io`
+- ⚠️ Deprecated networks (Goerli-based) were sunset in 2024. Support is maintained for backwards compatibility, but new projects should use Sepolia-based testnets instead
 
 ## Caching
 
