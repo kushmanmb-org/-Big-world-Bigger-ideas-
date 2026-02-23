@@ -1027,6 +1027,29 @@ const baseFetcher = new ERC721Fetcher(
 
 ---
 
+## 🔗 External Projects & Integrations
+
+### Octant V2 Core
+
+[Octant V2 Core](https://github.com/golemfoundation/octant-v2-core) is an advanced blockchain protocol developed by the Golem Foundation, providing yield strategies, allocation mechanisms, and Safe integration through the Dragon Protocol.
+
+**Quick Clone:**
+```bash
+git clone https://github.com/golemfoundation/octant-v2-core.git
+cd octant-v2-core
+```
+
+📖 **See [OCTANT-V2-CORE.md](./OCTANT-V2-CORE.md)** for complete setup guide, architecture overview, and integration instructions.
+
+**Key Features:**
+- Multi-strategy yield generation vaults (Lido, Morpho, Sky)
+- Democratic allocation mechanisms
+- Dragon Protocol for Safe integration
+- ERC-4626 compliant tokenized strategies
+- Comprehensive factory contracts for deployment
+
+---
+
 ## 📡 Blockchain Network Documentation
 
 ### Base Chain (Chain ID: 8453)
