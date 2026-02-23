@@ -1016,6 +1016,52 @@ npm run feature-flags:demo  # See feature flags in action
 ## 🔍 Contract ABI Fetcher
 
 This repository includes a Contract ABI Fetcher module for fetching contract ABIs (Application Binary Interfaces) from the Etherscan API.
+
+## 🪙 Etherscan Token Balance Fetcher
+
+This repository includes an Etherscan Token Balance Fetcher module for fetching ERC-20 and ERC-721 token balances from the Etherscan API.
+
+### Quick Start
+
+```javascript
+const EtherscanTokenBalanceFetcher = require('./src/etherscan-token-balance');
+
+// Create a fetcher with your API key
+const fetcher = new EtherscanTokenBalanceFetcher('YOUR_ETHERSCAN_API_KEY', 1);
+
+// Fetch token balances for an address
+const address = '0x983e3660c0bE01991785F80f266A84B911ab59b0';
+const balances = await fetcher.getTokenBalances(address, 1, 100);
+
+console.log(`Total tokens: ${balances.tokens.length}`);
+
+// Filter by token type
+const erc20Tokens = EtherscanTokenBalanceFetcher.filterTokensByType(
+  balances.tokens,
+  'ERC-20'
+);
+console.log(`ERC-20 tokens: ${erc20Tokens.length}`);
+```
+
+### Features
+
+- 🔌 **Etherscan API Integration**: Fetch token balances directly from Etherscan API v2
+- ✅ **Address Validation**: Built-in Ethereum address validation
+- 📄 **Pagination Support**: Handle large token lists with page and offset parameters
+- 🔍 **Token Filtering**: Filter tokens by type (ERC-20, ERC-721, etc.)
+- 💾 **Automatic Caching**: Built-in 60-second cache to reduce API calls
+- 🌐 **Multi-Chain Support**: Works with Ethereum, Base, Polygon, and more
+
+### API Methods
+
+- `getTokenBalances(address, page, offset)` - Fetch token balances for an address
+- `validateAddress(address)` - Validate and normalize Ethereum addresses
+- `formatTokenBalances(data)` - Format balance data for display
+- `filterTokensByType(tokens, type)` - Filter tokens by type (static method)
+- `getTotalTokenCount(data)` - Get total token count (static method)
+
+For complete documentation, see [ETHERSCAN-TOKEN-BALANCE.md](src/ETHERSCAN-TOKEN-BALANCE.md)
+
 ## 📜 Token Ownership History Tracker
 
 This repository includes a powerful git-style ownership history tracker for ERC-721 tokens, designed specifically for tracking NFT ownership changes over time.
@@ -1108,6 +1154,14 @@ npm run contract-abi:demo   # See the Contract ABI fetcher in action
 ### Documentation
 
 For complete documentation, see [src/CONTRACT-ABI.md](./src/CONTRACT-ABI.md)
+
+### Testing
+
+```bash
+npm run test:etherscan-token-balance   # Run Etherscan Token Balance tests
+npm run etherscan-token-balance:demo   # See the token balance fetcher in action
+```
+
 
 ### Chain Support
 
