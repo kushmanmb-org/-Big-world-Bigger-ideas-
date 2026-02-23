@@ -86,11 +86,11 @@ cp .env.template .env
 ### Data Flow
 
 ```
-                      Vaults   
-                        ↓   
-External Protocols → Strategies → → → →
-                        ↓              ↓
-                    Safe Modules → Dragon Routers → Allocation Mechanisms
+                        Vaults   
+                          ↓   
+External Protocols → Strategies → Dragon Routers → Allocation Mechanisms
+                          ↓   
+                    Safe Modules
 ```
 
 ## Key Features
