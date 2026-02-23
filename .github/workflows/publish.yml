@@ -1,0 +1,60 @@
+name: Publish to NPM with Provenance
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Version tag to publish (e.g., v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build package
+        run: |
+          # Create dist directory if needed
+          mkdir -p dist
+          # Build CSS if applicable
+          npm run build:css || echo "No CSS build needed"
+
+      - name: Pack package
+        id: pack
+        run: |
+          PACKAGE_FILE=$(npm pack --json | jq -r '.[0].filename')
+          echo "package-file=$PACKAGE_FILE" >> $GITHUB_OUTPUT
+          echo "Package file: $PACKAGE_FILE"
+
+      - name: Attest Build Provenance
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '${{ steps.pack.outputs.package-file }}'
+
+      - name: Publish to NPM
+        run: npm publish ${{ steps.pack.outputs.package-file }} --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
