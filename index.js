@@ -45,6 +45,9 @@ const ZKPDFVerifier = require('./src/zkpdf.js');
 // Contract ABI fetcher
 const ContractABIFetcher = require('./src/contract-abi.js');
 
+// Blockchain Council governance
+const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
+
 /**
  * Main exports for the package
  */
@@ -83,5 +86,10 @@ module.exports = {
   ZKPDFVerifier,
   
   // Contract utilities
-  ContractABIFetcher
+  ContractABIFetcher,
+
+  // Governance and council management
+  BlockchainCouncil,
+  MEMBER_ROLES,
+  PROPOSAL_STATUS
 };

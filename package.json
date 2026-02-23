@@ -4,7 +4,7 @@
   "description": "Blockchain network documentation and crypto clarity platform",
   "main": "index.js",
   "scripts": {
-    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js",
+    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js",
     "test:wallet": "node src/wallet.test.js",
     "test:feature-flags": "node src/feature-flags.test.js",
     "test:erc721": "node src/erc721.test.js",
@@ -16,6 +16,7 @@
     "test:address-tracker": "node src/address-tracker.test.js",
     "test:litecoin-blockchair": "node src/litecoin-blockchair.test.js",
     "test:zkpdf": "node src/zkpdf.test.js",
+    "test:blockchain-council": "node src/blockchain-council.test.js",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
     "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "wallet:demo": "node src/example.js",
@@ -29,6 +30,7 @@
     "address-tracker:demo": "node src/address-tracker-example.js",
     "litecoin-blockchair:demo": "node src/litecoin-blockchair-example.js",
     "zkpdf:demo": "node src/zkpdf-example.js",
+    "blockchain-council:demo": "node src/blockchain-council-example.js",
     "metadata": "node src/metadata.js",
     "metadata:demo": "node src/metadata-example.js"
   },
@@ -57,7 +59,11 @@
     "zero-knowledge",
     "pdf-verification",
     "token-history",
-    "address-tracker"
+    "address-tracker",
+    "governance",
+    "council",
+    "voting",
+    "dao"
   ],
   "author": "Matthew Brace <kushmanmb@gmx.com>",
   "license": "ISC",
@@ -80,6 +86,7 @@
     "src/address-tracker.js",
     "src/metadata.js",
     "src/zkpdf.js",
+    "src/blockchain-council.js",
     "src/*.md",
     "README.md"
   ],
