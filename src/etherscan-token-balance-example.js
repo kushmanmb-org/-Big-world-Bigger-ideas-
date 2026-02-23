@@ -15,9 +15,9 @@ const demoAddress = '0x983e3660c0bE01991785F80f266A84B911ab59b0';
 // Demo 1: Create fetcher instance
 console.log('\n📦 Creating Token Balance Fetcher:\n');
 
-// IMPORTANT: Replace 'YourApiKeyToken' with a real Etherscan API key
-// In production, use environment variables: process.env.ETHERSCAN_API_KEY
-const apiKey = 'YourApiKeyToken';
+// IMPORTANT: Use environment variable for API key or replace with your key
+// Get from environment variable first, fallback to placeholder
+const apiKey = process.env.ETHERSCAN_API_KEY || 'YourApiKeyToken';
 const chainId = 1; // Ethereum mainnet
 
 const fetcher = new EtherscanTokenBalanceFetcher(apiKey, chainId);
