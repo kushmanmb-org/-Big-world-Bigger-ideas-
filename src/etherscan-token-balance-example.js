@@ -31,7 +31,8 @@ console.log('\n📡 API Configuration:\n');
 const apiInfo = fetcher.getAPIInfo();
 console.log(`Base URL: ${apiInfo.baseUrl}`);
 console.log(`Chain ID: ${apiInfo.chainId}`);
-console.log(`Has API Key: ${apiInfo.hasApiKey}`);
+const apiKeyStatus = apiInfo.hasApiKey ? 'configured' : 'not configured';
+console.log(`API Key Status: ${apiKeyStatus}`);
 console.log(`Cache Timeout: ${apiInfo.cacheTimeout}ms`);
 
 // Demo 3: Validate address
