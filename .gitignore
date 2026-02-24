@@ -135,3 +135,10 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+# Foundry
+cache/
+out/
+lib/
+broadcast/
+*.gas-snapshot

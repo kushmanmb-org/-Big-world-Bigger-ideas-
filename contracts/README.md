@@ -144,3 +144,82 @@ If deploying this updated contract, ensure you test:
 - The ABI will include the new custom errors
 - Gas savings will be realized on error conditions
 - Consider recompiling with Solidity 0.8.20 for full optimization benefits
+
+## Build Configuration
+
+This repository uses Foundry for smart contract development, testing, and deployment.
+
+### Foundry Setup
+
+The project is configured with Foundry through `foundry.toml` with the following key settings:
+
+- **Solidity Version:** 0.8.20
+- **Optimizer:** Enabled with 999,999 runs for maximum gas efficiency
+- **EVM Version:** Paris
+- **Source Directory:** `contracts/`
+- **Output Directory:** `out/`
+
+### Compiler Settings
+
+The repository includes multiple compiler configuration files:
+
+1. **foundry.toml** - Primary Foundry configuration
+2. **remappings.txt** - Dependency path remappings
+3. **solc-settings.json** - Standard JSON compiler settings for direct `solc` usage
+
+### Dependency Remappings
+
+The following libraries are configured via remappings:
+
+- `@openzeppelin/contracts/` - OpenZeppelin contracts library
+- `forge-std/` - Foundry standard library
+- `solady/` - Solady gas-optimized library
+- `account-abstraction/` - ERC-4337 account abstraction
+- `webauthn-sol/` - WebAuthn verification
+- `p256-verifier/` - P256 signature verification
+- And additional dependencies for comprehensive smart contract development
+
+### Installing Dependencies
+
+To install Foundry dependencies:
+
+```bash
+forge install
+```
+
+This will install all libraries specified in the remappings to the `lib/` directory.
+
+### Building Contracts
+
+To compile the smart contracts:
+
+```bash
+forge build
+```
+
+This will:
+- Compile all Solidity files in `contracts/`
+- Apply optimizer with 999,999 runs
+- Generate artifacts in `out/` directory
+- Include all specified output (bytecode, ABI, metadata, etc.)
+
+### Testing
+
+To run tests (when available):
+
+```bash
+forge test
+```
+
+### Gas Optimization
+
+The contracts are compiled with an extremely high optimizer runs value (999,999) which:
+- Optimizes for execution cost rather than deployment cost
+- Ideal for frequently-called functions
+- Reduces gas costs for users interacting with deployed contracts
+- May increase deployment costs slightly
+
+### Additional Resources
+
+- [Foundry Documentation](https://book.getfoundry.sh/)
+- [Foundry GitHub](https://github.com/foundry-rs/foundry)
