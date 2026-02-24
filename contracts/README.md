@@ -16,7 +16,7 @@ ECDSA signature verification library using the sec256r1 (P-256) elliptic curve.
 
 **Key Functions:**
 - `ecdsa_verify(bytes32 message, uint256 r, uint256 s, uint256 Qx, uint256 Qy)`: Standard ECDSA verification
-- `ec_recover_r1(uint256 h, uint256 v, uint256 r, uint256 s)`: Recover Ethereum address from signature
+- `ec_recover_r1(uint256 h, uint256 v, uint256 r, uint256 s)`: Recover Ethereum address from signature (v should be 27 or 28 for standard Ethereum signatures)
 - `ecdsa_precomputed_verify(bytes32 message, uint256 r, uint256 s, address Shamir8)`: Optimized verification using precomputed tables
 - `ecdsa_precomputed_verify(bytes32 message, uint256[2] calldata rs, address Shamir8)`: Overloaded version with signature array
 
