@@ -10,6 +10,7 @@ pragma solidity ^0.8.12;
 /**
  * @notice Keccak function over calldata.
  * @dev copy calldata into memory, do keccak and drop allocated memory. Strangely, this is more efficient than letting solidity do it.
+ * @return ret The keccak256 hash of the calldata
  */
 function calldataKeccak(bytes calldata data) pure returns (bytes32 ret) {
     assembly {
