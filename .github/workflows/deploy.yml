@@ -40,6 +40,7 @@ jobs:
           cp index.html _site/
           cp editor.html _site/
           cp styles.css _site/
+          cp feature-flags.json _site/
           cp -r src _site/
           cp -r contracts _site/
           cp README.md _site/
