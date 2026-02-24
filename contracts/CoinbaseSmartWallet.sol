@@ -178,7 +178,7 @@ contract CoinbaseSmartWallet is ERC1271, IAccount, MultiOwnable, UUPSUpgradeable
     /// @notice Executes `calls` on this account (i.e. self call).
     ///
     /// @dev Can only be called by the Entrypoint.
-    /// @dev Reverts if the given call is not authorized to skip the chain ID validtion.
+    /// @dev Reverts if the given call is not authorized to skip the chain ID validation.
     /// @dev `validateUserOp()` will recompute the `userOpHash` without the chain ID before validating
     ///      it if the `UserOperation.calldata` is calling this function. This allows certain UserOperations
     ///      to be replayed for all accounts sharing the same address across chains. E.g. This may be
@@ -255,7 +255,7 @@ contract CoinbaseSmartWallet is ERC1271, IAccount, MultiOwnable, UUPSUpgradeable
     /// @notice Returns whether `functionSelector` can be called in `executeWithoutChainIdValidation`.
     ///
     /// @param functionSelector The function selector to check.
-    ////
+    ///
     /// @return `true` is the function selector is allowed to skip the chain ID validation, else `false`.
     function canSkipChainIdValidation(bytes4 functionSelector) public pure returns (bool) {
         if (
@@ -277,7 +277,7 @@ contract CoinbaseSmartWallet is ERC1271, IAccount, MultiOwnable, UUPSUpgradeable
     /// https://github.com/alchemyplatform/light-account/blob/43f625afdda544d5e5af9c370c9f4be0943e4e90/src/common/BaseLightAccount.sol#L125
     ///
     /// @param target The target call address.
-    /// @param value  The call value to user.
+    /// @param value  The call value to use.
     /// @param data   The raw call data.
     function _call(address target, uint256 value, bytes memory data) internal {
         (bool success, bytes memory result) = target.call{value: value}(data);
