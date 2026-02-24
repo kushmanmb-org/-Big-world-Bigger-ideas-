@@ -51,6 +51,9 @@ const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/bloc
 // OP_RETURN cross-platform utilities
 const OPReturnFetcher = require('./src/op-return.js');
 
+// Ethereum eth_call RPC client
+const EthCallClient = require('./src/eth-call.js');
+
 /**
  * Main exports for the package
  */
@@ -90,6 +93,7 @@ module.exports = {
   
   // Contract utilities
   ContractABIFetcher,
+  EthCallClient,
 
   // Governance and council management
   BlockchainCouncil,
