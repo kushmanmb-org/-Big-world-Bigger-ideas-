@@ -42,7 +42,7 @@ jobs:
           mkdir -p docs/erc20-balances/kushmanmb
           
           # Create a Node.js script to fetch and save data
-          cat > fetch-erc20.js << 'EOF'
+          cat > fetch-erc20-kushmanmb.js << 'EOF'
           const ERC20Fetcher = require('./src/erc20.js');
           const fs = require('fs');
           
@@ -207,7 +207,7 @@ jobs:
           EOF
           
           # Run the script
-          node fetch-erc20.js
+          node fetch-erc20-kushmanmb.js
       
       - name: Commit and push data
         run: |

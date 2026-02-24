@@ -26,7 +26,7 @@ function test(description, fn) {
 /**
  * Async test helper
  */
-async function asyncTest(description, fn) {
+async function testAsync(description, fn) {
   try {
     await fn();
     console.log(`✓ ${description}`);
@@ -331,7 +331,7 @@ test('formatConsolidatedTokens formats consolidated data correctly', () => {
 });
 
 // consolidateTokens Tests
-asyncTest('consolidateTokens rejects empty array', async () => {
+testAsync('consolidateTokens rejects empty array', async () => {
   const fetcher = new ERC20Fetcher();
   try {
     await fetcher.consolidateTokens([]);
@@ -343,7 +343,7 @@ asyncTest('consolidateTokens rejects empty array', async () => {
   }
 });
 
-asyncTest('consolidateTokens rejects non-array input', async () => {
+testAsync('consolidateTokens rejects non-array input', async () => {
   const fetcher = new ERC20Fetcher();
   try {
     await fetcher.consolidateTokens('not an array');
