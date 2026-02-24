@@ -60,6 +60,11 @@ const bigWorld = require('big-world-bigger-ideas');
 const { 
   ERC721Fetcher, 
   BitcoinMiningFetcher,
+  BlockchairFetcher,
+  EthereumBlockchairFetcher,
+  EtherscanTokenBalanceFetcher,
+  HelloBitcoin,
+  TokenUUID,
   OPReturnFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
@@ -80,6 +85,26 @@ const opReturn = new OPReturnFetcher('bitcoin');
 const encoded = opReturn.encodeData('Hello Blockchain!');
 const script = opReturn.createOpReturnScript('Timestamped data');
 
+// Example: Multi-chain blockchain data with Blockchair
+const blockchair = new BlockchairFetcher('bitcoin');
+const blockData = await blockchair.getBlock(700000);
+
+// Example: Ethereum blockchain data with ENS support
+const ethBlockchair = new EthereumBlockchairFetcher();
+const addressData = await ethBlockchair.getAddressData('0x1234...');
+
+// Example: Token balance checking with Etherscan
+const etherscan = new EtherscanTokenBalanceFetcher('your-api-key');
+const balance = await etherscan.getTokenBalance('0xAddress...', '0xTokenContract...');
+
+// Example: Generate UUIDs for tokens
+const tokenUUID = new TokenUUID();
+const uuid = tokenUUID.generateForToken('0xContract...', '1');
+
+// Example: Hello Bitcoin greeting
+const hello = new HelloBitcoin('World');
+console.log(hello.greet()); // "Hello Bitcoin from World! 🌍"
+
 // Example: Blockchain governance with council
 const council = new BlockchainCouncil('DAO Council');
 council.addMember('0x1234...', 'Alice', MEMBER_ROLES.FOUNDER);
@@ -92,21 +117,44 @@ const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Docume
 
 ### Available Modules
 
-This package includes the following modules:
+This package includes the following modules organized by category:
 
+**Wallet & Configuration:**
 - **`wallet`** - Wallet encryption and decryption utilities
 - **`featureFlags`** - Feature flag management system
+
+**NFT & Token Utilities:**
 - **`ERC721Fetcher`** - ERC-721 NFT token data fetcher
 - **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
+- **`TokenUUID`** - UUID generation and validation for blockchain tokens and NFTs
+
+**Blockchain Data Fetchers:**
 - **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
+- **`BlockchairFetcher`** - Multi-chain blockchain data fetcher for Bitcoin, Ethereum, Litecoin, and more
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
-- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
-- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`EthereumBlockchairFetcher`** - Ethereum blockchain data from Blockchair with ENS support
+- **`EtherscanTokenBalanceFetcher`** - ERC-20 and ERC-721 token balance fetcher from Etherscan
+
+**Network & Consensus:**
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
+
+**Contract Utilities:**
+- **`ContractABIFetcher`** - Contract ABI fetcher
+- **`EthCallClient`** - Ethereum eth_call RPC client
+- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
+
+**Governance & Compliance:**
 - **`BlockchainCouncil`** - Governance and council management for DAOs
-- **`PackageMetadata`** - Metadata processing utilities
+- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`WithdrawalCredentials`** - Ethereum withdrawal credentials management
+
+**Advanced Features:**
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
+- **`PackageMetadata`** - Metadata processing utilities
+
+**Helper Utilities:**
+- **`HelloBitcoin`** - Simple Bitcoin greeting module for getting started
 
 ### Package Structure
 
