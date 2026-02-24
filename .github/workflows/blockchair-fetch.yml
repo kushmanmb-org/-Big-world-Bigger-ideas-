@@ -1,10 +1,14 @@
 name: Blockchair Data Fetch and Publish
 
+# This workflow fetches blockchain data for kushmanmb.eth from Blockchair API
+# Runs daily at midnight UTC and can be triggered manually
+# Publishes data to GitHub Pages for easy access
+
 on:
-  # Run on schedule - daily at midnight UTC
+  # Run on schedule - daily at midnight UTC (00:00)
   schedule:
     - cron: '0 0 * * *'
-  # Allow manual trigger
+  # Allow manual trigger with optional custom address
   workflow_dispatch:
     inputs:
       address:
