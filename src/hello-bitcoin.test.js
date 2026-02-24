@@ -3,48 +3,12 @@
  */
 
 const HelloBitcoin = require('./hello-bitcoin.js');
-
-// Test counter
-let passed = 0;
-let failed = 0;
-
-// Helper function to run tests
-function test(description, fn) {
-  try {
-    fn();
-    console.log(`✓ ${description}`);
-    passed++;
-  } catch (error) {
-    console.log(`✗ ${description}`);
-    console.log(`  Error: ${error.message}`);
-    failed++;
-  }
-}
-
-// Helper function to assert equality
-function assertEqual(actual, expected, message) {
-  if (actual !== expected) {
-    throw new Error(message || `Expected ${expected}, got ${actual}`);
-  }
-}
+const { test, testAsync, assertEqual, assertNotNull, assertThrows, printSummary } = require('./test-helpers');
 
 // Helper function to assert truth
 function assert(condition, message) {
   if (!condition) {
     throw new Error(message || 'Assertion failed');
-  }
-}
-
-// Helper function to assert error is thrown
-function assertThrows(fn, message) {
-  let threw = false;
-  try {
-    fn();
-  } catch (error) {
-    threw = true;
-  }
-  if (!threw) {
-    throw new Error(message || 'Expected function to throw an error');
   }
 }
 
@@ -99,15 +63,15 @@ test('greetWithMessage() with valid message should work', () => {
 // Test 6: greetWithMessage with invalid message should throw
 test('greetWithMessage() with empty message should throw', () => {
   const hello = new HelloBitcoin('Eve');
-  assertThrows(() => hello.greetWithMessage(''), 'Should throw for empty message');
+  assertThrows(() => hello.greetWithMessage(''), 'non-empty string');
 });
 
 // Test 7: greetWithMessage with non-string should throw
 test('greetWithMessage() with non-string should throw', () => {
   const hello = new HelloBitcoin('Frank');
-  assertThrows(() => hello.greetWithMessage(123), 'Should throw for non-string');
-  assertThrows(() => hello.greetWithMessage(null), 'Should throw for null');
-  assertThrows(() => hello.greetWithMessage(undefined), 'Should throw for undefined');
+  assertThrows(() => hello.greetWithMessage(123), 'non-empty string');
+  assertThrows(() => hello.greetWithMessage(null), 'non-empty string');
+  assertThrows(() => hello.greetWithMessage(undefined), 'non-empty string');
 });
 
 // Test 8: formalGreet method
@@ -187,15 +151,15 @@ test('setName() with valid name should work', () => {
 // Test 15: setName with invalid name should throw
 test('setName() with empty string should throw', () => {
   const hello = new HelloBitcoin('Nancy');
-  assertThrows(() => hello.setName(''), 'Should throw for empty string');
+  assertThrows(() => hello.setName(''), 'non-empty string');
 });
 
 // Test 16: setName with non-string should throw
 test('setName() with non-string should throw', () => {
   const hello = new HelloBitcoin('Oscar');
-  assertThrows(() => hello.setName(null), 'Should throw for null');
-  assertThrows(() => hello.setName(undefined), 'Should throw for undefined');
-  assertThrows(() => hello.setName(123), 'Should throw for number');
+  assertThrows(() => hello.setName(null), 'non-empty string');
+  assertThrows(() => hello.setName(undefined), 'non-empty string');
+  assertThrows(() => hello.setName(123), 'non-empty string');
 });
 
 // Test 17: formatHistory with no greetings
@@ -238,14 +202,4 @@ test('Greeting timestamps should be valid Date objects', () => {
   assert(!isNaN(history[0].timestamp.getTime()), 'Timestamp should be valid');
 });
 
-// Print results
-console.log('=' .repeat(60));
-console.log(`\nTest Results: ${passed} passed, ${failed} failed`);
-
-if (failed === 0) {
-  console.log('\n✅ All tests passed!');
-  process.exit(0);
-} else {
-  console.log('\n❌ Some tests failed!');
-  process.exit(1);
-}
+printSummary();
