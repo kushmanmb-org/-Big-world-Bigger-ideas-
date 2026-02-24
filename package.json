@@ -4,7 +4,7 @@
   "description": "Blockchain network documentation and crypto clarity platform",
   "main": "index.js",
   "scripts": {
-    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/hello-bitcoin.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/ethereum-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js",
+    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/hello-bitcoin.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/ethereum-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js && node src/op-return.test.js",
     "test:wallet": "node src/wallet.test.js",
     "test:feature-flags": "node src/feature-flags.test.js",
     "test:erc721": "node src/erc721.test.js",
