@@ -60,6 +60,7 @@ const bigWorld = require('big-world-bigger-ideas');
 const { 
   ERC721Fetcher, 
   BitcoinMiningFetcher,
+  OPReturnFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
   AddressTracker,
@@ -73,6 +74,11 @@ const owner = await nftFetcher.getOwner('1');
 // Example: Track Bitcoin mining data
 const btcFetcher = new BitcoinMiningFetcher();
 const miningData = await btcFetcher.getHashRate('1w');
+
+// Example: OP_RETURN data encoding for blockchain
+const opReturn = new OPReturnFetcher('bitcoin');
+const encoded = opReturn.encodeData('Hello Blockchain!');
+const script = opReturn.createOpReturnScript('Timestamped data');
 
 // Example: Blockchain governance with council
 const council = new BlockchainCouncil('DAO Council');
@@ -94,6 +100,7 @@ This package includes the following modules:
 - **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
 - **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
+- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
 - **`ISO27001Fetcher`** - ISO 27001 certification management
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
