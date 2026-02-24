@@ -18,6 +18,9 @@ const featureFlags = require('./src/feature-flags.js');
 // ERC-721 NFT token utilities
 const ERC721Fetcher = require('./src/erc721.js');
 
+// ERC-20 token balance utilities
+const ERC20Fetcher = require('./src/erc20.js');
+
 // NFT ownership history tracker
 const { TokenHistoryTracker, OwnershipEvent } = require('./src/token-history.js');
 
@@ -63,6 +66,7 @@ module.exports = {
   
   // NFT and token utilities
   ERC721Fetcher,
+  ERC20Fetcher,
   TokenHistoryTracker,
   OwnershipEvent,
   
