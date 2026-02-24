@@ -125,6 +125,8 @@
     "src/zkpdf.js",
     "src/blockchain-council.js",
     "src/ethereum-blockchair.js",
+    "src/etherscan-token-balance.js",
+    "src/http-client.js",
     "src/op-return.js",
     "src/eth-call.js",
     "src/withdraw-credentials.js",

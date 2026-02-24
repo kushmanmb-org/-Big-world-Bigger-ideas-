@@ -57,6 +57,21 @@ const EthCallClient = require('./src/eth-call.js');
 // Withdrawal credentials management
 const { WithdrawalCredentials, WITHDRAWAL_TYPES } = require('./src/withdraw-credentials.js');
 
+// Multi-chain Blockchair API
+const BlockchairFetcher = require('./src/blockchair.js');
+
+// Ethereum Blockchair API with ENS support
+const EthereumBlockchairFetcher = require('./src/ethereum-blockchair.js');
+
+// Etherscan token balance fetcher
+const EtherscanTokenBalanceFetcher = require('./src/etherscan-token-balance.js');
+
+// Hello Bitcoin greeting module
+const HelloBitcoin = require('./src/hello-bitcoin.js');
+
+// Token UUID generator
+const TokenUUID = require('./src/token-uuid.js');
+
 /**
  * Main exports for the package
  */
@@ -71,10 +86,15 @@ module.exports = {
   ERC721Fetcher,
   TokenHistoryTracker,
   OwnershipEvent,
+  TokenUUID,
   
   // Blockchain data fetchers
   BitcoinMiningFetcher,
   LitecoinBlockchairFetcher,
+  BlockchairFetcher,
+  EthereumBlockchairFetcher,
+  EtherscanTokenBalanceFetcher,
+  HelloBitcoin,
   
   // Compliance and certification
   ISO27001Fetcher,
