@@ -117,26 +117,44 @@ const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Docume
 
 ### Available Modules
 
-This package includes the following modules:
+This package includes the following modules organized by category:
 
+**Wallet & Configuration:**
 - **`wallet`** - Wallet encryption and decryption utilities
 - **`featureFlags`** - Feature flag management system
+
+**NFT & Token Utilities:**
 - **`ERC721Fetcher`** - ERC-721 NFT token data fetcher
 - **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
 - **`TokenUUID`** - UUID generation and validation for blockchain tokens and NFTs
+
+**Blockchain Data Fetchers:**
 - **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
 - **`BlockchairFetcher`** - Multi-chain blockchain data fetcher for Bitcoin, Ethereum, Litecoin, and more
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
 - **`EthereumBlockchairFetcher`** - Ethereum blockchain data from Blockchair with ENS support
 - **`EtherscanTokenBalanceFetcher`** - ERC-20 and ERC-721 token balance fetcher from Etherscan
-- **`HelloBitcoin`** - Simple Bitcoin greeting module for getting started
-- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
-- **`ISO27001Fetcher`** - ISO 27001 certification management
+
+**Network & Consensus:**
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
+
+**Contract Utilities:**
+- **`ContractABIFetcher`** - Contract ABI fetcher
+- **`EthCallClient`** - Ethereum eth_call RPC client
+- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
+
+**Governance & Compliance:**
 - **`BlockchainCouncil`** - Governance and council management for DAOs
-- **`PackageMetadata`** - Metadata processing utilities
+- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`WithdrawalCredentials`** - Ethereum withdrawal credentials management
+
+**Advanced Features:**
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
+- **`PackageMetadata`** - Metadata processing utilities
+
+**Helper Utilities:**
+- **`HelloBitcoin`** - Simple Bitcoin greeting module for getting started
 
 ### Package Structure
 
