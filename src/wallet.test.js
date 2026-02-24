@@ -1,5 +1,10 @@
 /**
  * Simple test suite for Wallet encryption functionality
+ * 
+ * SECURITY NOTE: The passwords in this test file are intentionally hardcoded
+ * for testing purposes only. This is acceptable for test files as they are
+ * not real credentials and are only used to verify encryption functionality.
+ * In production code, NEVER hardcode passwords, API keys, or private keys.
  */
 
 const Wallet = require('./wallet');
