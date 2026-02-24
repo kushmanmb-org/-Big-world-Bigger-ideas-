@@ -49,18 +49,22 @@ The workflow will automatically:
 
 ### Method 2: Manual Workflow Dispatch
 
-For quick updates without creating a full release:
+For quick updates without manually creating a release:
 
 1. Go to Actions → "Publish to NPM" workflow
 2. Click "Run workflow"
-3. (Optional) Specify a version number
+3. Select version bump type (patch/minor/major)
 4. Click "Run workflow"
 
-The workflow will:
+The workflow will automatically:
 - Run all tests
-- Update version if specified
-- Publish to npm
-- Create a GitHub release automatically
+- Bump the version in package.json
+- Commit and push the version change
+- Create a git tag
+- Publish to npm with provenance
+- Create a GitHub release
+
+This is the easiest method for quick releases.
 
 ### Method 3: Local Publishing (Emergency Only)
 
