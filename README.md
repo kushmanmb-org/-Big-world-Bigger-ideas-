@@ -187,7 +187,6 @@ const encrypted = wallet.encrypt(process.env.PASSWORD);
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
    BLOCKCHAIR_API_KEY=your_blockchair_api_key_here
    BEACONCHA_API_KEY=your_beaconcha_api_key_here
-   BLOCKCHAIR_API_KEY=your_blockchair_api_key_here
    ```
 
 3. **Never commit `.env` files** (already in `.gitignore`)
