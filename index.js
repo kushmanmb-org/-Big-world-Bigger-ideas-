@@ -48,6 +48,9 @@ const ContractABIFetcher = require('./src/contract-abi.js');
 // Blockchain Council governance
 const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
 
+// OP_RETURN cross-platform utilities
+const OPReturnFetcher = require('./src/op-return.js');
+
 /**
  * Main exports for the package
  */
@@ -91,5 +94,8 @@ module.exports = {
   // Governance and council management
   BlockchainCouncil,
   MEMBER_ROLES,
-  PROPOSAL_STATUS
+  PROPOSAL_STATUS,
+
+  // OP_RETURN utilities
+  OPReturnFetcher
 };
