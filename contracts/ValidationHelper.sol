@@ -10,7 +10,7 @@ pragma solidity ^0.8.12;
 library ValidationHelper {
     /**
      * returned data from validateUserOp.
-     * validateUserOp returns a uint256, with is created by `_packedValidationData` and parsed by `_parseValidationData`
+     * validateUserOp returns a uint256, which is created by `_packedValidationData` and parsed by `_parseValidationData`
      * @param aggregator - address(0) - the account validated the signature by itself.
      *              address(1) - the account failed to validate the signature.
      *              otherwise - this is an address of a signature aggregator that must be used to validate the signature.
@@ -25,7 +25,7 @@ library ValidationHelper {
 
     //extract sigFailed, validAfter, validUntil.
     // also convert zero validUntil to type(uint48).max
-    function _parseValidationData(uint256 validationData) internal pure returns (ValidationData memory data) {
+    function _parseValidationData(uint256 validationData) internal pure returns (ValidationData memory parsedData) {
         address aggregator = address(uint160(validationData));
         uint48 validUntil = uint48(validationData >> 160);
         if (validUntil == 0) {
