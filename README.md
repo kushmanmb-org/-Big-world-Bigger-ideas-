@@ -597,6 +597,45 @@ The **Web Editor** (`editor.html`) is a powerful, browser-based tool for creatin
 - 📊 **Character/Word Counter**: Live tracking of document length
 - 🎨 **Responsive Design**: Works on desktop, tablet, and mobile devices
 - 👁️ **Dual-Pane View**: Side-by-side editor and preview panels
+- 🚩 **Feature Flags Integration**: Dynamic theming and UI based on feature flags
+
+**Feature Flags Support:**
+
+The web editor integrates with the repository's feature flags system to enable dynamic features:
+
+- **🌙 Dark Mode** (`dark_mode` flag): When enabled, applies a dark theme to the entire editor interface
+  - Dark background colors for reduced eye strain
+  - Syntax-highlighted code blocks with dark theme
+  - Optimized contrast for better readability
+  
+- **✨ New UI** (`new_ui` flag): When enabled, applies enhanced UI styling
+  - Refined typography and spacing
+  - Enhanced visual polish
+  - Modern design elements
+
+**To enable feature flags:**
+
+1. Edit `feature-flags.json` in the repository root
+2. Set the desired flag to `"enabled": true`
+3. Reload the editor in your browser
+
+Example `feature-flags.json`:
+```json
+{
+  "flags": {
+    "dark_mode": {
+      "enabled": true,
+      "updatedAt": "2026-02-24T16:30:00.000Z"
+    },
+    "new_ui": {
+      "enabled": true,
+      "updatedAt": "2026-02-24T16:30:00.000Z"
+    }
+  }
+}
+```
+
+The editor will automatically load and apply the flags when the page loads. Active features are displayed in the header.
 
 **To use the web editor:**
 1. Open `editor.html` in a web browser
@@ -1099,6 +1138,24 @@ Use these commands in any issue or PR comment:
 - 🚀 Gradual feature rollouts
 - 🔬 A/B testing capabilities
 - 🛡️ Emergency feature disable
+- 🖊️ **Web Editor Integration**: Control editor themes and UI dynamically
+
+### Supported Feature Flags
+
+The following feature flags are currently supported:
+
+- **`dark_mode`**: Enables dark mode theme in the web editor
+- **`new_ui`**: Enables enhanced UI styling in the web editor  
+- **`test_chatops`**: Test flag for ChatOps workflow validation
+
+### Web Editor Integration
+
+The web editor (`editor.html`) automatically loads feature flags from `feature-flags.json` and applies them:
+
+- When `dark_mode` is enabled, the editor switches to a dark theme
+- When `new_ui` is enabled, enhanced styling is applied
+- Active features are displayed in the editor header
+- Changes take effect on page reload
 
 ### Documentation
 
