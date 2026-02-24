@@ -38,10 +38,10 @@ struct UserOperation {
  */
 library UserOperationLib {
     function getSender(UserOperation calldata userOp) internal pure returns (address) {
-        address data;
+        address senderAddress;
         //read sender from userOp, which is first userOp member (saves 800 gas...)
-        assembly {data := calldataload(userOp)}
-        return address(uint160(data));
+        assembly {senderAddress := calldataload(userOp)}
+        return address(uint160(senderAddress));
     }
 
     //relayer/block builder might submit the TX with higher priorityFee, but the user should not
