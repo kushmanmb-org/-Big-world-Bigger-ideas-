@@ -7,7 +7,7 @@ pragma solidity ^0.8.4;
 /// (https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/utils/UUPSUpgradeable.sol)
 ///
 /// Note:
-/// - This implementation is intended to be used with ERC1967 proxies.
+/// - This implementation is intended to be used with ERC-1967 proxies.
 /// See: `LibClone.deployERC1967` and related functions.
 /// - This implementation is NOT compatible with legacy OpenZeppelin proxies
 /// which do not store the implementation at `_ERC1967_IMPLEMENTATION_SLOT`.
@@ -61,12 +61,12 @@ abstract contract UUPSUpgradeable {
     function _authorizeUpgrade(address newImplementation) internal virtual;
 
     /// @dev Returns the storage slot used by the implementation,
-    /// as specified in <a href="https://eips.ethereum.org/EIPS/eip-1822">EIP-1822</a>.
+    /// as specified in [EIP-1822](https://eips.ethereum.org/EIPS/eip-1822).
     ///
     /// Note: The `notDelegated` modifier prevents accidental upgrades to
     /// an implementation that is a proxy contract.
     function proxiableUUID() public view virtual notDelegated returns (bytes32) {
-        // This function must always return `_ERC1967_IMPLEMENTATION_SLOT` to comply with ERC1967.
+        // This function must always return `_ERC1967_IMPLEMENTATION_SLOT` to comply with ERC-1967.
         return _ERC1967_IMPLEMENTATION_SLOT;
     }
 
