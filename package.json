@@ -135,7 +135,8 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@discord/embedded-app-sdk": "^2.4.0"
+    "@discord/embedded-app-sdk": "^2.4.0",
+    "braces": "^3.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.24",
