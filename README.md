@@ -94,6 +94,7 @@ This package includes the following modules:
 - **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
 - **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
+- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
 - **`ISO27001Fetcher`** - ISO 27001 certification management
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
