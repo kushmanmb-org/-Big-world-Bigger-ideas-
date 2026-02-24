@@ -166,8 +166,8 @@ class BlockchairFetcher {
       throw new Error('Valid transaction hash string is required');
     }
 
-    // Basic hash validation (64 hex characters for most chains)
-    if (!txHash.match(/^(0x)?[a-fA-F0-9]{64}$/) && !txHash.match(/^[a-fA-F0-9]{64}$/)) {
+    // Basic hash validation (64 hex characters, with or without 0x prefix)
+    if (!txHash.match(/^(0x)?[a-fA-F0-9]{64}$/)) {
       throw new Error('Invalid transaction hash format');
     }
 

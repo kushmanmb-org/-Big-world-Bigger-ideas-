@@ -156,13 +156,35 @@ async function runTests() {
     const fetcher = new BlockchairFetcher('bitcoin');
     const validHash = 'a'.repeat(64); // 64 hex characters
     
-    // Hash format should be valid (we're not testing the API call, just validation)
-    assert(true, 'Transaction hash format validation works for 64 hex chars');
+    // Verify the hash passes validation (will fail on network call, but validation should pass)
+    try {
+      await fetcher.getTransaction(validHash);
+      // If we get here, validation passed (API call may fail, that's expected)
+      assert(true, 'Transaction hash format validation works for 64 hex chars');
+    } catch (error) {
+      // If error is not about hash format, validation passed
+      if (!error.message.includes('Invalid transaction hash format')) {
+        assert(true, 'Transaction hash format validation works for 64 hex chars');
+      } else {
+        assert(false, `Valid hash should pass format validation: ${error.message}`);
+      }
+    }
     
     // Test with 0x prefix (Ethereum style)
     const ethFetcher = new BlockchairFetcher('ethereum');
     const ethHash = '0x' + 'b'.repeat(64);
-    assert(true, 'Transaction hash format validation works with 0x prefix');
+    try {
+      await ethFetcher.getTransaction(ethHash);
+      // If we get here, validation passed (API call may fail, that's expected)
+      assert(true, 'Transaction hash format validation works with 0x prefix');
+    } catch (error) {
+      // If error is not about hash format, validation passed
+      if (!error.message.includes('Invalid transaction hash format')) {
+        assert(true, 'Transaction hash format validation works with 0x prefix');
+      } else {
+        assert(false, `Valid hash with 0x prefix should pass format validation: ${error.message}`);
+      }
+    }
   } catch (error) {
     assert(false, `Valid hash format test failed: ${error.message}`);
   }
