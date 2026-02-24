@@ -366,8 +366,7 @@ try {
   const formatted = btcFetcher.formatData(mockData);
   assert(
     formatted.includes('No OP_RETURN') ||
-    formatted.includes('No') &&
-    formatted.includes('found'),
+    (formatted.includes('No') && formatted.includes('found')),
     'Formats empty data correctly'
   );
 } catch (error) {

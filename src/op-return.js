@@ -266,7 +266,34 @@ class OPReturnFetcher {
         for (const output of outputs) {
           if (output.script_hex && output.script_hex.startsWith('6a')) {
             // 6a is the OP_RETURN opcode in hex
-            rawHex = output.script_hex.substring(4); // Remove OP_RETURN opcode and length byte
+            // Parse the script properly: OP_RETURN (6a) + length byte(s) + data
+            const scriptHex = output.script_hex;
+            
+            // Skip the OP_RETURN opcode (6a = 1 byte = 2 hex chars)
+            let offset = 2;
+            
+            // Read the length byte
+            const lengthByte = parseInt(scriptHex.substring(offset, offset + 2), 16);
+            offset += 2;
+            
+            // For data ≤75 bytes, the length is directly encoded
+            // For larger data, OP_PUSHDATA1 (0x4c) or OP_PUSHDATA2 (0x4d) are used
+            if (lengthByte <= 75) {
+              // Direct length encoding
+              rawHex = scriptHex.substring(offset);
+            } else if (lengthByte === 0x4c) {
+              // OP_PUSHDATA1: next byte is length
+              offset += 2;
+              rawHex = scriptHex.substring(offset);
+            } else if (lengthByte === 0x4d) {
+              // OP_PUSHDATA2: next 2 bytes are length (little-endian)
+              offset += 4;
+              rawHex = scriptHex.substring(offset);
+            } else {
+              // Fallback: try to decode everything after the length byte
+              rawHex = scriptHex.substring(offset);
+            }
+            
             try {
               embeddedData = this.decodeData(rawHex);
             } catch (error) {
