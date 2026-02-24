@@ -4,6 +4,34 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### Receiver.sol
+
+An abstract receiver mixin contract for handling ETH and safe-transferred ERC721 and ERC1155 tokens.
+
+**Features:**
+- Handles all ERC721 and ERC1155 token safety callbacks
+- Collapses function table gas overhead and minimizes code size
+- Utilizes fallback pattern for efficient callback handling
+- Accepts ETH transfers via `receive()` function
+- Memory-safe assembly for optimal gas efficiency
+
+**Key Components:**
+- `receive()`: Virtual function for receiving ETH
+- `fallback()`: Virtual fallback with `receiverFallback` modifier
+- `receiverFallback`: Modifier that handles token callback signatures:
+  - `onERC721Received(address,address,uint256,bytes)` (0x150b7a02)
+  - `onERC1155Received(address,address,uint256,uint256,bytes)` (0xf23a6e61)
+  - `onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)` (0xbc197c81)
+
+**Usage:**
+This is an abstract contract designed to be inherited by contracts that need to receive ERC721 and ERC1155 tokens safely. When inherited, the contract automatically handles the required callback functions without needing explicit implementations.
+
+**Solidity Version:** ^0.8.4
+
+**License:** MIT
+
+**Source:** [Solady](https://github.com/Vectorized/solady/blob/main/src/accounts/Receiver.sol)
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
