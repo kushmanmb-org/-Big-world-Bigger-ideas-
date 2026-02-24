@@ -19,7 +19,8 @@
   "constructorArguments": {
     "types": ["address"],
     "values": ["kushmanmb.eth"],
-    "description": "Admin address parameter for proxy initialization (ENS: kushmanmb.eth)"
+    "note": "ENS domain kushmanmb.eth - actual deployment would use resolved Ethereum address",
+    "description": "Admin address parameter for proxy initialization"
   },
   "verification": {
     "status": "verified",
