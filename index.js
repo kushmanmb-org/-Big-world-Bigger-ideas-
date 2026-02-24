@@ -48,6 +48,9 @@ const ContractABIFetcher = require('./src/contract-abi.js');
 // Blockchain Council governance
 const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
 
+// Beacon Chain data
+const BeaconChainFetcher = require('./src/beaconchain.js');
+
 /**
  * Main exports for the package
  */
@@ -91,5 +94,8 @@ module.exports = {
   // Governance and council management
   BlockchainCouncil,
   MEMBER_ROLES,
-  PROPOSAL_STATUS
+  PROPOSAL_STATUS,
+
+  // Beacon Chain (ETH 2.0) data
+  BeaconChainFetcher
 };
