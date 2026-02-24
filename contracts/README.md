@@ -78,6 +78,51 @@ This is an abstract contract designed to be inherited by contracts that need to 
 
 **Source:** [Solady](https://github.com/Vectorized/solady/blob/main/src/accounts/Receiver.sol)
 
+### Base64.sol
+
+A utility library for Base64 encoding operations on bytes data.
+
+**Features:**
+- Standard Base64 encoding with padding (RFC 4648 Section 4)
+- Base64URL encoding without padding (RFC 4648 Section 5)
+- Gas-optimized assembly implementation
+- Memory-safe operations
+- Support for arbitrary-length byte arrays
+
+**Key Components:**
+- `encode(bytes memory data)`: Encode bytes to standard Base64 string with padding
+- `encodeURL(bytes memory data)`: Encode bytes to Base64URL string without padding
+- `_TABLE`: Standard Base64 character table (A-Z, a-z, 0-9, +, /)
+- `_TABLE_URL`: Base64URL character table (A-Z, a-z, 0-9, -, _)
+
+**Usage:**
+This is a library contract that can be imported and used by other contracts for encoding data as Base64 strings. Common use cases include:
+- Encoding on-chain data for JSON metadata
+- Creating data URIs for NFT metadata
+- Encoding binary data for cross-system compatibility
+
+**Example:**
+```solidity
+import "./Base64.sol";
+
+contract MyContract {
+    function createDataURI(bytes memory data) public pure returns (string memory) {
+        string memory base64Data = Base64.encode(data);
+        return string(abi.encodePacked("data:application/octet-stream;base64,", base64Data));
+    }
+    
+    function createURLSafeEncoding(bytes memory data) public pure returns (string memory) {
+        return Base64.encodeURL(data);
+    }
+}
+```
+
+**Solidity Version:** ^0.8.20
+
+**License:** MIT
+
+**Source:** [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
