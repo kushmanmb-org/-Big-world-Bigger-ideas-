@@ -132,6 +132,75 @@ Tests run automatically before every publish to ensure quality.
 
 ---
 
+## 🔨 Smart Contracts & Build Configuration
+
+This repository includes Solidity smart contracts with a comprehensive build configuration using **Foundry**, a modern Ethereum development framework.
+
+### 📄 Available Contracts
+
+The `contracts/` directory contains production-ready smart contracts:
+
+- **`Proxy.sol`** - EIP-1967 transparent proxy for upgradeable contracts
+- **`MultiOwnable.sol`** - Multi-owner authentication with address and public key support
+- **`Receiver.sol`** - Abstract contract for receiving ERC-721 and ERC-1155 tokens
+- **`SignatureCheckerLib.sol`** - Signature verification utilities
+
+### 🛠️ Build Configuration
+
+The project uses **Foundry** for smart contract development with highly optimized settings:
+
+- **Compiler Version:** Solidity 0.8.20
+- **Optimizer:** Enabled with **999,999 runs** (optimized for runtime efficiency)
+- **EVM Version:** Paris (post-merge Ethereum)
+- **Build Framework:** Foundry
+
+**Configuration Files:**
+- `foundry.toml` - Primary Foundry configuration
+- `remappings.txt` - Dependency path mappings
+- `solc-settings.json` - Standard JSON compiler settings
+
+### 📚 Dependencies
+
+Pre-configured with industry-standard libraries:
+- OpenZeppelin Contracts
+- Solady (gas-optimized contracts)
+- Forge Standard Library
+- Account Abstraction (ERC-4337)
+- WebAuthn verification
+- P256 signature verification
+
+### 🚀 Building Contracts
+
+```bash
+# Install Foundry
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+
+# Install dependencies
+forge install
+
+# Compile contracts
+forge build
+
+# Run tests (when available)
+forge test
+```
+
+### 📖 Documentation
+
+For detailed build configuration, compilation settings, and deployment instructions, see:
+- **[BUILD.md](./BUILD.md)** - Comprehensive build documentation
+- **[contracts/README.md](./contracts/README.md)** - Contract-specific documentation
+
+### ✅ Verified Deployments
+
+**Base Network (Chain ID: 8453)**
+- Contract: Proxy.sol
+- Address: `0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43`
+- Verified: [View on Basescan](https://basescan.org/address/0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43)
+
+---
+
 ## 🔐 Security & Branch Protection
 
 This repository implements comprehensive security measures to protect sensitive data and maintain code quality.
