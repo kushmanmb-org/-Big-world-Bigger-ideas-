@@ -60,6 +60,7 @@ const bigWorld = require('big-world-bigger-ideas');
 const { 
   ERC721Fetcher, 
   BitcoinMiningFetcher,
+  EthereumValidatorsFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
   AddressTracker,
@@ -73,6 +74,10 @@ const owner = await nftFetcher.getOwner('1');
 // Example: Track Bitcoin mining data
 const btcFetcher = new BitcoinMiningFetcher();
 const miningData = await btcFetcher.getHashRate('1w');
+
+// Example: Fetch Ethereum validator data
+const ethValidators = new EthereumValidatorsFetcher(process.env.BEACONCHA_API_KEY);
+const validator = await ethValidators.getValidators(12345);
 
 // Example: Blockchain governance with council
 const council = new BlockchainCouncil('DAO Council');
@@ -98,6 +103,7 @@ This package includes the following modules:
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
 - **`BlockchainCouncil`** - Governance and council management for DAOs
+- **`EthereumValidatorsFetcher`** - Ethereum validator data from Beaconcha.in API
 - **`PackageMetadata`** - Metadata processing utilities
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
 
@@ -180,6 +186,7 @@ const encrypted = wallet.encrypt(process.env.PASSWORD);
    ```bash
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
    BLOCKCHAIR_API_KEY=your_blockchair_api_key_here
+   BEACONCHA_API_KEY=your_beaconcha_api_key_here
    ```
 
 3. **Never commit `.env` files** (already in `.gitignore`)
@@ -1004,6 +1011,83 @@ For complete documentation, see [src/BLOCKCHAIN-COUNCIL.md](./src/BLOCKCHAIN-COU
 - **Treasury Management**: Multi-sig treasury fund allocation voting
 - **Community Voting**: Community-driven project decisions
 - **Multi-Stakeholder Coordination**: Coordinating multiple parties with different roles
+
+---
+
+## ⚡ Ethereum Validators (Beacon Chain)
+
+This repository includes a comprehensive module for fetching and monitoring Ethereum validator data from the Beaconcha.in API. Track validator performance, attestations, balances, and more on the Ethereum Beacon Chain (Proof of Stake).
+
+### Quick Start
+
+```javascript
+const EthereumValidatorsFetcher = require('./src/ethereum-validators.js');
+
+// Create fetcher with API key
+const fetcher = new EthereumValidatorsFetcher(process.env.BEACONCHA_API_KEY);
+
+// Fetch single validator by index
+const validator = await fetcher.getValidators(12345);
+console.log(fetcher.formatValidators(validator));
+
+// Fetch multiple validators
+const validators = await fetcher.getValidators([100, 200, 300]);
+
+// Fetch validator by public key
+const pubkey = '0x' + 'a'.repeat(96); // 96 hex characters
+const validatorByPubkey = await fetcher.getValidators(pubkey);
+
+// Get validator performance
+const performance = await fetcher.getValidatorPerformance(12345);
+console.log(fetcher.formatPerformance(performance));
+
+// Get attestation performance
+const attestations = await fetcher.getAttestationPerformance(12345);
+
+// Get balance history
+const balances = await fetcher.getBalanceHistory(12345);
+
+// Cache management
+const stats = fetcher.getCacheStats();
+console.log(`Cache has ${stats.size} entries`);
+fetcher.clearCache();
+```
+
+### Features
+
+- **Validator Lookup**: Find validators by index or public key
+- **Batch Queries**: Fetch multiple validators in a single request
+- **Performance Metrics**: Track attestation and proposal efficiency
+- **Balance Tracking**: Monitor validator balance history
+- **Attestation Data**: Detailed attestation performance analysis
+- **Built-in Caching**: Reduce API calls with automatic 60-second cache
+- **Bearer Authentication**: Secure API access with token authentication
+- **Input Validation**: Robust validation for validator identifiers
+- **Formatted Output**: Human-readable display formatting
+
+### API Key Setup
+
+Get your free Beaconcha.in API key:
+
+1. Visit [https://beaconcha.in/pricing](https://beaconcha.in/pricing)
+2. Sign up for a free or premium plan
+3. Get your API key from the dashboard
+4. Set environment variable:
+
+```bash
+export BEACONCHA_API_KEY=your_api_key_here
+```
+
+### Use Cases
+
+- **Validator Monitoring**: Track your validators' performance and status
+- **Staking Analytics**: Analyze staking rewards and efficiency
+- **Multi-Validator Management**: Monitor multiple validators across different pools
+- **Performance Optimization**: Identify and address attestation issues
+- **Balance Tracking**: Monitor validator balance changes over time
+- **Reporting**: Generate validator performance reports
+
+For detailed documentation, see [src/ETHEREUM-VALIDATORS.md](./src/ETHEREUM-VALIDATORS.md).
 
 ---
 
