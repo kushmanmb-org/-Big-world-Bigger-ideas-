@@ -7,19 +7,19 @@ interface IAccount {
 
     /**
      * Validate user's signature and nonce
-     * the entryPoint will make the call to the recipient only if this validation call returns successfully.
+     * the EntryPoint will make the call to the recipient only if this validation call returns successfully.
      * signature failure should be reported by returning SIG_VALIDATION_FAILED (1).
      * This allows making a "simulation call" without a valid signature
      * Other failures (e.g. nonce mismatch, or invalid signature format) should still revert to signal failure.
      *
-     * @dev Must validate caller is the entryPoint.
+     * @dev Must validate caller is the EntryPoint.
      *      Must validate the signature and nonce
      * @param userOp the operation that is about to be executed.
      * @param userOpHash hash of the user's request data. can be used as the basis for signature.
-     * @param missingAccountFunds missing funds on the account's deposit in the entrypoint.
-     *      This is the minimum amount to transfer to the sender(entryPoint) to be able to make the call.
-     *      The excess is left as a deposit in the entrypoint, for future calls.
-     *      can be withdrawn anytime using "entryPoint.withdrawTo()"
+     * @param missingAccountFunds missing funds on the account's deposit in the EntryPoint.
+     *      This is the minimum amount to transfer to the sender(EntryPoint) to be able to make the call.
+     *      The excess is left as a deposit in the EntryPoint, for future calls.
+     *      can be withdrawn anytime using "EntryPoint.withdrawTo()"
      *      In case there is a paymaster in the request (or the current deposit is high enough), this value will be zero.
      * @return validationData packaged ValidationData structure. use `_packValidationData` and `_unpackValidationData` to encode and decode
      *      <20-byte> sigAuthorizer - 0 for valid signature, 1 to mark signature failure,
