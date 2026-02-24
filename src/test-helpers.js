@@ -106,8 +106,8 @@ function assertThrows(fn, expectedError = null) {
  */
 function printSummary() {
   console.log('\n' + '='.repeat(50));
-  console.log(`Tests passed: ${testsPassed}`);
-  console.log(`Tests failed: ${testsFailed}`);
+  console.log(`Tests Passed: ${testsPassed}`);
+  console.log(`Tests Failed: ${testsFailed}`);
   console.log('='.repeat(50));
   
   if (testsFailed > 0) {
@@ -115,6 +115,7 @@ function printSummary() {
     process.exit(1);
   } else {
     console.log('\n✅ All tests passed!');
+    process.exit(0);
   }
 }
 
