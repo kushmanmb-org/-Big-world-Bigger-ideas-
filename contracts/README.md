@@ -4,6 +4,33 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### UserOperation.sol
+
+An ERC-4337 Account Abstraction implementation with UserOperation struct and utility library.
+
+**Features:**
+- Complete UserOperation struct for ERC-4337 Account Abstraction
+- Gas-optimized utility functions for working with UserOperations
+- Efficient calldata handling using inline assembly
+- Support for EIP-1559 gas pricing
+- Paymaster support for gasless transactions
+
+**Key Components:**
+- `UserOperation` struct: Contains all fields for account abstraction operations
+- `UserOperationLib` library: Utility functions for UserOperations
+  - `getSender()`: Extract sender address (saves ~800 gas)
+  - `gasPrice()`: Calculate effective gas price with EIP-1559 support
+  - `pack()`: Pack UserOperation into bytes for hashing
+  - `hash()`: Generate UserOperation hash
+  - `min()`: Helper function for minimum of two values
+
+**Solidity Version:** ^0.8.12
+
+**License:** GPL-3.0
+
+**Related Files:**
+- `contracts/core/Helpers.sol`: Contains `calldataKeccak` helper function
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
@@ -30,6 +57,26 @@ This contract was submitted for verification at basescan.org on 2023-07-24.
 **Solidity Version:** 0.8.20
 
 **License:** MIT
+
+### core/Helpers.sol
+
+Helper functions for working with calldata in Solidity contracts.
+
+**Features:**
+- `calldataKeccak()`: Gas-optimized keccak256 function over calldata
+- Uses inline assembly for efficiency
+- Commonly used by UserOperation and other ERC-4337 contracts
+
+**Solidity Version:** ^0.8.12
+
+**License:** GPL-3.0
+
+**Usage:**
+```solidity
+import {calldataKeccak} from "./core/Helpers.sol";
+
+bytes32 hash = calldataKeccak(someCalldata);
+```
 
 ## Verified Deployments
 
