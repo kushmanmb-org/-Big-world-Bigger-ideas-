@@ -61,7 +61,7 @@ abstract contract UUPSUpgradeable {
     function _authorizeUpgrade(address newImplementation) internal virtual;
 
     /// @dev Returns the storage slot used by the implementation,
-    /// as specified in <a href="https://eips.ethereum.org/EIPS/eip-1822">ERC1822</a>.
+    /// as specified in <a href="https://eips.ethereum.org/EIPS/eip-1822">EIP-1822</a>.
     ///
     /// Note: The `notDelegated` modifier prevents accidental upgrades to
     /// an implementation that is a proxy contract.
