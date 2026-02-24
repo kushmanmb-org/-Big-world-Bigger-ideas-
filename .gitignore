@@ -64,12 +64,25 @@ tokens.json
 *.wallet
 wallet.json
 wallet.dat
+*wallet*.json
+wallet-*.json
+encrypted-wallet.json
+encrypted_wallet.json
 keystore/
 keystore.json
+*keystore*.json
 mnemonic.txt
+mnemonic.json
 seed.txt
+seed.json
 private-key.txt
 privatekey.txt
+private-key.json
+privatekey.json
+*-private-key.txt
+*-privatekey.txt
+*_private_key.txt
+*_privatekey.txt
 
 # AWS Credentials
 .aws/
@@ -136,9 +149,21 @@ temp/
 *.tmp
 *.temp
 
-# Foundry
-cache/
-out/
-lib/
-broadcast/
-*.gas-snapshot
+# Encrypted Wallet and Key Files
+encrypted/
+encrypted-keys/
+*.encrypted
+*-encrypted.*
+encrypted-*.json
+*_encrypted.json
+*.enc
+*.aes
+
+# Additional Blockchain Wallet Formats
+*.keys
+accounts.txt
+accounts.json
+*-accounts.json
+recovery.txt
+recovery-phrase.txt
+recovery-phrase.json
