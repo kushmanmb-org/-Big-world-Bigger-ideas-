@@ -4,6 +4,36 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### ValidationHelper.sol
+
+A library of helper functions for ERC-4337 Account Abstraction validation data packing and parsing.
+
+**Features:**
+- Parse validation data from uint256 to structured format
+- Pack validation data from structured format to uint256
+- Intersect time ranges for account and paymaster validation
+- Efficient bitwise operations for data encoding/decoding
+- Memory-safe assembly for keccak256 over calldata
+
+**Key Components:**
+- `ValidationData` struct: Contains aggregator address, validAfter and validUntil timestamps
+- `_parseValidationData()`: Extracts aggregator, validAfter, and validUntil from packed uint256
+- `_packValidationData()`: Packs ValidationData struct or individual values into uint256
+- `_intersectTimeRange()`: Combines account and paymaster validation time ranges
+- `calldataKeccak()`: Optimized keccak256 hash over calldata
+
+**Usage:**
+These helper functions are designed for use in ERC-4337 Account Abstraction contracts to handle validation data efficiently. The functions use bitwise operations to pack and unpack validation information including signature aggregator addresses and time validity windows.
+
+**Data Layout:**
+- Bits 0-159: aggregator address (or 0 for self-validated, 1 for signature failure)
+- Bits 160-207: validUntil timestamp (uint48)
+- Bits 208-255: validAfter timestamp (uint48)
+
+**Solidity Version:** ^0.8.12
+
+**License:** GPL-3.0
+
 ### Receiver.sol
 
 An abstract receiver mixin contract for handling ETH and safe-transferred ERC721 and ERC1155 tokens.
