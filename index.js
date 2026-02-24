@@ -39,6 +39,9 @@ const { ConsensusTracker, CONSENSUS_TYPES, BLOCKCHAIN_NETWORKS } = require('./sr
 // Address tracking and management
 const { AddressTracker, AddressInfo } = require('./src/address-tracker.js');
 
+// Address consolidation utility
+const { AddressConsolidator, TRACKED_ADDRESSES } = require('./src/address-consolidator.js');
+
 // Metadata utilities
 const PackageMetadata = require('./src/metadata.js');
 
@@ -85,6 +88,8 @@ module.exports = {
   // Address tracking
   AddressTracker,
   AddressInfo,
+  AddressConsolidator,
+  TRACKED_ADDRESSES,
   
   // Metadata utilities
   PackageMetadata,
