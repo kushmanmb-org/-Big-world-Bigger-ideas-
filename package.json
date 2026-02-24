@@ -6,8 +6,9 @@
   "scripts": {
     "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/ethereum-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js && node src/op-return.test.js",
     "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js",
-    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/hello-bitcoin.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/ethereum-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js",
+    "test": "node src/wallet.test.js && node src/feature-flags.test.js && node src/erc721.test.js && node src/token-history.test.js && node src/bitcoin-mining.test.js && node src/hello-bitcoin.test.js && node src/consensus-tracker.test.js && node src/address-tracker.test.js && node src/litecoin-blockchair.test.js && node src/ethereum-blockchair.test.js && node src/iso27001.test.js && node src/zkpdf.test.js && node src/contract-abi.test.js && node src/blockchain-council.test.js && node src/eth-call.test.js",
     "test:wallet": "node src/wallet.test.js",
+    "test:eth-call": "node src/eth-call.test.js",
     "test:feature-flags": "node src/feature-flags.test.js",
     "test:erc721": "node src/erc721.test.js",
     "test:contract-abi": "node src/contract-abi.test.js",
@@ -41,6 +42,7 @@
     "blockchain-council:demo": "node src/blockchain-council-example.js",
     "ethereum-blockchair:demo": "node src/ethereum-blockchair-example.js",
     "op-return:demo": "node src/op-return-example.js",
+    "eth-call:demo": "node src/eth-call-example.js",
     "metadata": "node src/metadata.js",
     "metadata:demo": "node src/metadata-example.js",
     "prepublishOnly": "npm test",
@@ -85,7 +87,11 @@
     "governance",
     "council",
     "voting",
-    "dao"
+    "dao",
+    "eth-call",
+    "ens",
+    "rpc",
+    "contract-interaction"
   ],
   "author": "Matthew Brace <kushmanmb@gmx.com>",
   "license": "ISC",
@@ -113,6 +119,7 @@
     "src/blockchain-council.js",
     "src/ethereum-blockchair.js",
     "src/op-return.js",
+    "src/eth-call.js",
     "src/*.md",
     "README.md"
   ],
