@@ -7,6 +7,14 @@ This guide explains how to publish the `big-world-bigger-ideas` package to npm.
 1. **NPM Account**: You must have an npm account. [Sign up here](https://www.npmjs.com/signup) if you don't have one.
 2. **NPM Access Token**: Create an npm access token with publish permissions.
 3. **GitHub Secret**: Add the npm token to GitHub repository secrets as `NPM_TOKEN`.
+4. **Branch Permissions**: Ensure the GitHub Actions bot has permission to push to the main branch (or disable branch protection temporarily for the bot).
+
+## Important: Branch Protection
+
+If you have branch protection rules enabled on `main`:
+- The workflow needs permission to push version commits and tags
+- Either add `github-actions[bot]` as an exception in branch protection rules
+- Or use Method 1 (manual version bump) instead of the automated workflow dispatch
 
 ## Setup NPM Token in GitHub
 
@@ -172,6 +180,15 @@ After publishing, verify the package:
 ### Package too large
 - Review `.npmignore` to exclude unnecessary files
 - Use `npm pack --dry-run` to see what will be published
+
+### Push failed during automated version bump
+- Check if branch protection rules are blocking the GitHub Actions bot
+- Add `github-actions[bot]` to allowed users in branch protection
+- Or use Method 1 (manual version update) instead
+
+### Workflow permissions error
+- Ensure the workflow has `contents: write` permission
+- Check that the repository allows GitHub Actions to create and approve pull requests
 
 ## Release Checklist
 

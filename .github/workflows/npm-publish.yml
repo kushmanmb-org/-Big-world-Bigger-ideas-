@@ -67,9 +67,16 @@ jobs:
 
       - name: Bump version
         if: github.event.inputs.bump_type
+        id: version_bump
         run: |
           npm version ${{ github.event.inputs.bump_type }} -m "chore: bump version to %s [skip ci]"
+          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Push version changes
+        if: github.event.inputs.bump_type
+        run: |
           git push --follow-tags
+          echo "✅ Version bump pushed successfully"
 
       - name: Publish to npm
         run: npm publish --provenance --access public
