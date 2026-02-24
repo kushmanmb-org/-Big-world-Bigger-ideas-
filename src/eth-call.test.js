@@ -267,6 +267,24 @@ async function runTests() {
   }
   console.log();
 
+  // Test 16: Unknown function signature handling
+  console.log('Test 16: Unknown function signature error handling');
+  try {
+    const client = new EthCallClient();
+    let errorThrown = false;
+    try {
+      client._getFunctionSelector('unknownFunction()');
+    } catch (error) {
+      errorThrown = true;
+      assertTrue(error.message.includes('Unknown function signature'), 'Should throw appropriate error message');
+    }
+    assertTrue(errorThrown, 'Should throw error for unknown function signature');
+  } catch (error) {
+    console.log(`✗ Unknown function test failed: ${error.message}`);
+    testsFailed++;
+  }
+  console.log();
+
   // Print summary
   console.log('='.repeat(60));
   console.log('Test Summary');

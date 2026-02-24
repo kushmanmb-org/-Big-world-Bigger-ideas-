@@ -118,8 +118,11 @@ class EthCallClient {
 
   /**
    * Resolves an ENS name to an Ethereum address
+   * NOTE: This is a skeleton implementation that returns the zero address.
+   * For production use, implement proper ENS resolution via the ENS registry contract.
+   * 
    * @param {string} ensName - The ENS name (e.g., kushmanmb.eth)
-   * @returns {Promise<string>} Resolved Ethereum address
+   * @returns {Promise<string>} Resolved Ethereum address (currently returns zero address as placeholder)
    * @throws {Error} If resolution fails
    */
   async resolveENS(ensName) {
@@ -136,19 +139,23 @@ class EthCallClient {
 
     try {
       // ENS Registry on mainnet: 0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e
-      // For simplicity, we'll use a public ENS resolver API
-      // In production, this should call the ENS contract directly
+      // SKELETON IMPLEMENTATION: This returns a placeholder zero address
+      // In production, this should:
+      // 1. Query the ENS registry contract to get the resolver address
+      // 2. Query the resolver contract to get the address for this ENS name
+      // 3. Use proper keccak256 hashing for namehash computation
       
-      // Encode the ENS name to a namehash
+      // Encode the ENS name to a namehash (simplified placeholder)
       const namehash = this._namehash(ensName);
       
       // ENS Public Resolver interface - resolve(bytes32)
-      // This is a simplified approach. In production, you'd query the resolver contract
       const data = '0x0178b8bf' + namehash.slice(2); // resolve(bytes32) selector
       
-      // Call ENS resolver (this is a skeleton - real implementation would query registry first)
-      // For now, we'll return a placeholder that indicates the ENS name structure is valid
+      // PLACEHOLDER: Return zero address to indicate skeleton implementation
+      // Real implementation would make RPC call to ENS contracts
       const resolvedAddress = '0x0000000000000000000000000000000000000000';
+      
+      console.warn(`[eth-call] ENS resolution for '${ensName}' returning placeholder zero address. Implement proper ENS resolution for production use.`);
       
       // Cache the result
       this.cache.set(cacheKey, {
@@ -164,13 +171,18 @@ class EthCallClient {
 
   /**
    * Computes namehash for ENS names (EIP-137)
+   * NOTE: This is a placeholder implementation. Real implementation requires keccak256.
+   * 
    * @param {string} name - ENS name
-   * @returns {string} Namehash
+   * @returns {string} Namehash (placeholder, not EIP-137 compliant)
    * @private
    */
   _namehash(name) {
-    // This is a simplified version. Real implementation would use keccak256
-    // For this skeleton, we return a placeholder hash
+    // PLACEHOLDER: This is a simplified version for skeleton implementation
+    // Real implementation would use proper keccak256 hashing per EIP-137:
+    // namehash('') = 0x0000000000000000000000000000000000000000000000000000000000000000
+    // namehash(label + '.' + domain) = keccak256(namehash(domain) + keccak256(label))
+    
     let hash = '0x0000000000000000000000000000000000000000000000000000000000000000';
     
     if (name === '') {
@@ -180,8 +192,8 @@ class EthCallClient {
     const labels = name.split('.');
     for (let i = labels.length - 1; i >= 0; i--) {
       const labelHash = this._hashString(labels[i]);
-      // In real implementation: hash = keccak256(hash + labelHash)
-      hash = labelHash; // Simplified placeholder
+      // In real implementation: hash = keccak256(concat(hash, labelHash))
+      hash = labelHash; // Simplified placeholder - NOT EIP-137 COMPLIANT
     }
     
     return hash;
@@ -189,12 +201,15 @@ class EthCallClient {
 
   /**
    * Simple string hashing (placeholder for keccak256)
+   * NOTE: This is NOT keccak256. For production, use a proper keccak256 library.
+   * 
    * @param {string} str - String to hash
-   * @returns {string} Hash
+   * @returns {string} Hash (NOT keccak256 compliant)
    * @private
    */
   _hashString(str) {
-    // Placeholder - real implementation would use keccak256
+    // PLACEHOLDER: Real implementation would use keccak256 from a crypto library
+    // This simple hash is only for skeleton demonstration
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       hash = ((hash << 5) - hash) + str.charCodeAt(i);
@@ -226,13 +241,16 @@ class EthCallClient {
 
   /**
    * Encodes function call data
+   * NOTE: Simplified ABI encoding. Only supports basic types (address, uint256).
+   * For production, use a proper ABI encoding library.
+   * 
    * @param {string} functionSignature - Function signature (e.g., "balanceOf(address)")
    * @param {Array} params - Function parameters
    * @returns {string} Encoded data
+   * @throws {Error} If parameters cannot be encoded
    */
   encodeFunctionCall(functionSignature, params = []) {
     // Extract function selector (first 4 bytes of keccak256 hash)
-    // This is a simplified version - real implementation would use proper keccak256
     const selector = this._getFunctionSelector(functionSignature);
     
     // Encode parameters (simplified - real implementation would use proper ABI encoding)
@@ -241,16 +259,30 @@ class EthCallClient {
       if (typeof param === 'string' && param.startsWith('0x')) {
         // Address or bytes
         encodedParams += param.slice(2).padStart(64, '0');
-      } else if (typeof param === 'number' || typeof param === 'bigint') {
-        // Uint256
+      } else if (typeof param === 'number') {
+        // Uint256 (unsigned only, no negative number support)
+        if (param < 0) {
+          throw new Error(`Negative numbers not supported in simplified encoding: ${param}`);
+        }
+        if (param > Number.MAX_SAFE_INTEGER) {
+          throw new Error(`Number too large for safe encoding: ${param}. Use BigInt or string representation.`);
+        }
+        encodedParams += param.toString(16).padStart(64, '0');
+      } else if (typeof param === 'bigint') {
+        // BigInt uint256
+        if (param < 0n) {
+          throw new Error(`Negative BigInt not supported in simplified encoding: ${param}`);
+        }
         encodedParams += param.toString(16).padStart(64, '0');
       } else if (typeof param === 'string') {
         // Try to parse as address
         if (this._isValidAddress(param)) {
           encodedParams += param.slice(2).padStart(64, '0');
         } else {
-          throw new Error(`Unsupported parameter type: ${param}`);
+          throw new Error(`Unsupported parameter type or format: ${param}`);
         }
+      } else {
+        throw new Error(`Unsupported parameter type: ${typeof param}`);
       }
     }
     
@@ -259,13 +291,19 @@ class EthCallClient {
 
   /**
    * Gets function selector from signature
+   * NOTE: Only supports pre-defined function signatures. For production,
+   * implement proper keccak256 hashing to compute selectors dynamically.
+   * 
    * @param {string} signature - Function signature
    * @returns {string} Function selector
+   * @throws {Error} If function signature is not in the known list
    * @private
    */
   _getFunctionSelector(signature) {
-    // Simplified version - real implementation would use keccak256
-    // Common selectors for reference:
+    // Simplified version - real implementation would compute:
+    // selector = keccak256(signature).slice(0, 10) (first 4 bytes)
+    
+    // Known selectors for common ERC functions:
     const knownSelectors = {
       'balanceOf(address)': '0x70a08231',
       'totalSupply()': '0x18160ddd',
@@ -280,7 +318,12 @@ class EthCallClient {
       'transferFrom(address,address,uint256)': '0x23b872dd'
     };
     
-    return knownSelectors[signature] || '0x00000000';
+    const selector = knownSelectors[signature];
+    if (!selector) {
+      throw new Error(`Unknown function signature: ${signature}. Supported signatures: ${Object.keys(knownSelectors).join(', ')}`);
+    }
+    
+    return selector;
   }
 
   /**

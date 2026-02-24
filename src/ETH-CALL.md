@@ -4,11 +4,21 @@
 
 The `eth_call` module provides functionality to perform read-only contract calls on Ethereum and EVM-compatible blockchains using the `eth_call` JSON-RPC method. It supports ENS (Ethereum Name Service) name resolution, making it easy to work with addresses like `kushmanmb.eth`.
 
+**⚠️ IMPORTANT: Skeleton Implementation Notice**
+
+This module is a **skeleton implementation** with the following limitations:
+- **ENS Resolution**: Currently returns a placeholder zero address. For production use, implement proper ENS resolution via ENS registry contracts.
+- **ABI Encoding**: Simplified encoding supporting only basic types (address, uint256). Use a full ABI library for complex types.
+- **Function Selectors**: Limited to pre-defined functions. Custom functions require proper keccak256 implementation.
+- **Hashing**: Uses placeholder hashing instead of keccak256 for ENS namehash computation.
+
+For production use, consider integrating with established Web3 libraries (ethers.js, web3.js) or implementing the missing cryptographic functions.
+
 ## Features
 
 - ✅ **eth_call Support**: Read contract state without gas costs
-- ✅ **ENS Resolution**: Automatically resolve ENS names like `kushmanmb.eth`
-- ✅ **Function Encoding**: Encode function calls with proper ABI encoding
+- ⚠️ **ENS Resolution**: Framework for ENS names (currently returns placeholder addresses)
+- ✅ **Function Encoding**: Encode function calls for common ERC functions
 - ✅ **Response Decoding**: Decode uint256, address, and string return values
 - ✅ **ERC-20 Support**: Convenience methods for token operations
 - ✅ **ERC-721 Support**: Convenience methods for NFT operations

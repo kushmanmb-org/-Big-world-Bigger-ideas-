@@ -24,8 +24,12 @@ async function runExamples() {
   console.log('-'.repeat(60));
   try {
     console.log('Resolving kushmanmb.eth...');
+    console.log('NOTE: This is a skeleton implementation that returns');
+    console.log('      a placeholder zero address. For production use,');
+    console.log('      implement proper ENS resolution via ENS contracts.');
+    console.log();
     const kushmanmbAddress = await client.resolveAddress('kushmanmb.eth');
-    console.log(`kushmanmb.eth -> ${kushmanmbAddress}`);
+    console.log(`kushmanmb.eth -> ${kushmanmbAddress} (placeholder)`);
     console.log();
   } catch (error) {
     console.log(`Note: ENS resolution failed: ${error.message}`);
