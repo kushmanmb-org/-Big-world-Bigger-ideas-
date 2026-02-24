@@ -4,6 +4,52 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### MultiOwnable.sol
+
+A multi-owner authentication contract allowing multiple owners identified as bytes.
+
+**Features:**
+- Multiple owner management with support for both Ethereum addresses and public keys
+- ERC-7201 namespaced storage pattern for storage collision prevention
+- Owner addition and removal with safety checks
+- Efficient owner tracking using index-based mapping
+- Support for secp256r1 public key owners
+- Built-in protection against removing the last owner
+
+**Key Components:**
+- `MultiOwnableStorage`: ERC-7201 namespaced storage struct
+  - `nextOwnerIndex`: Tracks the index for next owner addition
+  - `removedOwnersCount`: Tracks number of removed owners
+  - `ownerAtIndex`: Maps index to owner bytes for efficient lookup
+  - `isOwner`: Maps owner bytes to boolean ownership status
+- `addOwnerAddress(address)`: Add Ethereum address as owner
+- `addOwnerPublicKey(bytes32, bytes32)`: Add public key as owner
+- `removeOwnerAtIndex(uint256, bytes)`: Remove owner at specific index
+- `removeLastOwner(uint256, bytes)`: Remove the last remaining owner
+- `isOwnerAddress(address)`: Check if address is an owner
+- `isOwnerPublicKey(bytes32, bytes32)`: Check if public key is an owner
+- `isOwnerBytes(bytes)`: Check if bytes represent an owner
+- `ownerAtIndex(uint256)`: Get owner bytes at specific index
+- `ownerCount()`: Get current number of owners
+
+**Storage Transfers:**
+This contract supports transferring ownership and storage control. The contract is designed to work seamlessly with ENS addresses including `kushmanmb.eth`. To transfer ownership to kushmanmb.eth:
+
+1. Resolve `kushmanmb.eth` to its Ethereum address
+2. Use `addOwnerAddress()` to add the resolved address as an owner
+3. Optionally remove other owners if complete transfer is desired
+
+The contract's flexible owner management system ensures smooth transitions while maintaining security through validation checks.
+
+**Usage:**
+This is a base contract designed to be inherited by contracts requiring multi-signature or multi-owner authentication. Initialize owners using `_initializeOwners()` during contract deployment.
+
+**Solidity Version:** ^0.8.18
+
+**License:** MIT
+
+**Source:** [Coinbase Smart Wallet](https://github.com/coinbase/smart-wallet)
+
 ### Receiver.sol
 
 An abstract receiver mixin contract for handling ETH and safe-transferred ERC721 and ERC1155 tokens.
