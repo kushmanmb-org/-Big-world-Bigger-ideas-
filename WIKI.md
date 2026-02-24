@@ -46,6 +46,8 @@ wiki/
 ├── API-Reference.md             # Complete API docs
 ├── ERC721-Module.md             # ERC-721 documentation
 ├── Bitcoin-Mining-Module.md     # Bitcoin mining docs
+├── Token-History-Module.md      # Token ownership tracking
+├── Feature-Flags-Module.md      # Feature flags management
 ├── ChatOps-Guide.md             # ChatOps documentation
 ├── Testing-Guide.md             # Testing guide
 ├── Examples-and-Use-Cases.md    # Usage examples
@@ -147,17 +149,18 @@ To suggest wiki improvements:
 
 ## 📊 Wiki Statistics
 
-Current wiki pages: **11** comprehensive pages
+Current wiki pages: **14** comprehensive pages
 
 Coverage:
-- ✅ Installation & setup
-- ✅ API documentation
-- ✅ Module documentation
-- ✅ Testing & development
-- ✅ Examples & use cases
-- ✅ Operations & automation
-- ✅ FAQ & troubleshooting
-- ✅ Contributing guidelines
+- ✅ Installation & setup (3 pages)
+- ✅ API documentation (1 page)
+- ✅ Module documentation (4 pages: ERC-721, Bitcoin Mining, Token History, Feature Flags)
+- ✅ Testing & development (1 page)
+- ✅ Examples & use cases (1 page)
+- ✅ Operations & automation (1 page)
+- ✅ FAQ & troubleshooting (1 page)
+- ✅ Contributing guidelines (1 page)
+- ✅ Setup instructions (1 page)
 
 ## 🔐 Wiki Permissions
 
