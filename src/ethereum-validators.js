@@ -17,7 +17,7 @@ class EthereumValidatorsFetcher {
     this.apiKey = apiKey;
     this.baseUrl = baseUrl;
     this.cache = new Map();
-    this.cacheTimeout = 60000; // 1 minute cache
+    this.cacheTimeout = 60000; // 60 seconds cache
   }
 
   /**
