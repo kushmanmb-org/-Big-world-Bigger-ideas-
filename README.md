@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![GitHub Owner](https://img.shields.io/badge/Owner-Kushmanmb-blue?style=for-the-badge&logo=github)
+![GitHub Owner](https://img.shields.io/badge/Owner-kushmanmb-blue?style=for-the-badge&logo=github)
 ![Creator](https://img.shields.io/badge/Creator-Matthew%20Brace-purple?style=for-the-badge&logo=github)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
@@ -13,8 +13,8 @@
 [![ENS](https://img.shields.io/badge/ENS-kushmanmb.eth-9cf?style=flat-square&logo=ethereum)](https://app.ens.domains/name/kushmanmb.eth)
 [![Email](https://img.shields.io/badge/Contact-kushmanmb@gmx.com-red?style=flat-square&logo=gmail)](mailto:kushmanmb@gmx.com)
 
-[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/actions)
-[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/security)
+[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions)
+[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/security)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D14.0.0-brightgreen?style=flat-square&logo=node.js)](https://nodejs.org/)
 
 </div>
@@ -113,27 +113,22 @@ Test files, examples, and development files are excluded from the npm package to
 
 ### Publishing to NPM
 
-**For maintainers:** To publish a new version:
+**For maintainers:** This package uses automated GitHub Actions workflow for publishing to npm.
 
-1. Ensure all tests pass:
-```bash
-npm test
-```
+**Quick publish:**
+1. Update version: `npm run version:patch` (or `version:minor`, `version:major`)
+2. Push changes: `git push origin main --follow-tags`
+3. Create a GitHub release with the version tag
+4. The workflow automatically publishes to npm
 
-2. Update the version in `package.json`:
-```bash
-npm version patch  # or minor, or major
-```
+**For detailed publishing instructions, see [PUBLISHING.md](./PUBLISHING.md)** which covers:
+- Automated publishing via GitHub releases
+- Manual workflow dispatch
+- Version management
+- Pre-publish checks
+- Troubleshooting
 
-3. Publish to npm:
-```bash
-npm publish
-```
-
-4. Create a git tag and push:
-```bash
-git push --tags
-```
+Tests run automatically before every publish to ensure quality.
 
 ---
 
@@ -146,27 +141,64 @@ This repository implements comprehensive security measures to protect sensitive 
 **CRITICAL SECURITY NOTICE**: This repository follows strict security practices to protect private keys and sensitive data:
 
 - ✅ **No hardcoded private keys** in source code
+- ✅ **No hardcoded API keys** - all use environment variables
 - ✅ **Environment variables** for all sensitive configuration (`.env` files)
 - ✅ **Comprehensive .gitignore** prevents accidental commits of credentials
-- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-GCM)
+- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-CBC with PBKDF2)
 - ✅ **Example files** use placeholder values, never real credentials
 - ✅ **Security.md** documents best practices and reporting procedures
 - ✅ **Regular security audits** via npm audit and CodeQL
+- ✅ **Security-Guide.md** comprehensive developer security guide
 
 **Best Practices for Users:**
 
 ```javascript
 // ❌ NEVER DO THIS
 const privateKey = '0x1234567890abcdef...'; // Hardcoded private key
+const apiKey = 'sk_live_1234567890abcdef'; // Hardcoded API key
 
 // ✅ ALWAYS DO THIS
 require('dotenv').config();
 const privateKey = process.env.PRIVATE_KEY; // From environment variable
+const apiKey = process.env.ETHERSCAN_API_KEY; // From environment variable
 
 // ✅ OR USE WALLET ENCRYPTION
-const wallet = require('./src/wallet.js');
-const encrypted = wallet.encrypt(myWallet, process.env.PASSWORD);
+const Wallet = require('./src/wallet.js');
+const wallet = new Wallet();
+wallet.generate();
+const encrypted = wallet.encrypt(process.env.PASSWORD);
 ```
+
+### 🔧 Environment Variables Setup
+
+1. **Copy the example file**:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Add your actual values**:
+   ```bash
+   ETHERSCAN_API_KEY=your_etherscan_api_key_here
+   BLOCKCHAIR_API_KEY=your_blockchair_api_key_here
+   ```
+
+3. **Never commit `.env` files** (already in `.gitignore`)
+
+### 📚 Security Documentation
+
+- **[SECURITY-GUIDE.md](./SECURITY-GUIDE.md)** - Comprehensive security best practices for developers
+- **[.github/SECURITY.md](./.github/SECURITY.md)** - Vulnerability reporting and security policy
+- **[.env.example](./.env.example)** - Template for environment variables
+
+### 🔍 Security Audit History
+
+- **2026-02-24**: Comprehensive security audit completed
+  - ✅ Removed hardcoded Etherscan API key from example files
+  - ✅ Added security documentation (SECURITY-GUIDE.md)
+  - ✅ Created .env.example template
+  - ✅ Added security comments to test files
+  - ✅ Verified no private keys or real credentials in codebase
+  - ✅ All tests pass after security fixes
 
 ### Branch Protection Rules
 
@@ -1294,7 +1326,7 @@ const baseFetcher = new ERC721Fetcher(
 
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
-**GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
+**GitHub:** [@kushmanmb](https://github.com/kushmanmb)  
 **Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)  
 **Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
@@ -1441,7 +1473,7 @@ All blockchain information has been verified through official documentation:
 
 ## 📢 Repository Announcement
 
-**This repository is owned, maintained, and curated by Kushmanmb (Matthew Brace)**
+**This repository is owned, maintained, and curated by kushmanmb (Matthew Brace)**
 
 All content, documentation, and blockchain information presented here represents verified research and careful curation by the owner. This project demonstrates commitment to:
 
@@ -1463,7 +1495,7 @@ For questions, collaborations, or inquiries, please reach out via:
 *WWJD*
 
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=flat-square)
-![By Kushmanmb](https://img.shields.io/badge/By-Kushmanmb-blue?style=flat-square&logo=github)
+![By kushmanmb](https://img.shields.io/badge/By-kushmanmb-blue?style=flat-square&logo=github)
 
 **© 2024-2026 Matthew Brace (kushmanmb) | All Rights Reserved**
 
