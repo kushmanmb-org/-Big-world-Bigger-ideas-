@@ -89,17 +89,13 @@ jobs:
 
       - name: Create GitHub Release (if manual dispatch)
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/create-release@v1
+        run: |
+          gh release create "v${{ steps.package_version.outputs.version }}" \
+            --title "Release v${{ steps.package_version.outputs.version }}" \
+            --notes "## Published to NPM
+            
+            Package: \`big-world-bigger-ideas@${{ steps.package_version.outputs.version }}\`
+            
+            Install: \`npm install big-world-bigger-ideas@${{ steps.package_version.outputs.version }}\`"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.package_version.outputs.version }}
-          release_name: Release v${{ steps.package_version.outputs.version }}
-          body: |
-            ## Published to NPM
-            
-            Package: `big-world-bigger-ideas@${{ steps.package_version.outputs.version }}`
-            
-            Install: `npm install big-world-bigger-ideas@${{ steps.package_version.outputs.version }}`
-          draft: false
-          prerelease: false
