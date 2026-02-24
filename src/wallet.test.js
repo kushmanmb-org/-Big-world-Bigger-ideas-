@@ -8,44 +8,7 @@
  */
 
 const Wallet = require('./wallet');
-
-let testsPassed = 0;
-let testsFailed = 0;
-
-function test(description, fn) {
-  try {
-    fn();
-    console.log(`✓ ${description}`);
-    testsPassed++;
-  } catch (error) {
-    console.error(`✗ ${description}`);
-    console.error(`  Error: ${error.message}`);
-    testsFailed++;
-  }
-}
-
-function assertEqual(actual, expected, message = '') {
-  if (actual !== expected) {
-    throw new Error(`${message} - Expected ${expected}, got ${actual}`);
-  }
-}
-
-function assertNotNull(value, message = '') {
-  if (value === null || value === undefined) {
-    throw new Error(`${message} - Value should not be null or undefined`);
-  }
-}
-
-function assertThrows(fn, expectedError = null) {
-  try {
-    fn();
-    throw new Error('Expected function to throw an error');
-  } catch (error) {
-    if (expectedError && !error.message.includes(expectedError)) {
-      throw new Error(`Expected error message to include "${expectedError}", got "${error.message}"`);
-    }
-  }
-}
+const { test, assertEqual, assertNotNull, assertThrows, printSummary } = require('./test-helpers');
 
 console.log('Running Wallet Encryption Tests...\n');
 
@@ -212,15 +175,4 @@ test('should produce different encrypted data on repeated encryption', () => {
 });
 
 // Summary
-console.log('\n' + '='.repeat(50));
-console.log(`Tests Passed: ${testsPassed}`);
-console.log(`Tests Failed: ${testsFailed}`);
-console.log('='.repeat(50));
-
-if (testsFailed === 0) {
-  console.log('✅ All tests passed!');
-  process.exit(0);
-} else {
-  console.log('❌ Some tests failed');
-  process.exit(1);
-}
+printSummary();

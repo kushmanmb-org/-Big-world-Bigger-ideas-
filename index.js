@@ -57,6 +57,27 @@ const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/bloc
 // OP_RETURN cross-platform utilities
 const OPReturnFetcher = require('./src/op-return.js');
 
+// Ethereum eth_call RPC client
+const EthCallClient = require('./src/eth-call.js');
+
+// Withdrawal credentials management
+const { WithdrawalCredentials, WITHDRAWAL_TYPES } = require('./src/withdraw-credentials.js');
+
+// Multi-chain Blockchair API
+const BlockchairFetcher = require('./src/blockchair.js');
+
+// Ethereum Blockchair API with ENS support
+const EthereumBlockchairFetcher = require('./src/ethereum-blockchair.js');
+
+// Etherscan token balance fetcher
+const EtherscanTokenBalanceFetcher = require('./src/etherscan-token-balance.js');
+
+// Hello Bitcoin greeting module
+const HelloBitcoin = require('./src/hello-bitcoin.js');
+
+// Token UUID generator
+const TokenUUID = require('./src/token-uuid.js');
+
 /**
  * Main exports for the package
  */
@@ -72,10 +93,14 @@ module.exports = {
   ERC20Fetcher,
   TokenHistoryTracker,
   OwnershipEvent,
+  TokenUUID,
   
   // Blockchain data fetchers
   BitcoinMiningFetcher,
   LitecoinBlockchairFetcher,
+  BlockchairFetcher,
+  EthereumBlockchairFetcher,
+  EtherscanTokenBalanceFetcher,
   
   // Compliance and certification
   ISO27001Fetcher,
@@ -99,6 +124,7 @@ module.exports = {
   
   // Contract utilities
   ContractABIFetcher,
+  EthCallClient,
 
   // Governance and council management
   BlockchainCouncil,
@@ -106,5 +132,12 @@ module.exports = {
   PROPOSAL_STATUS,
 
   // OP_RETURN utilities
-  OPReturnFetcher
+  OPReturnFetcher,
+  
+  // Withdrawal credentials management
+  WithdrawalCredentials,
+  WITHDRAWAL_TYPES,
+  
+  // Helper utilities
+  HelloBitcoin
 };
