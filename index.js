@@ -54,6 +54,9 @@ const OPReturnFetcher = require('./src/op-return.js');
 // Ethereum eth_call RPC client
 const EthCallClient = require('./src/eth-call.js');
 
+// Withdrawal credentials management
+const { WithdrawalCredentials, WITHDRAWAL_TYPES } = require('./src/withdraw-credentials.js');
+
 /**
  * Main exports for the package
  */
@@ -101,5 +104,9 @@ module.exports = {
   PROPOSAL_STATUS,
 
   // OP_RETURN utilities
-  OPReturnFetcher
+  OPReturnFetcher,
+  
+  // Withdrawal credentials management
+  WithdrawalCredentials,
+  WITHDRAWAL_TYPES
 };
