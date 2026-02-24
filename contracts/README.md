@@ -4,6 +4,38 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### ERC1271.sol
+
+An abstract ERC-1271 implementation with anti cross-account-replay protection for signature validation.
+
+**Features:**
+- ERC-1271 compliant signature validation
+- Anti cross-account-replay layer using EIP-712
+- Domain separator with chain ID and contract address
+- Replay-safe hash generation
+- ERC-5267 compliant EIP-712 domain implementation
+
+**Key Components:**
+- `isValidSignature()`: Validates signatures against replay-safe hashes (ERC-1271)
+- `replaySafeHash()`: Converts original hash to replay-safe hash
+- `domainSeparator()`: Returns EIP-712 domain separator
+- `eip712Domain()`: Returns EIP-712 domain information (ERC-5267)
+- `_domainNameAndVersion()`: Abstract method for implementations to define domain details
+- `_isValidSignature()`: Abstract method for implementations to validate signatures
+
+**Usage:**
+This is an abstract contract that must be inherited and implemented. Derived contracts must implement:
+- `_domainNameAndVersion()`: Return the domain name and version for EIP-712 signatures
+- `_isValidSignature()`: Implement actual signature validation logic
+
+**Solidity Version:** ^0.8.4
+
+**License:** MIT
+
+**Authors:**
+- Coinbase (https://github.com/coinbase/smart-wallet)
+- Solady (https://github.com/vectorized/solady/blob/main/src/accounts/ERC1271.sol)
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
