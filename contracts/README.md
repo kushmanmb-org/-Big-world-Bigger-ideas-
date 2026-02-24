@@ -4,6 +4,52 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### UserOperation.sol
+
+ERC-4337 Account Abstraction user operation struct definition.
+
+**Features:**
+- Standard ERC-4337 UserOperation struct
+- Contains all parameters needed for account abstraction operations
+- Used by IAccount interface for signature validation
+
+**Key Fields:**
+- `sender`: The account making the operation
+- `nonce`: Anti-replay parameter
+- `initCode`: Account creation code (for new accounts)
+- `callData`: The data to pass to the sender during main execution
+- `callGasLimit`: Gas limit for the main execution call
+- `verificationGasLimit`: Gas limit for the verification step
+- `preVerificationGas`: Gas to pay for bundler overhead
+- `maxFeePerGas`: Maximum fee per gas (similar to EIP-1559)
+- `maxPriorityFeePerGas`: Maximum priority fee per gas (similar to EIP-1559)
+- `paymasterAndData`: Address of paymaster sponsoring the transaction
+- `signature`: Signature over the entire request
+
+**Solidity Version:** ^0.8.12
+
+**License:** GPL-3.0
+
+### IAccount.sol
+
+ERC-4337 Account Abstraction interface for account contracts.
+
+**Features:**
+- Standard ERC-4337 IAccount interface
+- Defines the `validateUserOp` function for signature validation
+- Used by EntryPoint contract to validate user operations
+
+**Key Function:**
+- `validateUserOp()`: Validates user's signature and nonce before execution
+  - Returns validation data with signature status and time range
+  - SIG_VALIDATION_FAILED (1) indicates signature failure
+  - Supports time-range validation with validUntil and validAfter
+  - Handles missing account funds for gas payment
+
+**Solidity Version:** ^0.8.12
+
+**License:** GPL-3.0
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
