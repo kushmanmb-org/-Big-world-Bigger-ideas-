@@ -66,7 +66,7 @@ abstract contract UUPSUpgradeable {
     /// Note: The `notDelegated` modifier prevents accidental upgrades to
     /// an implementation that is a proxy contract.
     function proxiableUUID() public view virtual notDelegated returns (bytes32) {
-        // This function must always return `_ERC1967_IMPLEMENTATION_SLOT` to comply with ERC-1967.
+        // This function must always return `_ERC1967_IMPLEMENTATION_SLOT` to comply with EIP-1822.
         return _ERC1967_IMPLEMENTATION_SLOT;
     }
 

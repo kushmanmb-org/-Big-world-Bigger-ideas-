@@ -17,10 +17,10 @@ An abstract UUPS (Universal Upgradeable Proxy Standard) proxy mixin for upgradea
 - Custom error handling for better gas efficiency
 
 **Key Components:**
-- `_ERC1967_IMPLEMENTATION_SLOT`: Storage slot for implementation address (EIP-1967)
+- `_ERC1967_IMPLEMENTATION_SLOT`: Storage slot for implementation address (ERC-1967)
 - `__self`: Immutable variable for delegatecall detection
 - `_authorizeUpgrade()`: Abstract function for authorization logic (must be overridden)
-- `proxiableUUID()`: Returns ERC-1967 implementation slot (ERC-1822 compliance)
+- `proxiableUUID()`: Returns ERC-1967 implementation slot (EIP-1822 compliance)
 - `upgradeToAndCall()`: Upgrade implementation with optional initialization call
 - `onlyProxy`: Modifier ensuring execution through a proxy
 - `notDelegated`: Modifier ensuring execution NOT via delegatecall
