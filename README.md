@@ -113,27 +113,22 @@ Test files, examples, and development files are excluded from the npm package to
 
 ### Publishing to NPM
 
-**For maintainers:** To publish a new version:
+**For maintainers:** This package uses automated GitHub Actions workflow for publishing to npm.
 
-1. Ensure all tests pass:
-```bash
-npm test
-```
+**Quick publish:**
+1. Update version: `npm run version:patch` (or `version:minor`, `version:major`)
+2. Push changes: `git push origin main --follow-tags`
+3. Create a GitHub release with the version tag
+4. The workflow automatically publishes to npm
 
-2. Update the version in `package.json`:
-```bash
-npm version patch  # or minor, or major
-```
+**For detailed publishing instructions, see [PUBLISHING.md](./PUBLISHING.md)** which covers:
+- Automated publishing via GitHub releases
+- Manual workflow dispatch
+- Version management
+- Pre-publish checks
+- Troubleshooting
 
-3. Publish to npm:
-```bash
-npm publish
-```
-
-4. Create a git tag and push:
-```bash
-git push --tags
-```
+Tests run automatically before every publish to ensure quality.
 
 ---
 
