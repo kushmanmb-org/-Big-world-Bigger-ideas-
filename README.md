@@ -381,10 +381,15 @@ python3 -m http.server 8000
 
 - `index.html` - Main documentation page
 - `editor.html` - Interactive web editor
+- `BeyondGlobal.html` - BeyondGlobal branding page
 - `styles.css` - Main stylesheet
-- All supporting assets and documentation
+- `dist/output.css` - Compiled Tailwind CSS
+- All JavaScript modules (`src/`)
+- Smart contracts (`contracts/`)
+- Supporting documentation files
 
-📖 **For complete setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
+📖 **For complete deployment guide, see [DEPLOYMENT.md](./DEPLOYMENT.md)**  
+📖 **For GitHub Pages setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
 
 ---
 
