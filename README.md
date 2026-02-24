@@ -146,27 +146,64 @@ This repository implements comprehensive security measures to protect sensitive 
 **CRITICAL SECURITY NOTICE**: This repository follows strict security practices to protect private keys and sensitive data:
 
 - ✅ **No hardcoded private keys** in source code
+- ✅ **No hardcoded API keys** - all use environment variables
 - ✅ **Environment variables** for all sensitive configuration (`.env` files)
 - ✅ **Comprehensive .gitignore** prevents accidental commits of credentials
-- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-GCM)
+- ✅ **Wallet encryption utilities** use secure algorithms (AES-256-CBC with PBKDF2)
 - ✅ **Example files** use placeholder values, never real credentials
 - ✅ **Security.md** documents best practices and reporting procedures
 - ✅ **Regular security audits** via npm audit and CodeQL
+- ✅ **Security-Guide.md** comprehensive developer security guide
 
 **Best Practices for Users:**
 
 ```javascript
 // ❌ NEVER DO THIS
 const privateKey = '0x1234567890abcdef...'; // Hardcoded private key
+const apiKey = 'sk_live_1234567890abcdef'; // Hardcoded API key
 
 // ✅ ALWAYS DO THIS
 require('dotenv').config();
 const privateKey = process.env.PRIVATE_KEY; // From environment variable
+const apiKey = process.env.ETHERSCAN_API_KEY; // From environment variable
 
 // ✅ OR USE WALLET ENCRYPTION
-const wallet = require('./src/wallet.js');
-const encrypted = wallet.encrypt(myWallet, process.env.PASSWORD);
+const Wallet = require('./src/wallet.js');
+const wallet = new Wallet();
+wallet.generate();
+const encrypted = wallet.encrypt(process.env.PASSWORD);
 ```
+
+### 🔧 Environment Variables Setup
+
+1. **Copy the example file**:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Add your actual values**:
+   ```bash
+   ETHERSCAN_API_KEY=your_etherscan_api_key_here
+   BLOCKCHAIR_API_KEY=your_blockchair_api_key_here
+   ```
+
+3. **Never commit `.env` files** (already in `.gitignore`)
+
+### 📚 Security Documentation
+
+- **[SECURITY-GUIDE.md](./SECURITY-GUIDE.md)** - Comprehensive security best practices for developers
+- **[.github/SECURITY.md](./.github/SECURITY.md)** - Vulnerability reporting and security policy
+- **[.env.example](./.env.example)** - Template for environment variables
+
+### 🔍 Security Audit History
+
+- **2026-02-24**: Comprehensive security audit completed
+  - ✅ Removed hardcoded Etherscan API key from example files
+  - ✅ Added security documentation (SECURITY-GUIDE.md)
+  - ✅ Created .env.example template
+  - ✅ Added security comments to test files
+  - ✅ Verified no private keys or real credentials in codebase
+  - ✅ All tests pass after security fixes
 
 ### Branch Protection Rules
 
