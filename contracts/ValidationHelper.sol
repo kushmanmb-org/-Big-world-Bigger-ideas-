@@ -20,7 +20,7 @@ pragma solidity ^0.8.12;
 
 //extract sigFailed, validAfter, validUntil.
 // also convert zero validUntil to type(uint48).max
-    function _parseValidationData(uint validationData) pure returns (ValidationData memory data) {
+    function _parseValidationData(uint256 validationData) pure returns (ValidationData memory data) {
         address aggregator = address(uint160(validationData));
         uint48 validUntil = uint48(validationData >> 160);
         if (validUntil == 0) {
@@ -31,7 +31,7 @@ pragma solidity ^0.8.12;
     }
 
 // intersect account and paymaster ranges.
-    function _intersectTimeRange(uint256 validationData, uint256 paymasterValidationData) pure returns (ValidationData memory) {
+    function _intersectTimeRange(uint256 validationData, uint256 paymasterValidationData) pure returns (ValidationData memory intersectedData) {
         ValidationData memory accountValidationData = _parseValidationData(validationData);
         ValidationData memory pmValidationData = _parseValidationData(paymasterValidationData);
         address aggregator = accountValidationData.aggregator;
