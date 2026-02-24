@@ -15,14 +15,14 @@ library Base64 {
     string internal constant _TABLE_URL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
     /**
-     * @dev Converts a `bytes` to its Bytes64 `string` representation.
+     * @dev Converts a `bytes` to its Base64 `string` representation.
      */
     function encode(bytes memory data) internal pure returns (string memory) {
         return _encode(data, _TABLE, true);
     }
 
     /**
-     * @dev Converts a `bytes` to its Bytes64Url `string` representation.
+     * @dev Converts a `bytes` to its Base64URL `string` representation.
      */
     function encodeURL(bytes memory data) internal pure returns (string memory) {
         return _encode(data, _TABLE_URL, false);
