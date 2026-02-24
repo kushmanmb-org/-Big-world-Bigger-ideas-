@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![GitHub Owner](https://img.shields.io/badge/Owner-Kushmanmb-blue?style=for-the-badge&logo=github)
+![GitHub Owner](https://img.shields.io/badge/Owner-kushmanmb-blue?style=for-the-badge&logo=github)
 ![Creator](https://img.shields.io/badge/Creator-Matthew%20Brace-purple?style=for-the-badge&logo=github)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Blockchain-orange?style=for-the-badge&logo=ethereum)
@@ -13,8 +13,8 @@
 [![ENS](https://img.shields.io/badge/ENS-kushmanmb.eth-9cf?style=flat-square&logo=ethereum)](https://app.ens.domains/name/kushmanmb.eth)
 [![Email](https://img.shields.io/badge/Contact-kushmanmb@gmx.com-red?style=flat-square&logo=gmail)](mailto:kushmanmb@gmx.com)
 
-[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/actions)
-[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/Kushmanmb/-Big-world-Bigger-ideas-/security)
+[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square&logo=github-actions)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/actions)
+[![Security](https://img.shields.io/badge/Security-No%20Vulnerabilities-success?style=flat-square&logo=github)](https://github.com/kushmanmb-org/-Big-world-Bigger-ideas-/security)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D14.0.0-brightgreen?style=flat-square&logo=node.js)](https://nodejs.org/)
 
 </div>
@@ -1331,7 +1331,7 @@ const baseFetcher = new ERC721Fetcher(
 
 ## 🔐 Ownership Status & Verification
 **Name:** Matthew Brace  
-**GitHub:** [@Kushmanmb](https://github.com/Kushmanmb)  
+**GitHub:** [@kushmanmb](https://github.com/kushmanmb)  
 **Verification:** kushmanmb.eth | [kushmanmb.org](https://kushmanmb.org)  
 **Contact:** [kushmanmb@gmx.com](mailto:kushmanmb@gmx.com)
 
@@ -1478,7 +1478,7 @@ All blockchain information has been verified through official documentation:
 
 ## 📢 Repository Announcement
 
-**This repository is owned, maintained, and curated by Kushmanmb (Matthew Brace)**
+**This repository is owned, maintained, and curated by kushmanmb (Matthew Brace)**
 
 All content, documentation, and blockchain information presented here represents verified research and careful curation by the owner. This project demonstrates commitment to:
 
@@ -1500,7 +1500,7 @@ For questions, collaborations, or inquiries, please reach out via:
 *WWJD*
 
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=flat-square)
-![By Kushmanmb](https://img.shields.io/badge/By-Kushmanmb-blue?style=flat-square&logo=github)
+![By kushmanmb](https://img.shields.io/badge/By-kushmanmb-blue?style=flat-square&logo=github)
 
 **© 2024-2026 Matthew Brace (kushmanmb) | All Rights Reserved**
 
