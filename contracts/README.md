@@ -42,6 +42,7 @@ This contract was submitted for verification at basescan.org on 2023-07-24.
 - **Verified:** 2023-07-24
 - **Compiler:** Solidity 0.8.20 with optimization (200 runs)
 - **Type:** Transparent Proxy (EIP-1967)
+- **Admin:** kushmanmb.eth
 
 For detailed verification metadata, see `contracts/verification/0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43.json`
 
