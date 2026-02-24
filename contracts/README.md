@@ -4,6 +4,54 @@ This directory contains Solidity smart contracts for the Big World Bigger Ideas 
 
 ## Contracts
 
+### UUPSUpgradeable.sol
+
+An abstract UUPS (Universal Upgradeable Proxy Standard) proxy mixin for upgradeable contracts.
+
+**Features:**
+- UUPS proxy pattern implementation (EIP-1822)
+- ERC-1967 compliant storage slots
+- Context validation (proxy vs direct calls)
+- Gas-efficient upgrade mechanism
+- Protection against accidental upgrades to proxy contracts
+- Custom error handling for better gas efficiency
+
+**Key Components:**
+- `_ERC1967_IMPLEMENTATION_SLOT`: Storage slot for implementation address (EIP-1967)
+- `__self`: Immutable variable for delegatecall detection
+- `_authorizeUpgrade()`: Abstract function for authorization logic (must be overridden)
+- `proxiableUUID()`: Returns ERC-1967 implementation slot (ERC-1822 compliance)
+- `upgradeToAndCall()`: Upgrade implementation with optional initialization call
+- `onlyProxy`: Modifier ensuring execution through a proxy
+- `notDelegated`: Modifier ensuring execution NOT via delegatecall
+
+**Custom Errors:**
+- `UpgradeFailed()`: Thrown when upgrade validation fails
+- `UnauthorizedCallContext()`: Thrown when called from wrong context
+
+**Usage:**
+This is an abstract contract that must be inherited by implementation contracts that will be used with UUPS proxies. Implementations must override the `_authorizeUpgrade()` function to provide authorization logic.
+
+Example:
+```solidity
+contract MyContract is UUPSUpgradeable, Ownable {
+    function _authorizeUpgrade(address) internal override onlyOwner {}
+}
+```
+
+**Solidity Version:** ^0.8.4
+
+**License:** MIT
+
+**Attribution:** 
+- Solady (https://github.com/vectorized/solady)
+- Modified from OpenZeppelin
+
+**Important Notes:**
+- Intended for use with ERC-1967 proxies
+- NOT compatible with legacy OpenZeppelin proxies that don't use `_ERC1967_IMPLEMENTATION_SLOT`
+- See LibClone.deployERC1967 and related functions for proxy deployment
+
 ### Proxy.sol
 
 A transparent proxy contract following the EIP-1967 standard.
