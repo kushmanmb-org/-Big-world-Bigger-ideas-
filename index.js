@@ -94,7 +94,6 @@ module.exports = {
   BlockchairFetcher,
   EthereumBlockchairFetcher,
   EtherscanTokenBalanceFetcher,
-  HelloBitcoin,
   
   // Compliance and certification
   ISO27001Fetcher,
@@ -128,5 +127,8 @@ module.exports = {
   
   // Withdrawal credentials management
   WithdrawalCredentials,
-  WITHDRAWAL_TYPES
+  WITHDRAWAL_TYPES,
+  
+  // Helper utilities
+  HelloBitcoin
 };
