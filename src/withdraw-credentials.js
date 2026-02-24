@@ -68,7 +68,7 @@ class WithdrawalCredentials {
     }
 
     // Must be valid hex
-    if (!/^[0-9a-f]{64}$/i.test(cleanCreds)) {
+    if (!/^[0-9a-f]{64}$/.test(cleanCreds)) {
       return { valid: false, error: 'Credentials must be valid hexadecimal' };
     }
 

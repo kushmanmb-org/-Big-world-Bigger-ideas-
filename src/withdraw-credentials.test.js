@@ -222,6 +222,25 @@ try {
   failed++;
 }
 
+// Test 12b: Kushmanmb config with withdrawal address
+try {
+  const creds = WithdrawalCredentials.createKushmanmbConfig();
+  const testAddress = '0x1234567890123456789012345678901234567890';
+  creds.setWithdrawalAddress(testAddress);
+  const credentials = creds.addressToWithdrawalCredentials(testAddress);
+  
+  if (credentials.length === 66 && credentials.startsWith('0x01')) {
+    console.log('✓ Test 12b passed: Kushmanmb config with withdrawal address');
+    passed++;
+  } else {
+    console.log('✗ Test 12b failed: Withdrawal credentials generation failed');
+    failed++;
+  }
+} catch (error) {
+  console.log('✗ Test 12b failed:', error.message);
+  failed++;
+}
+
 // Test 13: Export to JSON
 try {
   const creds = new WithdrawalCredentials({
