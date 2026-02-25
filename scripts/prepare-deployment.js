@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 
 /**
  * Deployment Preparation Script
@@ -46,6 +46,7 @@ function copyFile(src, dest, optional = false) {
       console.warn(`⚠ Warning: File not found: ${src}`);
       return false;
     }
+    return true;
   } catch (error) {
     if (!optional) {
       console.error(`✗ Error copying ${src}: ${error.message}`);
@@ -65,12 +66,29 @@ function copyDirectory(src, dest, optional = false) {
       console.warn(`⚠ Warning: Directory not found: ${src}`);
       return false;
     }
+    return true;
   } catch (error) {
     if (!optional) {
       console.error(`✗ Error copying ${src}: ${error.message}`);
     }
     return false;
   }
+}
+
+// Helper function to calculate directory size
+function getDirSize(dirPath) {
+  let size = 0;
+  const files = fs.readdirSync(dirPath);
+  for (const file of files) {
+    const filePath = path.join(dirPath, file);
+    const stats = fs.statSync(filePath);
+    if (stats.isDirectory()) {
+      size += getDirSize(filePath);
+    } else {
+      size += stats.size;
+    }
+  }
+  return size;
 }
 
 function prepareDeployment() {
@@ -155,21 +173,6 @@ function prepareDeployment() {
   });
   
   // Calculate total size
-  function getDirSize(dirPath) {
-    let size = 0;
-    const files = fs.readdirSync(dirPath);
-    for (const file of files) {
-      const filePath = path.join(dirPath, file);
-      const stats = fs.statSync(filePath);
-      if (stats.isDirectory()) {
-        size += getDirSize(filePath);
-      } else {
-        size += stats.size;
-      }
-    }
-    return size;
-  }
-  
   const totalSize = getDirSize(siteDir);
   const sizeMB = (totalSize / 1024 / 1024).toFixed(2);
   console.log(`\n📦 Total size: ${sizeMB} MB`);
