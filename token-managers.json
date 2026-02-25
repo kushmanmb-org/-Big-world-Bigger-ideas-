@@ -14,8 +14,22 @@
         "notes": "Primary USDC token manager assignment"
       },
       "setAt": "2026-02-25T16:07:00.000Z"
+    },
+    {
+      "tokenAddress": "0x0000000000000000000000000000000000000000",
+      "managerAddress": "0x6fb9e80dDd0f5DC99D7cB38b07e8b298A57bF253",
+      "metadata": {
+        "tokenName": "Zero Address",
+        "tokenSymbol": "ZERO",
+        "network": "Ethereum Mainnet",
+        "chainId": 1,
+        "type": "Special Address",
+        "setBy": "Manual Configuration",
+        "notes": "Manager assignment for zero address"
+      },
+      "setAt": "2026-02-25T16:16:00.000Z"
     }
   ],
-  "lastUpdated": "2026-02-25T16:07:00.000Z",
+  "lastUpdated": "2026-02-25T16:16:00.000Z",
   "version": "1.0.0"
 }
