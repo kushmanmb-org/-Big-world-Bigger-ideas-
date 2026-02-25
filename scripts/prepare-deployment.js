@@ -77,18 +77,27 @@ function copyDirectory(src, dest, optional = false) {
 
 // Helper function to calculate directory size
 function getDirSize(dirPath) {
-  let size = 0;
-  const files = fs.readdirSync(dirPath);
-  for (const file of files) {
-    const filePath = path.join(dirPath, file);
-    const stats = fs.statSync(filePath);
-    if (stats.isDirectory()) {
-      size += getDirSize(filePath);
-    } else {
-      size += stats.size;
+  try {
+    let size = 0;
+    const files = fs.readdirSync(dirPath);
+    for (const file of files) {
+      const filePath = path.join(dirPath, file);
+      try {
+        const stats = fs.statSync(filePath);
+        if (stats.isDirectory()) {
+          size += getDirSize(filePath);
+        } else {
+          size += stats.size;
+        }
+      } catch (error) {
+        console.warn(`⚠ Warning: Could not stat file ${filePath}: ${error.message}`);
+      }
     }
+    return size;
+  } catch (error) {
+    console.error(`✗ Error reading directory ${dirPath}: ${error.message}`);
+    return 0;
   }
-  return size;
 }
 
 function prepareDeployment() {
