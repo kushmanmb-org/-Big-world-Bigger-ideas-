@@ -1,0 +1,21 @@
+{
+  "managers": [
+    {
+      "tokenAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "managerAddress": "0x6fb9e80dDd0f5DC99D7cB38b07e8b298A57bF253",
+      "metadata": {
+        "tokenName": "USD Coin",
+        "tokenSymbol": "USDC",
+        "network": "Ethereum Mainnet",
+        "chainId": 1,
+        "decimals": 6,
+        "type": "Stablecoin",
+        "setBy": "Automated Configuration",
+        "notes": "Primary USDC token manager assignment"
+      },
+      "setAt": "2026-02-25T16:07:00.000Z"
+    }
+  ],
+  "lastUpdated": "2026-02-25T16:07:00.000Z",
+  "version": "1.0.0"
+}
