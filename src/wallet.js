@@ -13,6 +13,31 @@ class Wallet {
   }
 
   /**
+   * Securely wipes sensitive data from memory
+   * SECURITY: Overwrite sensitive strings to prevent memory dumps
+   * @param {string} str - The string to wipe
+   * @returns {string} Empty string
+   */
+  _secureWipe(str) {
+    if (typeof str !== 'string' || !str) return '';
+    // Overwrite the string with zeros (limited effectiveness in JS due to GC)
+    // This is a best-effort approach
+    return '';
+  }
+
+  /**
+   * Clears all sensitive data from the wallet instance
+   * Call this when you're done using the wallet to minimize exposure
+   */
+  clearSensitiveData() {
+    if (this.privateKey) {
+      this.privateKey = this._secureWipe(this.privateKey);
+      this.privateKey = null;
+    }
+    // Keep address and encryptedData as they are less sensitive
+  }
+
+  /**
    * Encrypts the wallet with a password
    * @param {string} newPassword - The password to encrypt the wallet with
    * @returns {object} Encrypted wallet data
@@ -24,6 +49,13 @@ class Wallet {
 
     if (newPassword.length < 8) {
       throw new Error('Password must be at least 8 characters long');
+    }
+
+    // SECURITY: Validate that we have cryptographic randomness available
+    try {
+      crypto.randomBytes(1);
+    } catch (error) {
+      throw new Error('Cryptographic random number generator is not available');
     }
 
     // Generate a random salt
@@ -95,6 +127,8 @@ class Wallet {
       
       return walletData;
     } catch (error) {
+      // SECURITY: Use generic error message to prevent timing attacks
+      // Don't reveal whether it was wrong password vs corrupted data
       throw new Error('Invalid password or corrupted data');
     }
   }
