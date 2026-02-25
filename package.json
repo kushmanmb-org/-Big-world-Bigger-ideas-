@@ -50,6 +50,7 @@
     "op-return:demo": "node src/op-return-example.js",
     "eth-call:demo": "node src/eth-call-example.js",
     "withdraw-credentials:demo": "node src/withdraw-credentials-example.js",
+    "security:demo": "node src/security-best-practices-example.js",
     "metadata": "node src/metadata.js",
     "metadata:demo": "node src/metadata-example.js",
     "prepublishOnly": "npm test",
