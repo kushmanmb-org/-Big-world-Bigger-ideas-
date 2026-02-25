@@ -1,0 +1,21 @@
+{
+  "addresses": [
+    "kushmanmb.eth",
+    "yaketh.eth"
+  ],
+  "timestamp": "2026-02-25T07:54:47.160Z",
+  "data": {
+    "addresses": [
+      "kushmanmb.eth",
+      "yaketh.eth"
+    ],
+    "uniqueTokens": 0,
+    "totalAddresses": 2,
+    "tokens": [],
+    "byAddress": {
+      "kushmanmb.eth": [],
+      "yaketh.eth": []
+    },
+    "timestamp": 1772006087612
+  }
+}

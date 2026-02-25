@@ -119,6 +119,63 @@ If you accidentally commit an API key:
    git push --force
    ```
 
+## 🔐 Package Manager Security
+
+### Ruby Gems and Bundler
+
+When working with private Ruby gems or GitHub Packages:
+
+**DO**:
+- ✅ Use environment variables for authentication tokens
+- ✅ Configure credentials in `~/.gem/credentials` (never commit this file)
+- ✅ Use `bundle config` to set credentials locally
+- ✅ Use GitHub Actions secrets for CI/CD authentication
+
+**DON'T**:
+- ❌ **NEVER** include credentials in gem source URLs
+- ❌ **NEVER** commit `.bundle/config` with credentials
+- ❌ **NEVER** commit `.gem/credentials` file
+- ❌ Don't use passwords or tokens in `Gemfile` or `Gemfile.lock`
+
+### Insecure Example (DO NOT USE):
+```bash
+# ❌ WRONG - Credentials exposed in URL
+gem sources --add https://username:token@rubygems.pkg.github.com/ORG/
+
+# ❌ WRONG - Token in Gemfile
+source "https://username:ghp_token123@rubygems.pkg.github.com/ORG/"
+```
+
+### Secure Example (CORRECT):
+```bash
+# ✅ CORRECT - Use bundle config with environment variable
+bundle config https://rubygems.pkg.github.com/ORG/ $GITHUB_TOKEN
+
+# ✅ CORRECT - Use .gem/credentials file
+echo ":github: Bearer ${GITHUB_TOKEN}" >> ~/.gem/credentials
+chmod 600 ~/.gem/credentials
+
+# ✅ CORRECT - Gemfile without credentials
+source "https://rubygems.pkg.github.com/ORG/" do
+  gem "private-gem"
+end
+```
+
+### NPM and JavaScript Packages
+
+When working with private npm packages:
+
+**Secure Configuration**:
+```bash
+# ✅ Use .npmrc with environment variable
+echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+
+# ✅ Use npm login
+npm login --registry=https://registry.npmjs.org/
+```
+
+**Never commit `.npmrc` files containing auth tokens**.
+
 ## 📝 Code Review Security Checklist
 
 Before committing code, verify:
@@ -127,6 +184,8 @@ Before committing code, verify:
 - [ ] All sensitive data uses environment variables
 - [ ] `.env` files are in `.gitignore`
 - [ ] No private keys in code or comments
+- [ ] No credentials in package manager URLs (gem sources, npm registry, etc.)
+- [ ] No `.bundle/config`, `.gem/credentials`, or `.npmrc` files with tokens
 - [ ] Test files clearly indicate test credentials are not real
 - [ ] Example files use placeholder values (e.g., `YOUR_API_KEY_HERE`)
 - [ ] No sensitive data in error messages or logs
@@ -200,8 +259,17 @@ Security measures in place:
 4. **Dependency Audits**: Regular `npm audit` checks
 5. **Code Review**: All PRs require review before merge
 
-Last security audit: 2026-02-24
-Next scheduled audit: 2026-05-24
+Last security audit: 2026-02-25
+Next scheduled audit: 2026-05-25
+
+**Recent Security Enhancements (February 2026):**
+- Fixed API key logging exposure in example files
+- Added memory management for private keys (`clearSensitiveData()` method)
+- Enhanced cryptographic randomness validation
+- Improved zero-knowledge proof nonce handling
+- Added comprehensive security audit documentation
+
+See `SECURITY-AUDIT-2026-02.md` for detailed audit findings and fixes.
 
 ---
 

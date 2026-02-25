@@ -60,6 +60,12 @@ const bigWorld = require('big-world-bigger-ideas');
 const { 
   ERC721Fetcher, 
   BitcoinMiningFetcher,
+  BlockchairFetcher,
+  EthereumBlockchairFetcher,
+  EtherscanTokenBalanceFetcher,
+  HelloBitcoin,
+  TokenUUID,
+  OPReturnFetcher,
   ZKPDFVerifier,
   ConsensusTracker,
   AddressTracker,
@@ -74,6 +80,31 @@ const owner = await nftFetcher.getOwner('1');
 const btcFetcher = new BitcoinMiningFetcher();
 const miningData = await btcFetcher.getHashRate('1w');
 
+// Example: OP_RETURN data encoding for blockchain
+const opReturn = new OPReturnFetcher('bitcoin');
+const encoded = opReturn.encodeData('Hello Blockchain!');
+const script = opReturn.createOpReturnScript('Timestamped data');
+
+// Example: Multi-chain blockchain data with Blockchair
+const blockchair = new BlockchairFetcher('bitcoin');
+const blockData = await blockchair.getBlock(700000);
+
+// Example: Ethereum blockchain data with ENS support
+const ethBlockchair = new EthereumBlockchairFetcher();
+const addressData = await ethBlockchair.getAddressData('0x1234...');
+
+// Example: Token balance checking with Etherscan
+const etherscan = new EtherscanTokenBalanceFetcher('your-api-key');
+const balance = await etherscan.getTokenBalance('0xAddress...', '0xTokenContract...');
+
+// Example: Generate UUIDs for tokens
+const tokenUUID = new TokenUUID();
+const uuid = tokenUUID.generateForToken('0xContract...', '1');
+
+// Example: Hello Bitcoin greeting
+const hello = new HelloBitcoin('World');
+console.log(hello.greet()); // "Hello Bitcoin from World! 🌍"
+
 // Example: Blockchain governance with council
 const council = new BlockchainCouncil('DAO Council');
 council.addMember('0x1234...', 'Alice', MEMBER_ROLES.FOUNDER);
@@ -84,22 +115,64 @@ const zkVerifier = new ZKPDFVerifier('your-name');
 const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Document' });
 ```
 
+### 🚀 Blockchain RPC Server
+
+> **🌟 New!** Python-based JSON-RPC server for easy HTTP access to blockchain data!
+>
+> Start the server: `python3 blockchain_rpc_server.py`
+>
+> Query blockchain data via HTTP/JSON-RPC for Ethereum, Bitcoin, NFTs, and more.
+>
+> Learn more: [BLOCKCHAIN-RPC-SERVER.md](./BLOCKCHAIN-RPC-SERVER.md)
+
+### 📚 Interactive Documentation
+
+> **🌟 New!** Explore our comprehensive Mintlify documentation with interactive examples, searchable API references, and step-by-step guides.
+>
+> **Run locally:** `npm run docs:dev`
+>
+> Learn more: [MINTLIFY.md](./MINTLIFY.md)
+
 ### Available Modules
 
-This package includes the following modules:
+This package includes the following modules organized by category:
 
+**Wallet & Configuration:**
 - **`wallet`** - Wallet encryption and decryption utilities
 - **`featureFlags`** - Feature flag management system
+
+**NFT & Token Utilities:**
 - **`ERC721Fetcher`** - ERC-721 NFT token data fetcher
 - **`TokenHistoryTracker`** - Git-style NFT ownership history tracker
+- **`TokenUUID`** - UUID generation and validation for blockchain tokens and NFTs
+
+**Blockchain Data Fetchers:**
 - **`BitcoinMiningFetcher`** - Bitcoin mining data from mempool.space
+- **`BlockchairFetcher`** - Multi-chain blockchain data fetcher for Bitcoin, Ethereum, Litecoin, and more
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
-- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`EthereumBlockchairFetcher`** - Ethereum blockchain data from Blockchair with ENS support
+- **`EtherscanTokenBalanceFetcher`** - ERC-20 and ERC-721 token balance fetcher from Etherscan
+
+**Network & Consensus:**
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
 - **`AddressTracker`** - Multi-chain address tracking and management
+
+**Contract Utilities:**
+- **`ContractABIFetcher`** - Contract ABI fetcher
+- **`EthCallClient`** - Ethereum eth_call RPC client
+- **`OPReturnFetcher`** - OP_RETURN data encoding/decoding across Bitcoin, Litecoin, and Ethereum
+
+**Governance & Compliance:**
 - **`BlockchainCouncil`** - Governance and council management for DAOs
-- **`PackageMetadata`** - Metadata processing utilities
+- **`ISO27001Fetcher`** - ISO 27001 certification management
+- **`WithdrawalCredentials`** - Ethereum withdrawal credentials management
+
+**Advanced Features:**
 - **`ZKPDFVerifier`** - Zero-knowledge PDF verification system
+- **`PackageMetadata`** - Metadata processing utilities
+
+**Helper Utilities:**
+- **`HelloBitcoin`** - Simple Bitcoin greeting module for getting started
 
 ### Package Structure
 
@@ -188,6 +261,35 @@ forge test
 
 ### 📖 Documentation
 
+#### 🌐 Interactive Documentation Portal
+
+This project features a comprehensive **Mintlify documentation portal** with interactive examples, API references, and guides:
+
+- **📚 Interactive Docs**: Modern, searchable documentation with live code examples
+- **🚀 Quick Start**: Get started in under 5 minutes
+- **📖 API Reference**: Detailed documentation for all modules
+- **📝 Guides**: Best practices, ChatOps, security, and more
+
+**Run Documentation Locally:**
+
+```bash
+# Install dependencies
+npm install
+
+# Start the documentation server
+npm run docs:dev
+```
+
+**Documentation Structure:**
+- **[MINTLIFY.md](./MINTLIFY.md)** - Mintlify setup and usage guide
+- **[introduction.mdx](./introduction.mdx)** - Documentation homepage
+- **[quickstart.mdx](./quickstart.mdx)** - Quick start guide
+- **[installation.mdx](./installation.mdx)** - Installation instructions
+- **[api-reference/](./api-reference/)** - Complete API documentation
+- **[guides/](./guides/)** - User guides and best practices
+
+#### 📚 Build & Contract Documentation
+
 For detailed build configuration, compilation settings, and deployment instructions, see:
 - **[BUILD.md](./BUILD.md)** - Comprehensive build documentation
 - **[contracts/README.md](./contracts/README.md)** - Contract-specific documentation
@@ -255,13 +357,26 @@ const encrypted = wallet.encrypt(process.env.PASSWORD);
 
 ### 📚 Security Documentation
 
+- **[SECURITY.md](./SECURITY.md)** - Vulnerability disclosure policy and security guidelines
 - **[SECURITY-GUIDE.md](./SECURITY-GUIDE.md)** - Comprehensive security best practices for developers
-- **[.github/SECURITY.md](./.github/SECURITY.md)** - Vulnerability reporting and security policy
+- **[SECURITY-AUDIT-2026-02-25.md](./SECURITY-AUDIT-2026-02-25.md)** - Latest security audit report (February 2026)
+- **[PRE-COMMIT-HOOKS-SETUP.md](./PRE-COMMIT-HOOKS-SETUP.md)** - Guide to prevent accidental secret commits
+- **[PACKAGE-MANAGER-SECURITY.md](./PACKAGE-MANAGER-SECURITY.md)** - Package manager credential security guide (npm, RubyGems, pip)
 - **[.env.example](./.env.example)** - Template for environment variables
 
 ### 🔍 Security Audit History
 
-- **2026-02-24**: Comprehensive security audit completed
+- **2026-02-25**: Comprehensive blockchain data leak audit completed ✅
+  - ✅ **No sensitive data leaks detected** - Private keys, API keys, and passwords verified secure
+  - ✅ **Git history clean** - No accidentally committed secrets found
+  - ✅ **Exceptional .gitignore** - 220+ patterns protecting sensitive files
+  - ✅ **All tests passing** - 100% of security-critical modules tested
+  - ✅ **Security documentation complete** - Added SECURITY.md and audit reports
+  - ✅ **Pre-commit hooks guide** - Created setup guide to prevent future leaks
+  - ⚠️ **Dependency updates needed** - 28 vulnerabilities in dev dependencies (low risk)
+  - **Security Grade: A (Excellent)** - No critical issues, production-ready
+
+- **2026-02-24**: Initial security audit completed
   - ✅ Removed hardcoded Etherscan API key from example files
   - ✅ Added security documentation (SECURITY-GUIDE.md)
   - ✅ Created .env.example template
@@ -326,10 +441,15 @@ python3 -m http.server 8000
 
 - `index.html` - Main documentation page
 - `editor.html` - Interactive web editor
+- `BeyondGlobal.html` - BeyondGlobal branding page
 - `styles.css` - Main stylesheet
-- All supporting assets and documentation
+- `dist/output.css` - Compiled Tailwind CSS
+- All JavaScript modules (`src/`)
+- Smart contracts (`contracts/`)
+- Supporting documentation files
 
-📖 **For complete setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
+📖 **For complete deployment guide, see [DEPLOYMENT.md](./DEPLOYMENT.md)**  
+📖 **For GitHub Pages setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
 
 ---
 

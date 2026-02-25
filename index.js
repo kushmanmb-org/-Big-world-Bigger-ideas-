@@ -18,6 +18,9 @@ const featureFlags = require('./src/feature-flags.js');
 // ERC-721 NFT token utilities
 const ERC721Fetcher = require('./src/erc721.js');
 
+// ERC-20 token balance utilities
+const ERC20Fetcher = require('./src/erc20.js');
+
 // NFT ownership history tracker
 const { TokenHistoryTracker, OwnershipEvent } = require('./src/token-history.js');
 
@@ -36,6 +39,9 @@ const { ConsensusTracker, CONSENSUS_TYPES, BLOCKCHAIN_NETWORKS } = require('./sr
 // Address tracking and management
 const { AddressTracker, AddressInfo } = require('./src/address-tracker.js');
 
+// Address consolidation utility
+const { AddressConsolidator, TRACKED_ADDRESSES } = require('./src/address-consolidator.js');
+
 // Metadata utilities
 const PackageMetadata = require('./src/metadata.js');
 
@@ -47,6 +53,36 @@ const ContractABIFetcher = require('./src/contract-abi.js');
 
 // Blockchain Council governance
 const { BlockchainCouncil, MEMBER_ROLES, PROPOSAL_STATUS } = require('./src/blockchain-council.js');
+
+// OP_RETURN cross-platform utilities
+const OPReturnFetcher = require('./src/op-return.js');
+
+// Ethereum eth_call RPC client
+const EthCallClient = require('./src/eth-call.js');
+
+// Withdrawal credentials management
+const { WithdrawalCredentials, WITHDRAWAL_TYPES } = require('./src/withdraw-credentials.js');
+
+// Multi-chain Blockchair API
+const BlockchairFetcher = require('./src/blockchair.js');
+
+// Ethereum Blockchair API with ENS support
+const EthereumBlockchairFetcher = require('./src/ethereum-blockchair.js');
+
+// Etherscan token balance fetcher
+const EtherscanTokenBalanceFetcher = require('./src/etherscan-token-balance.js');
+
+// Hello Bitcoin greeting module
+const HelloBitcoin = require('./src/hello-bitcoin.js');
+
+// Token UUID generator
+const TokenUUID = require('./src/token-uuid.js');
+
+// Resolver management
+const Resolver = require('./src/resolver.js');
+
+// Token manager
+const TokenManager = require('./src/token-manager.js');
 
 /**
  * Main exports for the package
@@ -60,12 +96,19 @@ module.exports = {
   
   // NFT and token utilities
   ERC721Fetcher,
+  ERC20Fetcher,
   TokenHistoryTracker,
   OwnershipEvent,
+  TokenUUID,
+  TokenManager,
+  Resolver,
   
   // Blockchain data fetchers
   BitcoinMiningFetcher,
   LitecoinBlockchairFetcher,
+  BlockchairFetcher,
+  EthereumBlockchairFetcher,
+  EtherscanTokenBalanceFetcher,
   
   // Compliance and certification
   ISO27001Fetcher,
@@ -78,6 +121,8 @@ module.exports = {
   // Address tracking
   AddressTracker,
   AddressInfo,
+  AddressConsolidator,
+  TRACKED_ADDRESSES,
   
   // Metadata utilities
   PackageMetadata,
@@ -87,9 +132,20 @@ module.exports = {
   
   // Contract utilities
   ContractABIFetcher,
+  EthCallClient,
 
   // Governance and council management
   BlockchainCouncil,
   MEMBER_ROLES,
-  PROPOSAL_STATUS
+  PROPOSAL_STATUS,
+
+  // OP_RETURN utilities
+  OPReturnFetcher,
+  
+  // Withdrawal credentials management
+  WithdrawalCredentials,
+  WITHDRAWAL_TYPES,
+  
+  // Helper utilities
+  HelloBitcoin
 };

@@ -218,5 +218,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `✅ Blockchair data fetched and published for \`${{ steps.fetch.outputs.address }}\`\n\nView the report at: https://${context.repo.owner}.github.io/${context.repo.repo}/blockchair-data/`
+              body: `✅ Blockchair data fetched and published for \`${{ steps.fetch.outputs.address }}\`\n\nView the report at: https://kushmanmb.org/blockchair-data/`
             });
