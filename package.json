@@ -67,7 +67,8 @@
     "version:minor": "npm version minor",
     "version:major": "npm version major",
     "docs:dev": "mintlify dev",
-    "docs:build": "mintlify build"
+    "docs:build": "mintlify build",
+    "deploy": "npm test && npm run build:css && node scripts/prepare-deployment.js"
   },
   "repository": {
     "type": "git",
