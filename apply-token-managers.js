@@ -50,6 +50,8 @@ try {
   
   // Verify the specific manager requested in the problem statement
   console.log('=== Verification ===\n');
+  
+  // Verify USDC manager
   const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
   const expectedManager = '0x6fb9e80dDd0f5DC99D7cB38b07e8b298A57bF253';
   
@@ -61,15 +63,39 @@ try {
     
     // Verify it matches the expected manager
     if (usdcManager.managerAddress.toLowerCase() === expectedManager.toLowerCase()) {
-      console.log(`\n✅ SUCCESS: Manager for ${usdcAddress} is correctly set to ${expectedManager}`);
+      console.log(`✅ SUCCESS: Manager for ${usdcAddress} is correctly set to ${expectedManager}`);
     } else {
-      console.log(`\n❌ ERROR: Manager mismatch`);
+      console.log(`❌ ERROR: Manager mismatch`);
       console.log(`  Expected: ${expectedManager}`);
       console.log(`  Actual:   ${usdcManager.managerAddress}`);
       process.exit(1);
     }
   } else {
     console.log(`❌ ERROR: No manager found for USDC token`);
+    process.exit(1);
+  }
+  
+  // Verify the newly added manager for 0xEe7aE85f2Fe2239E27D9c1E23fFFe168D63b4055
+  console.log();
+  const newTokenAddress = '0xEe7aE85f2Fe2239E27D9c1E23fFFe168D63b4055';
+  
+  if (manager.hasManager(newTokenAddress)) {
+    const tokenManager = manager.getManager(newTokenAddress);
+    console.log(`✓ Manager found for token ${newTokenAddress}`);
+    console.log(`  Token:   ${tokenManager.tokenAddress}`);
+    console.log(`  Manager: ${tokenManager.managerAddress}`);
+    
+    // Verify it matches the expected manager
+    if (tokenManager.managerAddress.toLowerCase() === expectedManager.toLowerCase()) {
+      console.log(`✅ SUCCESS: Manager for ${newTokenAddress} is correctly set to ${expectedManager}`);
+    } else {
+      console.log(`❌ ERROR: Manager mismatch`);
+      console.log(`  Expected: ${expectedManager}`);
+      console.log(`  Actual:   ${tokenManager.managerAddress}`);
+      process.exit(1);
+    }
+  } else {
+    console.log(`❌ ERROR: No manager found for token ${newTokenAddress}`);
     process.exit(1);
   }
   

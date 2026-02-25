@@ -28,8 +28,22 @@
         "notes": "Manager assignment for zero address"
       },
       "setAt": "2026-02-25T16:16:00.000Z"
+    },
+    {
+      "tokenAddress": "0xEe7aE85f2Fe2239E27D9c1E23fFFe168D63b4055",
+      "managerAddress": "0x6fb9e80dDd0f5DC99D7cB38b07e8b298A57bF253",
+      "metadata": {
+        "tokenName": "Unknown Token",
+        "tokenSymbol": "N/A",
+        "network": "Ethereum Mainnet",
+        "chainId": 1,
+        "type": "Token Contract",
+        "setBy": "Manual Configuration",
+        "notes": "Manager assignment for token 0xEe7aE85f2Fe2239E27D9c1E23fFFe168D63b4055"
+      },
+      "setAt": "2026-02-25T16:44:38.681Z"
     }
   ],
-  "lastUpdated": "2026-02-25T16:16:00.000Z",
+  "lastUpdated": "2026-02-25T16:44:38.681Z",
   "version": "1.0.0"
 }
