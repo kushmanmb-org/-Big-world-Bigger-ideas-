@@ -115,6 +115,14 @@ const zkVerifier = new ZKPDFVerifier('your-name');
 const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Document' });
 ```
 
+### 📚 Interactive Documentation
+
+> **🌟 New!** Explore our comprehensive Mintlify documentation with interactive examples, searchable API references, and step-by-step guides.
+>
+> **Run locally:** `npm run docs:dev`
+>
+> Learn more: [MINTLIFY.md](./MINTLIFY.md)
+
 ### Available Modules
 
 This package includes the following modules organized by category:
@@ -242,6 +250,35 @@ forge test
 ```
 
 ### 📖 Documentation
+
+#### 🌐 Interactive Documentation Portal
+
+This project features a comprehensive **Mintlify documentation portal** with interactive examples, API references, and guides:
+
+- **📚 Interactive Docs**: Modern, searchable documentation with live code examples
+- **🚀 Quick Start**: Get started in under 5 minutes
+- **📖 API Reference**: Detailed documentation for all modules
+- **📝 Guides**: Best practices, ChatOps, security, and more
+
+**Run Documentation Locally:**
+
+```bash
+# Install dependencies
+npm install
+
+# Start the documentation server
+npm run docs:dev
+```
+
+**Documentation Structure:**
+- **[MINTLIFY.md](./MINTLIFY.md)** - Mintlify setup and usage guide
+- **[introduction.mdx](./introduction.mdx)** - Documentation homepage
+- **[quickstart.mdx](./quickstart.mdx)** - Quick start guide
+- **[installation.mdx](./installation.mdx)** - Installation instructions
+- **[api-reference/](./api-reference/)** - Complete API documentation
+- **[guides/](./guides/)** - User guides and best practices
+
+#### 📚 Build & Contract Documentation
 
 For detailed build configuration, compilation settings, and deployment instructions, see:
 - **[BUILD.md](./BUILD.md)** - Comprehensive build documentation
