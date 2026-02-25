@@ -1601,6 +1601,16 @@ cd octant-v2-core
 - ERC-4626 compliant tokenized strategies
 - Comprehensive factory contracts for deployment
 
+### kywmahmb
+
+A related repository by kushmanmb for blockchain development and utilities.
+
+**Quick Clone:**
+```bash
+git clone https://github.com/Kushmanmb/kywmahmb.git
+cd kywmahmb
+```
+
 ---
 
 ## 📡 Blockchain Network Documentation
