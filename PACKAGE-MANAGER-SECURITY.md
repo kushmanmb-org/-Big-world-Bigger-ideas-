@@ -98,27 +98,38 @@ username = __token__
 password = <your-token-here>
 
 [github]
-repository = https://github.com/<owner>/<repo>
+repository = https://upload.pypi.org/legacy/
 username = __token__
 password = <your-github-token>
 ```
 
-#### Option 2: Use pip config
+Then use without credentials in URL:
 ```bash
-# Set credentials via pip config (stored securely)
-pip config set global.index-url https://__token__:${PYPI_TOKEN}@upload.pypi.org/simple/
-
-# Or for extra indexes
-pip config set global.extra-index-url https://__token__:${PYPI_TOKEN}@upload.pypi.org/simple/
+pip install your-package
 ```
 
-#### Option 3: Use keyring for secure credential storage
+#### Option 2: Use keyring for secure credential storage (Most Secure)
 ```bash
 # Install keyring support
 pip install keyring
 
-# Use with pip (credentials stored in system keyring)
-pip install --index-url https://pypi.org/simple/ your-package
+# Store credentials securely in system keyring
+keyring set https://upload.pypi.org/legacy/ __token__
+
+# Pip will automatically use keyring for authentication
+pip install your-package
+```
+
+#### Option 3: Use environment variables for CI/CD only
+```bash
+# For CI/CD pipelines only - use secrets management
+pip install --index-url https://pypi.org/simple/ \
+  --extra-index-url https://upload.pypi.org/simple/ \
+  your-package
+
+# Configure credentials via environment in CI:
+# PIP_INDEX_URL=https://pypi.org/simple/
+# PIP_EXTRA_INDEX_URL with credentials stored in CI secrets
 ```
 
 ## 🔒 Security Best Practices
