@@ -94,7 +94,6 @@ function sanitizeErrorObject(error) {
 
 /**
  * Sanitizes stack trace to remove any sensitive information
- * @private
  * @param {string} stackTrace - Stack trace string
  * @returns {string} Sanitized stack trace
  */

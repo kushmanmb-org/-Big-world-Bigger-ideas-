@@ -161,9 +161,11 @@ test('should redact stack trace containing sensitive keywords', () => {
   error.stack = 'Error: Invalid password at function1\n  at function2';
   const sanitized = sanitizeErrorObject(error);
   
-  if (sanitized.stack && sanitized.stack.includes('password')) {
-    throw new Error('Stack trace should be redacted when containing sensitive keywords');
-  }
+  assertEqual(
+    sanitized.stack,
+    '(Stack trace redacted for security)',
+    'Stack trace should be fully redacted when containing sensitive keywords'
+  );
 });
 
 // Test 14: Should preserve safe stack traces
