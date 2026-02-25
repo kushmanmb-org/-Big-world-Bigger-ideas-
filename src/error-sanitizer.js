@@ -8,7 +8,6 @@
 
 /**
  * List of sensitive keywords that should trigger redaction
- * @private
  */
 const SENSITIVE_KEYWORDS = [
   'password',

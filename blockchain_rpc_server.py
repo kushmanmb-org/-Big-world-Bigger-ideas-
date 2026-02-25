@@ -48,23 +48,26 @@ def sanitize_error_message(error):
     error_str = str(error)
     
     # List of sensitive keywords to redact
-    sensitive_patterns = [
-        ('password', 'password=***'),
-        ('apikey', 'apiKey=***'),
-        ('api_key', 'api_key=***'),
-        ('privatekey', 'privateKey=***'),
-        ('private_key', 'private_key=***'),
-        ('secret', 'secret=***'),
-        ('token', 'token=***'),
-        ('authorization', 'Authorization: ***'),
-        ('bearer', 'Bearer ***'),
+    # Matches JavaScript implementation in src/error-sanitizer.js
+    sensitive_keywords = [
+        'password',
+        'apikey',
+        'api_key',
+        'privatekey',
+        'private_key',
+        'secret',
+        'token',
+        'authorization',
+        'bearer',
+        'credential',
+        'auth',
     ]
     
     # Convert to lowercase for case-insensitive matching
     error_lower = error_str.lower()
     
     # Check if error message contains sensitive keywords
-    for keyword, replacement in sensitive_patterns:
+    for keyword in sensitive_keywords:
         if keyword in error_lower:
             # Return generic error message to avoid leaking sensitive data
             return "Error processing request (sensitive data redacted for security)"
@@ -100,11 +103,13 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(response).encode('utf-8'))
             
         except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON: {sanitize_error_message(e)}")
-            self.send_error_response(-32700, "Parse error", "Invalid JSON format")
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Invalid JSON: {sanitized}")
+            self.send_error_response(-32700, "Parse error", sanitized)
         except Exception as e:
-            logger.error(f"Internal error: {sanitize_error_message(e)}")
-            self.send_error_response(-32603, "Internal error", "Request processing failed")
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Internal error: {sanitized}")
+            self.send_error_response(-32603, "Internal error", sanitized)
     
     def do_GET(self):
         """Handle GET requests - provide server info"""
@@ -168,8 +173,9 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             return self.create_success_response(rpc_id, result)
             
         except Exception as e:
-            logger.error(f"Error processing {method}: {sanitize_error_message(e)}")
-            return self.create_error_response(rpc_id, -32603, f"Internal error processing {method}")
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Error processing {method}: {sanitized}")
+            return self.create_error_response(rpc_id, -32603, f"Internal error processing {method}: {sanitized}")
     
     def handle_eth_call(self, params):
         """Handle eth_call RPC method"""
