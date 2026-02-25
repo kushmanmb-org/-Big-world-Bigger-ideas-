@@ -12,7 +12,7 @@ This guide provides security best practices for managing credentials with packag
 
 ```bash
 # ❌ Ruby/Bundler - Credentials in gem source URL
-gem sources --add https://username:Bearer_token@rubygems.pkg.github.com/BITCOIN/
+gem sources --add https://username:Bearer_token@rubygems.pkg.github.com/ORG/
 gem sources --add https://kushmanmb:ghp_abc123@rubygems.pkg.github.com/ORG/
 
 # ❌ NPM - Credentials in registry URL
@@ -85,9 +85,9 @@ npm login --registry=https://registry.npmjs.org/
 
 ### Python / Pip
 
-#### Option 1: Use .pypirc Configuration
+#### Option 1: Use .pypirc Configuration (Recommended)
 ```ini
-# ~/.pypirc
+# ~/.pypirc (DO NOT commit this file)
 [distutils]
 index-servers =
     pypi
@@ -103,11 +103,22 @@ username = __token__
 password = <your-github-token>
 ```
 
-#### Option 2: Use pip with environment variables
+#### Option 2: Use pip config
 ```bash
-# Use PIP_EXTRA_INDEX_URL environment variable
-export PIP_EXTRA_INDEX_URL="https://__token__:${PYPI_TOKEN}@upload.pypi.org/simple/"
-pip install your-package
+# Set credentials via pip config (stored securely)
+pip config set global.index-url https://__token__:${PYPI_TOKEN}@upload.pypi.org/simple/
+
+# Or for extra indexes
+pip config set global.extra-index-url https://__token__:${PYPI_TOKEN}@upload.pypi.org/simple/
+```
+
+#### Option 3: Use keyring for secure credential storage
+```bash
+# Install keyring support
+pip install keyring
+
+# Use with pip (credentials stored in system keyring)
+pip install --index-url https://pypi.org/simple/ your-package
 ```
 
 ## 🔒 Security Best Practices

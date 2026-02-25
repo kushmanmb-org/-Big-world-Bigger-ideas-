@@ -175,8 +175,6 @@ bundle/config
 credentials.gem
 gem-credentials
 .gemrc
-Gemfile.lock
-.ruby-version
 vendor/bundle/
 
 # NPM/Node.js Credential Files
