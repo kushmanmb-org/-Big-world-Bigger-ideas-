@@ -115,6 +115,16 @@ const zkVerifier = new ZKPDFVerifier('your-name');
 const doc = zkVerifier.registerDocument('doc-id', pdfBuffer, { title: 'My Document' });
 ```
 
+### 🚀 Blockchain RPC Server
+
+> **🌟 New!** Python-based JSON-RPC server for easy HTTP access to blockchain data!
+>
+> Start the server: `python3 blockchain_rpc_server.py`
+>
+> Query blockchain data via HTTP/JSON-RPC for Ethereum, Bitcoin, NFTs, and more.
+>
+> Learn more: [BLOCKCHAIN-RPC-SERVER.md](./BLOCKCHAIN-RPC-SERVER.md)
+
 ### 📚 Interactive Documentation
 
 > **🌟 New!** Explore our comprehensive Mintlify documentation with interactive examples, searchable API references, and step-by-step guides.
