@@ -102,7 +102,29 @@ If you need to trigger a deployment manually:
 
 ## Local Testing
 
-Before deploying, you can test the build locally:
+### Quick Local Deployment Test
+
+Use the `deploy` npm script to test the entire deployment process locally:
+
+```bash
+# Install dependencies
+npm ci
+
+# Run the complete deployment preparation (tests, build CSS, prepare files)
+npm run deploy
+```
+
+This will:
+- ✅ Run all tests to ensure code quality
+- 🎨 Build optimized CSS with Tailwind
+- 📦 Prepare the deployment package in `_site/` directory
+- ✨ Mirror the exact process used by GitHub Actions
+
+The `_site/` directory will contain all files that would be deployed to GitHub Pages.
+
+### Manual Step-by-Step Testing
+
+You can also run each step individually:
 
 ```bash
 # Install dependencies
@@ -114,8 +136,11 @@ npm test
 # Build CSS
 npm run build:css
 
+# Prepare deployment package
+node scripts/prepare-deployment.js
+
 # Serve locally (requires a local HTTP server)
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory _site
 # Then visit http://localhost:8000
 ```
 

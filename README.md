@@ -431,11 +431,30 @@ To work on the website locally:
 # Install dependencies
 npm ci
 
+# Build the deployment package (runs tests, builds CSS, prepares files)
+npm run deploy
+
 # For editor preview, you can use any HTTP server
 python3 -m http.server 8000
 
 # Then visit http://localhost:8000
 ```
+
+### Local Deployment Testing
+
+You can test the deployment process locally using:
+
+```bash
+npm run deploy
+```
+
+This command will:
+- ✅ Run all tests to ensure code quality
+- 🎨 Build optimized CSS with Tailwind
+- 📦 Prepare deployment package in `_site/` directory
+- 🚀 Create the same structure that GitHub Actions deploys
+
+The `_site/` directory will contain all files ready for deployment, allowing you to verify the deployment package before pushing to GitHub.
 
 ### Files Deployed
 
