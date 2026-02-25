@@ -72,6 +72,9 @@ const EthereumBlockchairFetcher = require('./src/ethereum-blockchair.js');
 // Etherscan token balance fetcher
 const EtherscanTokenBalanceFetcher = require('./src/etherscan-token-balance.js');
 
+// Etherscan contract verification
+const EtherscanVerifier = require('./src/etherscan-verify.js');
+
 // Hello Bitcoin greeting module
 const HelloBitcoin = require('./src/hello-bitcoin.js');
 
@@ -109,6 +112,7 @@ module.exports = {
   BlockchairFetcher,
   EthereumBlockchairFetcher,
   EtherscanTokenBalanceFetcher,
+  EtherscanVerifier,
   
   // Compliance and certification
   ISO27001Fetcher,
