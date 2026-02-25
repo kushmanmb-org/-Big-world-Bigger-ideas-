@@ -168,3 +168,23 @@ accounts.json
 recovery.txt
 recovery-phrase.txt
 recovery-phrase.json
+
+# Ruby/Bundler Credential Files
+.bundle/config
+bundle/config
+.gem/credentials
+credentials.gem
+gem-credentials
+.gemrc
+vendor/bundle/
+
+# NPM/Node.js Credential Files
+.npmrc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python/Pip Credential Files
+.pypirc
+pip.conf
+pip.ini

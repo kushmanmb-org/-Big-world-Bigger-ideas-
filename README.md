@@ -348,6 +348,7 @@ const encrypted = wallet.encrypt(process.env.PASSWORD);
 ### 📚 Security Documentation
 
 - **[SECURITY-GUIDE.md](./SECURITY-GUIDE.md)** - Comprehensive security best practices for developers
+- **[PACKAGE-MANAGER-SECURITY.md](./PACKAGE-MANAGER-SECURITY.md)** - Package manager credential security guide (npm, RubyGems, pip)
 - **[.github/SECURITY.md](./.github/SECURITY.md)** - Vulnerability reporting and security policy
 - **[.env.example](./.env.example)** - Template for environment variables
 
