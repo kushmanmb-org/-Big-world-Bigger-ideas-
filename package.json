@@ -55,7 +55,9 @@
     "prepublishOnly": "npm test",
     "version:patch": "npm version patch",
     "version:minor": "npm version minor",
-    "version:major": "npm version major"
+    "version:major": "npm version major",
+    "docs:dev": "mintlify dev",
+    "docs:build": "mintlify build"
   },
   "repository": {
     "type": "git",
@@ -149,6 +151,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.24",
+    "mintlify": "^4.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
   }
