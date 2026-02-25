@@ -78,6 +78,12 @@ const HelloBitcoin = require('./src/hello-bitcoin.js');
 // Token UUID generator
 const TokenUUID = require('./src/token-uuid.js');
 
+// Resolver management
+const Resolver = require('./src/resolver.js');
+
+// Token manager
+const TokenManager = require('./src/token-manager.js');
+
 /**
  * Main exports for the package
  */
@@ -94,6 +100,8 @@ module.exports = {
   TokenHistoryTracker,
   OwnershipEvent,
   TokenUUID,
+  TokenManager,
+  Resolver,
   
   // Blockchain data fetchers
   BitcoinMiningFetcher,
