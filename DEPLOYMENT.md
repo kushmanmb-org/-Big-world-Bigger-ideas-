@@ -57,16 +57,32 @@ The following files are copied to the `_site` directory for deployment:
 **Configuration:**
 - `CNAME` - Custom domain configuration (kushmanmb.org)
 - `feature-flags.json` - Runtime feature flags
+- `mint.json` - Mintlify documentation configuration
 
 **Source Code:**
 - `src/` - All JavaScript modules
 - `contracts/` - Smart contract files
 
-**Documentation:**
+**Documentation Directories:**
+- `api-reference/` - API reference documentation (Mintlify)
+- `guides/` - User guides and tutorials
+- `docs/` - Additional documentation and data
+- `wiki/` - Wiki pages
+- `EIPsInsight/` - Ethereum Improvement Proposals insights
+
+**Documentation Files (Root Level):**
 - `README.md` - Main documentation
 - `CHATOPS.md` - ChatOps feature documentation
+- `DEPLOYMENT.md` - This deployment guide
 - `ETH_COMPONENT_OWNERSHIP.md` - Ethereum component ownership
 - `OCTANT-V2-CORE.md` - Octant v2 core documentation
+- `BUILD.md` - Build instructions
+- `SECURITY-GUIDE.md` - Security best practices
+- `SECURITY-AUDIT-SUMMARY.md` - Security audit summary
+- `PUBLISHING.md` - Publishing guide
+- `MINTLIFY.md` - Mintlify documentation guide
+- `FRONTEND.md` - Frontend development guide
+- `*.mdx` - All MDX files (introduction, installation, quickstart)
 
 ## Manual Deployment
 
