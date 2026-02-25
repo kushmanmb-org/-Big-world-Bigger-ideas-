@@ -20,7 +20,8 @@ async function basicExample() {
   const chainId = 1; // Ethereum Mainnet
   const contractAddress = '0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43';
   
-  console.log(`API Key: ${apiKey}`);
+  // SECURITY: Never log API keys or sensitive credentials
+  console.log(`API Key: ${apiKey === 'YOUR_API_KEY_HERE' ? 'YOUR_API_KEY_HERE' : '***REDACTED***'}`);
   console.log(`Chain ID: ${chainId} (Ethereum Mainnet)`);
   console.log(`Contract Address: ${contractAddress}`);
   console.log('\nCreating fetcher instance...');

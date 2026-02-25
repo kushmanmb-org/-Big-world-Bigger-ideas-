@@ -259,8 +259,17 @@ Security measures in place:
 4. **Dependency Audits**: Regular `npm audit` checks
 5. **Code Review**: All PRs require review before merge
 
-Last security audit: 2026-02-24
-Next scheduled audit: 2026-05-24
+Last security audit: 2026-02-25
+Next scheduled audit: 2026-05-25
+
+**Recent Security Enhancements (February 2026):**
+- Fixed API key logging exposure in example files
+- Added memory management for private keys (`clearSensitiveData()` method)
+- Enhanced cryptographic randomness validation
+- Improved zero-knowledge proof nonce handling
+- Added comprehensive security audit documentation
+
+See `SECURITY-AUDIT-2026-02.md` for detailed audit findings and fixes.
 
 ---
 

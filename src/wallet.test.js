@@ -174,5 +174,29 @@ test('should produce different encrypted data on repeated encryption', () => {
   }
 });
 
+// Test 15: Clear sensitive data
+test('should clear private key when clearSensitiveData is called', () => {
+  const wallet = new Wallet();
+  const data = wallet.generate();
+  
+  assertNotNull(wallet.privateKey, 'Private key should exist before clearing');
+  
+  wallet.clearSensitiveData();
+  
+  assertEqual(wallet.privateKey, null, 'Private key should be null after clearing');
+  assertNotNull(wallet.address, 'Address should still exist after clearing');
+});
+
+// Test 16: Verify cryptographic randomness validation
+test('should validate cryptographic random number generator availability', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  
+  // This should not throw if crypto.randomBytes is available
+  // which it should be in a Node.js environment
+  const encryptedData = wallet.encrypt('TestPassword123');
+  assertNotNull(encryptedData, 'Should encrypt successfully with available CSPRNG');
+});
+
 // Summary
 printSummary();

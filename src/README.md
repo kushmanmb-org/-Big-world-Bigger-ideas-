@@ -108,6 +108,22 @@ Imports encrypted wallet data.
 
 **Throws:** Error if encrypted data is invalid
 
+### `wallet.clearSensitiveData()`
+
+**NEW (February 2026)** - Clears sensitive data (private keys) from memory.
+
+**Security Note:** Call this method when you're done using the wallet to minimize exposure of private keys in memory. While JavaScript's garbage collection limits the effectiveness of memory wiping, this provides a best-effort approach to clear sensitive data.
+
+**Usage:**
+```javascript
+const wallet = new Wallet();
+wallet.generate();
+// ... use the wallet ...
+wallet.clearSensitiveData(); // Clear private key from memory
+```
+
+**Note:** This method only clears the private key. Address and encrypted data are preserved as they are less sensitive.
+
 ## Security Considerations
 
 ⚠️ **Important Security Notes:**
