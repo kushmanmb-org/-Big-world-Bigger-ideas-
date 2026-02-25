@@ -76,6 +76,7 @@ jobs:
           cp README.md _site/
           cp CHATOPS.md _site/
           cp DEPLOYMENT.md _site/
+          cp DEPLOYMENT-CHECKLIST.md _site/
           cp ETH_COMPONENT_OWNERSHIP.md _site/
           cp OCTANT-V2-CORE.md _site/
 

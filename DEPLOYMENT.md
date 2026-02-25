@@ -2,6 +2,12 @@
 
 This document provides comprehensive instructions for deploying the Big World Bigger Ideas platform.
 
+## Quick Links
+
+- [Deployment Checklist](DEPLOYMENT-CHECKLIST.md) - Pre and post-deployment verification
+- [Build Guide](BUILD.md) - Build instructions
+- [Security Guide](SECURITY-GUIDE.md) - Security best practices
+
 ## Overview
 
 Big World Bigger Ideas is deployed as a static website to GitHub Pages with a custom domain (kushmanmb.org). The deployment is fully automated via GitHub Actions.
@@ -74,6 +80,7 @@ The following files are copied to the `_site` directory for deployment:
 - `README.md` - Main documentation
 - `CHATOPS.md` - ChatOps feature documentation
 - `DEPLOYMENT.md` - This deployment guide
+- `DEPLOYMENT-CHECKLIST.md` - Pre and post-deployment checklist
 - `ETH_COMPONENT_OWNERSHIP.md` - Ethereum component ownership
 - `OCTANT-V2-CORE.md` - Octant v2 core documentation
 - `BUILD.md` - Build instructions
