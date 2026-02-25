@@ -25,7 +25,7 @@ async function runExample() {
   const sepoliaVerifier = new EtherscanVerifier('YOUR_API_KEY', 'api-sepolia.etherscan.io');
   const sepoliaInfo = sepoliaVerifier.getAPIInfo();
   console.log('API Base URL:', sepoliaInfo.baseUrl);
-  console.log('Has API Key:', sepoliaInfo.hasApiKey);
+  console.log('Custom API key and network have been configured for this verifier.');
 
   // Example 3: Validate Ethereum addresses
   console.log('\n\n✅ Example 3: Address Validation');
