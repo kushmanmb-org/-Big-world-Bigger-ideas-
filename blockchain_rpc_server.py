@@ -34,6 +34,47 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def sanitize_error_message(error):
+    """
+    Sanitize error messages to prevent logging of sensitive information.
+    Redacts potential passwords, API keys, private keys, and other secrets.
+    
+    Args:
+        error: Exception object or error message string
+        
+    Returns:
+        str: Sanitized error message
+    """
+    error_str = str(error)
+    
+    # List of sensitive keywords to redact
+    # Matches JavaScript implementation in src/error-sanitizer.js
+    sensitive_keywords = [
+        'password',
+        'apikey',
+        'api_key',
+        'privatekey',
+        'private_key',
+        'secret',
+        'token',
+        'authorization',
+        'bearer',
+        'credential',
+        'auth',
+    ]
+    
+    # Convert to lowercase for case-insensitive matching
+    error_lower = error_str.lower()
+    
+    # Check if error message contains sensitive keywords
+    for keyword in sensitive_keywords:
+        if keyword in error_lower:
+            # Return generic error message to avoid leaking sensitive data
+            return "Error processing request (sensitive data redacted for security)"
+    
+    return error_str
+
+
 class BlockchainRPCHandler(BaseHTTPRequestHandler):
     """HTTP request handler for JSON-RPC blockchain requests"""
     
@@ -62,11 +103,13 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(response).encode('utf-8'))
             
         except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON: {e}")
-            self.send_error_response(-32700, "Parse error", str(e))
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Invalid JSON: {sanitized}")
+            self.send_error_response(-32700, "Parse error", sanitized)
         except Exception as e:
-            logger.error(f"Internal error: {e}")
-            self.send_error_response(-32603, "Internal error", str(e))
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Internal error: {sanitized}")
+            self.send_error_response(-32603, "Internal error", sanitized)
     
     def do_GET(self):
         """Handle GET requests - provide server info"""
@@ -130,8 +173,9 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             return self.create_success_response(rpc_id, result)
             
         except Exception as e:
-            logger.error(f"Error processing {method}: {e}")
-            return self.create_error_response(rpc_id, -32603, f"Internal error: {str(e)}")
+            sanitized = sanitize_error_message(e)
+            logger.error(f"Error processing {method}: {sanitized}")
+            return self.create_error_response(rpc_id, -32603, f"Internal error processing {method}: {sanitized}")
     
     def handle_eth_call(self, params):
         """Handle eth_call RPC method"""
@@ -317,8 +361,9 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             logger.error(f"HTTP Error: {e.code} - {e.reason}")
             raise Exception(f"HTTP Error: {e.code}")
         except URLError as e:
-            logger.error(f"URL Error: {e.reason}")
-            raise Exception(f"URL Error: {e.reason}")
+            sanitized_reason = sanitize_error_message(e.reason) if hasattr(e, 'reason') else "Connection failed"
+            logger.error(f"URL Error: {sanitized_reason}")
+            raise Exception(f"URL Error: Connection failed")
     
     def make_http_get(self, url):
         """Make an HTTP GET request"""
@@ -333,8 +378,9 @@ class BlockchainRPCHandler(BaseHTTPRequestHandler):
             logger.error(f"HTTP Error: {e.code} - {e.reason}")
             raise Exception(f"HTTP Error: {e.code}")
         except URLError as e:
-            logger.error(f"URL Error: {e.reason}")
-            raise Exception(f"URL Error: {e.reason}")
+            sanitized_reason = sanitize_error_message(e.reason) if hasattr(e, 'reason') else "Connection failed"
+            logger.error(f"URL Error: {sanitized_reason}")
+            raise Exception(f"URL Error: Connection failed")
     
     def create_success_response(self, rpc_id, result):
         """Create a JSON-RPC success response"""
