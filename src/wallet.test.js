@@ -1,46 +1,14 @@
 /**
  * Simple test suite for Wallet encryption functionality
+ * 
+ * SECURITY NOTE: The passwords in this test file are intentionally hardcoded
+ * for testing purposes only. This is acceptable for test files as they are
+ * not real credentials and are only used to verify encryption functionality.
+ * In production code, NEVER hardcode passwords, API keys, or private keys.
  */
 
 const Wallet = require('./wallet');
-
-let testsPassed = 0;
-let testsFailed = 0;
-
-function test(description, fn) {
-  try {
-    fn();
-    console.log(`✓ ${description}`);
-    testsPassed++;
-  } catch (error) {
-    console.error(`✗ ${description}`);
-    console.error(`  Error: ${error.message}`);
-    testsFailed++;
-  }
-}
-
-function assertEqual(actual, expected, message = '') {
-  if (actual !== expected) {
-    throw new Error(`${message} - Expected ${expected}, got ${actual}`);
-  }
-}
-
-function assertNotNull(value, message = '') {
-  if (value === null || value === undefined) {
-    throw new Error(`${message} - Value should not be null or undefined`);
-  }
-}
-
-function assertThrows(fn, expectedError = null) {
-  try {
-    fn();
-    throw new Error('Expected function to throw an error');
-  } catch (error) {
-    if (expectedError && !error.message.includes(expectedError)) {
-      throw new Error(`Expected error message to include "${expectedError}", got "${error.message}"`);
-    }
-  }
-}
+const { test, assertEqual, assertNotNull, assertThrows, printSummary } = require('./test-helpers');
 
 console.log('Running Wallet Encryption Tests...\n');
 
@@ -206,16 +174,29 @@ test('should produce different encrypted data on repeated encryption', () => {
   }
 });
 
-// Summary
-console.log('\n' + '='.repeat(50));
-console.log(`Tests Passed: ${testsPassed}`);
-console.log(`Tests Failed: ${testsFailed}`);
-console.log('='.repeat(50));
+// Test 15: Clear sensitive data
+test('should clear private key when clearSensitiveData is called', () => {
+  const wallet = new Wallet();
+  const data = wallet.generate();
+  
+  assertNotNull(wallet.privateKey, 'Private key should exist before clearing');
+  
+  wallet.clearSensitiveData();
+  
+  assertEqual(wallet.privateKey, null, 'Private key should be null after clearing');
+  assertNotNull(wallet.address, 'Address should still exist after clearing');
+});
 
-if (testsFailed === 0) {
-  console.log('✅ All tests passed!');
-  process.exit(0);
-} else {
-  console.log('❌ Some tests failed');
-  process.exit(1);
-}
+// Test 16: Verify cryptographic randomness validation
+test('should validate cryptographic random number generator availability', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  
+  // This should not throw if crypto.randomBytes is available
+  // which it should be in a Node.js environment
+  const encryptedData = wallet.encrypt('TestPassword123');
+  assertNotNull(encryptedData, 'Should encrypt successfully with available CSPRNG');
+});
+
+// Summary
+printSummary();
