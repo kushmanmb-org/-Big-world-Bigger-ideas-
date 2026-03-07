@@ -1,0 +1,67 @@
+name: Verify Package Installation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-install:
+    name: Verify npm install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['18', '20', '22']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify local package source loads correctly
+        run: npm run verify-install
+
+      - name: Pack the package
+        run: npm pack
+
+      - name: Create test project and install packed package
+        run: |
+          TARBALL=$(ls *.tgz)
+          mkdir -p /tmp/install-test
+          cd /tmp/install-test
+          npm init -y
+          npm install "$GITHUB_WORKSPACE/$TARBALL"
+
+      - name: Verify package in fresh project
+        run: |
+          cd /tmp/install-test
+          node -e "
+            const pkg = require('big-world-bigger-ideas');
+            const exports = Object.keys(pkg);
+            console.log('✅ Package loaded successfully in fresh project');
+            console.log('Exported modules (' + exports.length + '):', exports.join(', '));
+            if (exports.length === 0) {
+              console.error('❌ No exports found');
+              process.exit(1);
+            }
+          "
+
+      - name: Clean up
+        if: always()
+        run: |
+          rm -f *.tgz
+          rm -rf /tmp/install-test

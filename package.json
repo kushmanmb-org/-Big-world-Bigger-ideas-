@@ -70,7 +70,8 @@
     "version:major": "npm version major",
     "docs:dev": "mintlify dev",
     "docs:build": "mintlify build",
-    "deploy": "npm test && npm run build:css && node scripts/prepare-deployment.js"
+    "deploy": "npm test && npm run build:css && node scripts/prepare-deployment.js",
+    "verify-install": "node scripts/verify-install.js"
   },
   "repository": {
     "type": "git",
