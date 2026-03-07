@@ -158,6 +158,7 @@
     "src/google-announcements.js",
     "src/microsoft-announcements.js",
     "src/ownership-announcements.js",
+    "src/token-manager.js",
     "src/etherscan-verify.js",
     "src/blockchain-path-fetcher.js",
     "src/*.md",
