@@ -7,7 +7,7 @@
  * and NEVER hardcode them in source code.
  */
 
-const Wallet = require('./wallet');
+const { Wallet } = require('./wallet');
 
 // Create a new wallet instance
 const wallet = new Wallet();

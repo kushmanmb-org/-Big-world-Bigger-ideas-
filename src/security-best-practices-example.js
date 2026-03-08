@@ -5,7 +5,7 @@
  * SECURITY NOTE: This example shows proper handling of sensitive data
  */
 
-const Wallet = require('./wallet');
+const { Wallet } = require('./wallet');
 
 console.log('🔒 Wallet Security Best Practices Demo\n');
 console.log('='.repeat(70));
