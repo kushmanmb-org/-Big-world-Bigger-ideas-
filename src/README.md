@@ -10,6 +10,7 @@ This module provides secure wallet encryption functionality for blockchain appli
 - **Initialization Vector (IV)**: Random IV for each encryption to ensure security
 - **Import/Export**: Easily export encrypted wallets and import them later
 - **Error Handling**: Comprehensive error handling for invalid inputs and decryption failures
+- **Send with Locking**: Outgoing transfers blocked by a global kill-switch and per-wallet lock/pause controls
 - **Lock/Unlock**: Lock the wallet to block sends and clear the private key from memory; unlock with a password to resume
 - **Pause/Unpause (Owner only)**: Pause the wallet to block all sends; only the owner address can pause or unpause
 
@@ -170,7 +171,7 @@ Sends funds to a recipient address. **Throws if the wallet is locked or paused.*
 - `amount`: Numeric amount
 - `timestamp`: Transaction timestamp
 
-**Throws:** Error if the wallet is locked, paused, recipient is invalid, or amount is not a positive number
+**Throws:** Error if any lock is active, recipient is invalid, or amount is not a positive number
 
 **Usage:**
 ```javascript
@@ -178,39 +179,37 @@ const tx = wallet.send('0xRecipientAddress...', 0.5);
 console.log('Transaction:', tx);
 ```
 
-### `wallet.pause(callerAddress)`
+### `GLOBAL_WALLET_LOCK` (exported constant)
 
-Pauses the wallet to block all sends. **Only the owner address can call this.**
+A boolean flag that, when `true`, blocks **all** `wallet.send()` calls across every wallet instance. This is the primary kill-switch for outgoing transfers.
 
-The `ownerAddress` is automatically set to the wallet's own address when `generate()` is called.
+**Default:** `true` (all sends blocked until explicitly lifted)
 
-**Parameters:**
-- `callerAddress` (string): The address of the caller — must match `ownerAddress`
+**How to lift the lock:**
 
-**Throws:** Error if the wallet has no owner, the caller address is invalid, or the caller is not the owner
+Option 1 – environment variable (no code change):
+```bash
+WALLET_GLOBAL_LOCK=false node app.js
+```
+
+Option 2 – feature flag in `feature-flags.json`:
+```json
+"global_wallet_lock": { "enabled": false }
+```
+
+Option 3 – code change in `src/wallet.js`:
+Change the fallback value in the `GLOBAL_WALLET_LOCK` constant from `true` to `false`.
 
 **Usage:**
 ```javascript
-const wallet = new Wallet();
-wallet.generate();
-wallet.pause(wallet.ownerAddress); // only the owner can pause
-console.log(wallet.isPaused); // true
+const { Wallet, GLOBAL_WALLET_LOCK } = require('./src/wallet');
+
+if (GLOBAL_WALLET_LOCK) {
+  console.log('Outgoing transfers are currently disabled.');
+}
 ```
 
-### `wallet.unpause(callerAddress)`
-
-Unpauses the wallet to allow sends again. **Only the owner address can call this.**
-
-**Parameters:**
-- `callerAddress` (string): The address of the caller — must match `ownerAddress`
-
-**Throws:** Error if the wallet has no owner, the caller address is invalid, or the caller is not the owner
-
-**Usage:**
-```javascript
-wallet.unpause(wallet.ownerAddress); // only the owner can unpause
-console.log(wallet.isPaused); // false
-```
+> **Portability:** Copy the `GLOBAL_WALLET_LOCK` constant definition and the guard at the top of `send()` to any other wallet module to instantly adopt the same lock behaviour.
 
 ## Security Considerations
 

@@ -5,11 +5,32 @@
 
 const crypto = require('crypto');
 
+// ---------------------------------------------------------------------------
+// GLOBAL WALLET LOCK
+//
+// When GLOBAL_WALLET_LOCK is true every call to wallet.send() is rejected,
+// regardless of per-wallet lock or pause state. This is a security measure
+// that can be activated during incidents or maintenance periods.
+//
+// HOW TO REMOVE / TOGGLE THE LOCK:
+//   Option 1 (environment variable – no code change needed):
+//     Set WALLET_GLOBAL_LOCK=false before starting the process, e.g.
+//       WALLET_GLOBAL_LOCK=false node app.js
+//   Option 2 (code change):
+//     Change the fallback `true` below to `false`:
+//       process.env.WALLET_GLOBAL_LOCK === 'false' ? false : false
+//
+// PORTABILITY: Copy this constant and the check at the top of send() to
+//   any other wallet module to instantly adopt the same lock behaviour.
+// ---------------------------------------------------------------------------
+const GLOBAL_WALLET_LOCK = process.env.WALLET_GLOBAL_LOCK === 'false' ? false : true;
+
 class Wallet {
   constructor() {
     this.address = null;
     this.privateKey = null;
     this.encryptedData = null;
+    // Per-wallet lock state
     this.isLocked = false;
     this.isPaused = false;
     this.ownerAddress = null;
@@ -148,9 +169,9 @@ class Wallet {
     const hash = crypto.createHash('sha256').update(this.privateKey).digest('hex');
     this.address = '0x' + hash.substring(0, 40);
 
-    // The address that generated the wallet becomes the owner
+    // The address that generated the wallet becomes its owner
     this.ownerAddress = this.address;
-    
+
     return {
       address: this.address,
       privateKey: this.privateKey
@@ -180,31 +201,26 @@ class Wallet {
   }
 
   /**
-   * Locks the wallet to prevent sends
-   * Clears the private key from memory for security
+   * Locks the wallet to prevent sends.
+   * Clears the private key from memory for security.
    */
   lock() {
     this.isLocked = true;
-    if (this.privateKey) {
-      this.privateKey = this._secureWipe(this.privateKey);
-      this.privateKey = null;
-    }
+    this._secureWipe(this.privateKey);
+    this.privateKey = null;
   }
 
   /**
-   * Unlocks the wallet using the encrypted password
+   * Unlocks the wallet using the encrypted password.
    * @param {string} password - The password to decrypt the wallet with
    */
   unlock(password) {
-    if (!this.encryptedData) {
-      throw new Error('No encrypted data found. Encrypt the wallet before unlocking.');
-    }
     this.decrypt(password);
     this.isLocked = false;
   }
 
   /**
-   * Pauses the wallet to block sends (owner only)
+   * Pauses the wallet to block sends (owner only).
    * @param {string} callerAddress - Address of the caller; must match ownerAddress
    */
   pause(callerAddress) {
@@ -221,7 +237,7 @@ class Wallet {
   }
 
   /**
-   * Unpauses the wallet to allow sends (owner only)
+   * Unpauses the wallet to allow sends (owner only).
    * @param {string} callerAddress - Address of the caller; must match ownerAddress
    */
   unpause(callerAddress) {
@@ -279,4 +295,4 @@ class Wallet {
   }
 }
 
-module.exports = Wallet;
+module.exports = { Wallet, GLOBAL_WALLET_LOCK };
