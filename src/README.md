@@ -10,6 +10,7 @@ This module provides secure wallet encryption functionality for blockchain appli
 - **Initialization Vector (IV)**: Random IV for each encryption to ensure security
 - **Import/Export**: Easily export encrypted wallets and import them later
 - **Error Handling**: Comprehensive error handling for invalid inputs and decryption failures
+- **Lock/Unlock**: Lock the wallet to block sends and clear the private key from memory; unlock with a password to resume
 
 ## Installation
 
@@ -123,6 +124,58 @@ wallet.clearSensitiveData(); // Clear private key from memory
 ```
 
 **Note:** This method only clears the private key. Address and encrypted data are preserved as they are less sensitive.
+
+### `wallet.lock()`
+
+Locks the wallet to prevent any sends. Clears the private key from memory for security.
+
+**Usage:**
+```javascript
+wallet.lock();
+console.log(wallet.isLocked); // true
+```
+
+**Note:** The wallet must have been encrypted before it can be unlocked again after locking.
+
+### `wallet.unlock(password)`
+
+Unlocks the wallet using the stored encrypted data. Restores the private key to memory.
+
+**Parameters:**
+- `password` (string): The password previously used to encrypt the wallet
+
+**Throws:** Error if the wallet has no encrypted data, or if the password is incorrect
+
+**Usage:**
+```javascript
+wallet.encrypt('MySecurePassword123!');
+wallet.lock();
+// ... later ...
+wallet.unlock('MySecurePassword123!');
+console.log(wallet.isLocked); // false
+```
+
+### `wallet.send(to, amount)`
+
+Sends funds to a recipient address. **Throws if the wallet is locked.**
+
+**Parameters:**
+- `to` (string): Recipient wallet address
+- `amount` (number|string): Amount to send (must be a positive number)
+
+**Returns:** Transaction details object containing:
+- `from`: Sender wallet address
+- `to`: Recipient address
+- `amount`: Numeric amount
+- `timestamp`: Transaction timestamp
+
+**Throws:** Error if the wallet is locked, recipient is invalid, or amount is not a positive number
+
+**Usage:**
+```javascript
+const tx = wallet.send('0xRecipientAddress...', 0.5);
+console.log('Transaction:', tx);
+```
 
 ## Security Considerations
 

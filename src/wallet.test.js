@@ -198,5 +198,96 @@ test('should validate cryptographic random number generator availability', () =>
   assertNotNull(encryptedData, 'Should encrypt successfully with available CSPRNG');
 });
 
+// Test 17: Wallet starts unlocked
+test('should start in unlocked state', () => {
+  const wallet = new Wallet();
+  assertEqual(wallet.isLocked, false, 'Wallet should start unlocked');
+});
+
+// Test 18: Lock wallet
+test('should lock the wallet and clear private key', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertNotNull(wallet.privateKey, 'Private key should exist before locking');
+  wallet.lock();
+
+  assertEqual(wallet.isLocked, true, 'Wallet should be locked after lock()');
+  assertEqual(wallet.privateKey, null, 'Private key should be cleared after lock()');
+});
+
+// Test 19: Send is blocked when locked
+test('should block send when wallet is locked', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.lock();
+
+  assertThrows(() => wallet.send('0xRecipient1234567890', 1.0), 'Wallet is locked');
+});
+
+// Test 20: Unlock wallet
+test('should unlock the wallet with correct password', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  const password = 'UnlockPassword123';
+  wallet.encrypt(password);
+  wallet.lock();
+
+  assertEqual(wallet.isLocked, true, 'Wallet should be locked');
+  wallet.unlock(password);
+  assertEqual(wallet.isLocked, false, 'Wallet should be unlocked after unlock()');
+  assertNotNull(wallet.privateKey, 'Private key should be restored after unlock()');
+});
+
+// Test 21: Unlock with wrong password should fail
+test('should fail to unlock with wrong password', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.encrypt('CorrectPassword123');
+  wallet.lock();
+
+  assertThrows(() => wallet.unlock('WrongPassword123'), 'Invalid password');
+  assertEqual(wallet.isLocked, true, 'Wallet should remain locked after failed unlock');
+});
+
+// Test 22: Send succeeds when unlocked
+test('should allow send when wallet is unlocked', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  const tx = wallet.send('0xRecipient1234567890123456789012345678', 0.5);
+  assertNotNull(tx, 'Transaction should be returned');
+  assertEqual(tx.to, '0xRecipient1234567890123456789012345678', 'Recipient should match');
+  assertEqual(tx.amount, 0.5, 'Amount should match');
+  assertEqual(tx.from, wallet.address, 'From address should match wallet address');
+});
+
+// Test 23: Send validates recipient address
+test('should reject send with invalid recipient address', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.send('', 1.0), 'non-empty string');
+  assertThrows(() => wallet.send(null, 1.0), 'non-empty string');
+});
+
+// Test 24: Send validates amount
+test('should reject send with invalid amount', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.send('0xRecipient', 0), 'positive number');
+  assertThrows(() => wallet.send('0xRecipient', -1), 'positive number');
+  assertThrows(() => wallet.send('0xRecipient', 'abc'), 'positive number');
+});
+
+// Test 25: Unlock without encrypted data should fail
+test('should fail to unlock without encrypted data', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.unlock('SomePassword123'), 'No encrypted data found');
+});
+
 // Summary
 printSummary();
