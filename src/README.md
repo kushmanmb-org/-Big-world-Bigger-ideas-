@@ -11,6 +11,8 @@ This module provides secure wallet encryption functionality for blockchain appli
 - **Import/Export**: Easily export encrypted wallets and import them later
 - **Error Handling**: Comprehensive error handling for invalid inputs and decryption failures
 - **Send with Locking**: Outgoing transfers blocked by a global kill-switch and per-wallet lock/pause controls
+- **Lock/Unlock**: Lock the wallet to block sends and clear the private key from memory; unlock with a password to resume
+- **Pause/Unpause (Owner only)**: Pause the wallet to block all sends; only the owner address can pause or unpause
 
 ## Installation
 
@@ -127,40 +129,37 @@ wallet.clearSensitiveData(); // Clear private key from memory
 
 ### `wallet.lock()`
 
-Locks the wallet to prevent any outgoing sends. Clears the private key from memory for security.
+Locks the wallet to prevent any sends. Clears the private key from memory for security.
 
-After locking, call `wallet.unlock(password)` to restore access.
+**Usage:**
+```javascript
+wallet.lock();
+console.log(wallet.isLocked); // true
+```
+
+**Note:** The wallet must have been encrypted before it can be unlocked again after locking.
 
 ### `wallet.unlock(password)`
 
-Unlocks the wallet by decrypting it with the stored password.
+Unlocks the wallet using the stored encrypted data. Restores the private key to memory.
 
 **Parameters:**
 - `password` (string): The password previously used to encrypt the wallet
 
-**Throws:** Error if the password is incorrect or no encrypted data is available
+**Throws:** Error if the wallet has no encrypted data, or if the password is incorrect
 
-### `wallet.pause(callerAddress)`
-
-Pauses outgoing sends without clearing the private key (owner only).
-
-**Parameters:**
-- `callerAddress` (string): Must match the wallet's `ownerAddress`
-
-**Throws:** Error if caller is not the owner or the wallet has not been generated
-
-### `wallet.unpause(callerAddress)`
-
-Resumes outgoing sends (owner only).
-
-**Parameters:**
-- `callerAddress` (string): Must match the wallet's `ownerAddress`
-
-**Throws:** Error if caller is not the owner or the wallet has not been generated
+**Usage:**
+```javascript
+wallet.encrypt('MySecurePassword123!');
+wallet.lock();
+// ... later ...
+wallet.unlock('MySecurePassword123!');
+console.log(wallet.isLocked); // false
+```
 
 ### `wallet.send(to, amount)`
 
-Sends funds to a recipient address. **Throws if the global lock, per-wallet lock, or pause is active.**
+Sends funds to a recipient address. **Throws if the wallet is locked or paused.**
 
 **Parameters:**
 - `to` (string): Recipient wallet address

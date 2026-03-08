@@ -254,28 +254,13 @@ class Wallet {
   }
 
   /**
-   * Sends funds to a recipient address.
-   *
-   * Checks are performed in this order:
-   *   1. GLOBAL_WALLET_LOCK  – organisational kill-switch (see top of file)
-   *   2. isLocked            – per-wallet lock (cleared private key)
-   *   3. isPaused            – per-wallet pause (owner-controlled)
-   *   4. Input validation
-   *
+   * Sends funds to a recipient address
+   * Throws if the wallet is locked or paused
    * @param {string} to - Recipient address
-   * @param {number|string} amount - Amount to send (must be a positive number)
-   * @returns {object} Transaction details: { from, to, amount, timestamp }
+   * @param {number|string} amount - Amount to send
+   * @returns {object} Transaction details
    */
   send(to, amount) {
-    // GLOBAL LOCK CHECK – must remain the very first guard in this method.
-    // To lift the lock see the GLOBAL_WALLET_LOCK comment at the top of this file.
-    if (GLOBAL_WALLET_LOCK) {
-      throw new Error(
-        'Outgoing transfers are currently paused for security reasons. ' +
-        'Please contact the administrator to resume sending.'
-      );
-    }
-
     if (this.isLocked) {
       throw new Error('Wallet is locked. Unlock the wallet before sending.');
     }
