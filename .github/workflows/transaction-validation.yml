@@ -53,8 +53,9 @@ jobs:
     steps:
       - name: Parse /validate-tx comment
         id: parse
+        env:
+          BODY: ${{ github.event.comment.body }}
         run: |
-          BODY="${{ github.event.comment.body }}"
           # Expected format: /validate-tx <hash> [chain]
           TX_HASH=$(echo "$BODY" | awk '{print $2}')
           CHAIN=$(echo "$BODY" | awk '{print $3}')
