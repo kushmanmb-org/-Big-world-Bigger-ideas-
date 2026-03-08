@@ -11,6 +11,7 @@ This module provides secure wallet encryption functionality for blockchain appli
 - **Import/Export**: Easily export encrypted wallets and import them later
 - **Error Handling**: Comprehensive error handling for invalid inputs and decryption failures
 - **Lock/Unlock**: Lock the wallet to block sends and clear the private key from memory; unlock with a password to resume
+- **Pause/Unpause (Owner only)**: Pause the wallet to block all sends; only the owner address can pause or unpause
 
 ## Installation
 
@@ -157,7 +158,7 @@ console.log(wallet.isLocked); // false
 
 ### `wallet.send(to, amount)`
 
-Sends funds to a recipient address. **Throws if the wallet is locked.**
+Sends funds to a recipient address. **Throws if the wallet is locked or paused.**
 
 **Parameters:**
 - `to` (string): Recipient wallet address
@@ -169,12 +170,46 @@ Sends funds to a recipient address. **Throws if the wallet is locked.**
 - `amount`: Numeric amount
 - `timestamp`: Transaction timestamp
 
-**Throws:** Error if the wallet is locked, recipient is invalid, or amount is not a positive number
+**Throws:** Error if the wallet is locked, paused, recipient is invalid, or amount is not a positive number
 
 **Usage:**
 ```javascript
 const tx = wallet.send('0xRecipientAddress...', 0.5);
 console.log('Transaction:', tx);
+```
+
+### `wallet.pause(callerAddress)`
+
+Pauses the wallet to block all sends. **Only the owner address can call this.**
+
+The `ownerAddress` is automatically set to the wallet's own address when `generate()` is called.
+
+**Parameters:**
+- `callerAddress` (string): The address of the caller — must match `ownerAddress`
+
+**Throws:** Error if the wallet has no owner, the caller address is invalid, or the caller is not the owner
+
+**Usage:**
+```javascript
+const wallet = new Wallet();
+wallet.generate();
+wallet.pause(wallet.ownerAddress); // only the owner can pause
+console.log(wallet.isPaused); // true
+```
+
+### `wallet.unpause(callerAddress)`
+
+Unpauses the wallet to allow sends again. **Only the owner address can call this.**
+
+**Parameters:**
+- `callerAddress` (string): The address of the caller — must match `ownerAddress`
+
+**Throws:** Error if the wallet has no owner, the caller address is invalid, or the caller is not the owner
+
+**Usage:**
+```javascript
+wallet.unpause(wallet.ownerAddress); // only the owner can unpause
+console.log(wallet.isPaused); // false
 ```
 
 ## Security Considerations

@@ -289,5 +289,95 @@ test('should fail to unlock without encrypted data', () => {
   assertThrows(() => wallet.unlock('SomePassword123'), 'No encrypted data found');
 });
 
+// Test 26: Wallet starts unpaused with no owner
+test('should start unpaused with no owner', () => {
+  const wallet = new Wallet();
+  assertEqual(wallet.isPaused, false, 'Wallet should start unpaused');
+  assertEqual(wallet.ownerAddress, null, 'Owner address should be null before generate()');
+});
+
+// Test 27: generate() sets ownerAddress to the wallet address
+test('should set ownerAddress to wallet address after generate()', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  assertEqual(wallet.ownerAddress, wallet.address, 'Owner address should match wallet address');
+});
+
+// Test 28: Owner can pause the wallet
+test('should allow owner to pause the wallet', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  wallet.pause(wallet.ownerAddress);
+  assertEqual(wallet.isPaused, true, 'Wallet should be paused after owner calls pause()');
+});
+
+// Test 29: Owner can unpause the wallet
+test('should allow owner to unpause the wallet', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  wallet.pause(wallet.ownerAddress);
+  wallet.unpause(wallet.ownerAddress);
+  assertEqual(wallet.isPaused, false, 'Wallet should be unpaused after owner calls unpause()');
+});
+
+// Test 30: Non-owner cannot pause the wallet
+test('should reject pause from non-owner address', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.pause('0x0000000000000000000000000000000000000001'), 'Only the owner can pause');
+  assertEqual(wallet.isPaused, false, 'Wallet should remain unpaused after failed pause attempt');
+});
+
+// Test 31: Non-owner cannot unpause the wallet
+test('should reject unpause from non-owner address', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+
+  assertThrows(() => wallet.unpause('0x0000000000000000000000000000000000000001'), 'Only the owner can unpause');
+  assertEqual(wallet.isPaused, true, 'Wallet should remain paused after failed unpause attempt');
+});
+
+// Test 32: Send is blocked when paused
+test('should block send when wallet is paused', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+
+  assertThrows(() => wallet.send('0xRecipient1234567890123456789012345678', 1.0), 'Wallet is paused');
+});
+
+// Test 33: Send succeeds after unpausing
+test('should allow send after owner unpauses', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+  wallet.unpause(wallet.ownerAddress);
+
+  const tx = wallet.send('0xRecipient1234567890123456789012345678', 2.0);
+  assertNotNull(tx, 'Transaction should be returned after unpause');
+  assertEqual(tx.amount, 2.0, 'Amount should match');
+});
+
+// Test 34: pause() requires a valid caller address
+test('should reject pause with invalid caller address', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.pause(''), 'non-empty string');
+  assertThrows(() => wallet.pause(null), 'non-empty string');
+});
+
+// Test 35: pause() before generate() should fail
+test('should fail to pause before wallet is generated', () => {
+  const wallet = new Wallet();
+
+  assertThrows(() => wallet.pause('0xAnyAddress'), 'Wallet has no owner');
+  assertThrows(() => wallet.unpause('0xAnyAddress'), 'Wallet has no owner');
+});
+
 // Summary
 printSummary();

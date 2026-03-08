@@ -11,6 +11,8 @@ class Wallet {
     this.privateKey = null;
     this.encryptedData = null;
     this.isLocked = false;
+    this.isPaused = false;
+    this.ownerAddress = null;
   }
 
   /**
@@ -145,6 +147,9 @@ class Wallet {
     // Generate a wallet address (simplified - not a real blockchain address)
     const hash = crypto.createHash('sha256').update(this.privateKey).digest('hex');
     this.address = '0x' + hash.substring(0, 40);
+
+    // The address that generated the wallet becomes the owner
+    this.ownerAddress = this.address;
     
     return {
       address: this.address,
@@ -199,8 +204,42 @@ class Wallet {
   }
 
   /**
+   * Pauses the wallet to block sends (owner only)
+   * @param {string} callerAddress - Address of the caller; must match ownerAddress
+   */
+  pause(callerAddress) {
+    if (!this.ownerAddress) {
+      throw new Error('Wallet has no owner. Generate the wallet first.');
+    }
+    if (!callerAddress || typeof callerAddress !== 'string') {
+      throw new Error('Caller address must be a non-empty string');
+    }
+    if (callerAddress !== this.ownerAddress) {
+      throw new Error('Only the owner can pause the wallet');
+    }
+    this.isPaused = true;
+  }
+
+  /**
+   * Unpauses the wallet to allow sends (owner only)
+   * @param {string} callerAddress - Address of the caller; must match ownerAddress
+   */
+  unpause(callerAddress) {
+    if (!this.ownerAddress) {
+      throw new Error('Wallet has no owner. Generate the wallet first.');
+    }
+    if (!callerAddress || typeof callerAddress !== 'string') {
+      throw new Error('Caller address must be a non-empty string');
+    }
+    if (callerAddress !== this.ownerAddress) {
+      throw new Error('Only the owner can unpause the wallet');
+    }
+    this.isPaused = false;
+  }
+
+  /**
    * Sends funds to a recipient address
-   * Throws if the wallet is locked
+   * Throws if the wallet is locked or paused
    * @param {string} to - Recipient address
    * @param {number|string} amount - Amount to send
    * @returns {object} Transaction details
@@ -208,6 +247,10 @@ class Wallet {
   send(to, amount) {
     if (this.isLocked) {
       throw new Error('Wallet is locked. Unlock the wallet before sending.');
+    }
+
+    if (this.isPaused) {
+      throw new Error('Wallet is paused. Unpause the wallet before sending.');
     }
 
     if (!this.address) {
