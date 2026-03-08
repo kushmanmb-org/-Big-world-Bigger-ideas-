@@ -9,6 +9,42 @@ const TransactionValidator = require('./transaction-validator.js');
 let testsPassed = 0;
 let testsFailed = 0;
 
+function safeStringify(value) {
+  const seen = new WeakSet();
+  const SENSITIVE_KEYS = ['key', 'token', 'secret', 'password', 'pwd', 'apikey', 'api_key'];
+
+  function isSensitiveKey(k) {
+    const lower = String(k).toLowerCase();
+    return SENSITIVE_KEYS.some(marker => lower.includes(marker));
+  }
+
+  function replacer(key, val) {
+    if (typeof key === 'string' && isSensitiveKey(key)) {
+      return '[REDACTED]';
+    }
+    if (val && typeof val === 'object') {
+      if (seen.has(val)) {
+        return '[Circular]';
+      }
+      seen.add(val);
+    }
+    if (typeof val === 'string' && val.length > 64) {
+      return val.slice(0, 61) + '...';
+    }
+    return val;
+  }
+
+  try {
+    return JSON.stringify(value, replacer);
+  } catch (e) {
+    try {
+      return String(value);
+    } catch {
+      return '[Unserializable]';
+    }
+  }
+}
+
 function assert(condition, message) {
   if (condition) {
     console.log(`✓ ${message}`);
@@ -25,8 +61,8 @@ function assertEqual(actual, expected, message) {
     testsPassed++;
   } else {
     console.error(`✗ ${message}`);
-    console.error(`  Expected: ${JSON.stringify(expected)}`);
-    console.error(`  Actual:   ${JSON.stringify(actual)}`);
+    console.error(`  Expected: ${safeStringify(expected)}`);
+    console.error(`  Actual:   ${safeStringify(actual)}`);
     testsFailed++;
   }
 }
