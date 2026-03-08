@@ -13,6 +13,11 @@
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "no-console": "off",
     "semi": ["error", "always"],
+    "quotes": ["warn", "single"],
+    "eqeqeq": ["error", "always"],
+    "no-var": "warn",
+    "prefer-const": "warn"
+  }
     "quotes": ["error", "single", { "avoidEscape": true }],
     "eqeqeq": ["error", "always"],
     "no-var": "error",
