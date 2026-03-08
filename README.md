@@ -152,6 +152,7 @@ This package includes the following modules organized by category:
 - **`LitecoinBlockchairFetcher`** - Litecoin blockchain data from Blockchair
 - **`EthereumBlockchairFetcher`** - Ethereum blockchain data from Blockchair with ENS support
 - **`EtherscanTokenBalanceFetcher`** - ERC-20 and ERC-721 token balance fetcher from Etherscan
+- **`TransactionValidator`** - Multi-API transaction validation (Etherscan + Mempool.space + Blockchair)
 
 **Network & Consensus:**
 - **`ConsensusTracker`** - Blockchain consensus mechanism tracker
@@ -469,6 +470,41 @@ The `_site/` directory will contain all files ready for deployment, allowing you
 
 📖 **For complete deployment guide, see [DEPLOYMENT.md](./DEPLOYMENT.md)**  
 📖 **For GitHub Pages setup instructions, see [.github/PAGES-SETUP.md](./.github/PAGES-SETUP.md)**
+
+---
+
+## 🧹 Super Linter
+
+This repository uses [GitHub Super Linter](https://github.com/super-linter/super-linter) to lint all source files automatically on every push and pull request.
+
+### What's Linted
+
+| Language / Format | Tool |
+|-------------------|------|
+| JavaScript | ESLint (recommended rules) |
+| JSON | jsonlint |
+| YAML | yamllint |
+| Markdown | markdownlint |
+| CSS | stylelint |
+| HTML | htmlhint |
+| Bash | shellcheck |
+
+### Configuration
+
+| File | Purpose |
+|------|---------|
+| `.github/workflows/super-linter.yml` | Super Linter workflow |
+| `.github/super-linter.env` | Environment variable overrides |
+| `.github/linters/.eslintrc.json` | ESLint rules for JavaScript |
+
+### Running Super Linter Locally
+
+```bash
+# Run the equivalent ESLint check locally
+npx eslint src/ --ext .js
+```
+
+The full Super Linter runs automatically in CI — see the workflow badge at the top of this file.
 
 ---
 
@@ -1251,6 +1287,85 @@ For complete documentation, see [src/BLOCKCHAIN-COUNCIL.md](./src/BLOCKCHAIN-COU
 - **Treasury Management**: Multi-sig treasury fund allocation voting
 - **Community Voting**: Community-driven project decisions
 - **Multi-Stakeholder Coordination**: Coordinating multiple parties with different roles
+
+---
+
+## ✅ Transaction Validator
+
+Cross-API blockchain transaction validation using **Etherscan**, **Mempool.space**, and **Blockchair**. Validate any transaction on Ethereum, Bitcoin, Litecoin, Dogecoin, and more with a single call.
+
+### Quick Start
+
+```javascript
+const TransactionValidator = require('./src/transaction-validator');
+
+const validator = new TransactionValidator({
+  etherscanApiKey: process.env.ETHERSCAN_API_KEY  // optional
+});
+
+// Validate a Bitcoin transaction (Mempool.space + Blockchair)
+const result = await validator.validateTransaction(
+  'a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d',
+  'bitcoin'
+);
+console.log(validator.formatAggregatedResult(result));
+
+// Validate an Ethereum transaction (Etherscan + Blockchair)
+const ethResult = await validator.validateTransaction(
+  '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060',
+  'ethereum'
+);
+console.log(validator.formatAggregatedResult(ethResult));
+```
+
+### Features
+
+- 🔌 **Three API backends**: Etherscan, Mempool.space (Bitcoin), Blockchair (multi-chain)
+- 🔗 **Cross-API validation**: Confirms a transaction against multiple sources simultaneously
+- ⛓️ **Multi-chain**: Bitcoin, Ethereum, Litecoin, Dogecoin, and more
+- 💾 **Caching**: 60-second TTL to avoid redundant API calls
+- ✅ **Input validation**: Strict hash format checks with clear error messages
+- 🤖 **ChatOps integration**: Trigger validation from GitHub issues/PRs with `/validate-tx`
+
+### GitHub Actions Integration (Self-Hosted Runner)
+
+Trigger validation directly from a GitHub issue or PR comment:
+
+```
+/validate-tx <txHash> <chain>
+```
+
+**Examples:**
+```
+/validate-tx a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d bitcoin
+/validate-tx 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 ethereum
+```
+
+The workflow (`.github/workflows/transaction-validation.yml`) runs on a **self-hosted runner**,
+queries all three APIs in sequence, and posts a validation summary comment back on the
+issue or PR.
+
+Required secrets:
+- `ETHERSCAN_API_KEY` – for Ethereum validation (optional; Blockchair fallback used if absent)
+
+### Available Methods
+
+- `validateTransaction(txHash, chain)` – Aggregated cross-API validation
+- `validateBitcoinTransaction(txHash)` – Bitcoin via Mempool.space
+- `validateEthereumTransaction(txHash, chainId?)` – Ethereum via Etherscan
+- `validateBlockchairTransaction(txHash, chain?)` – Any chain via Blockchair
+- `formatResult(result)` – Human-readable single-source output
+- `formatAggregatedResult(result)` – Human-readable aggregated output
+- `TransactionValidator.getSupportedChains()` – List of supported chains
+
+### Testing
+
+```bash
+npm run test:transaction-validator  # Run tests only
+npm run transaction-validator:demo  # Run the demo
+```
+
+For complete documentation, see [TRANSACTION-VALIDATOR.md](src/TRANSACTION-VALIDATOR.md)
 
 ---
 

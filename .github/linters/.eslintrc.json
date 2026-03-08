@@ -7,7 +7,7 @@
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaVersion": 2021,
-    "sourceType": "script"
+    "sourceType": "commonjs"
   },
   "rules": {
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
@@ -18,4 +18,15 @@
     "no-var": "warn",
     "prefer-const": "warn"
   }
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "eqeqeq": ["error", "always"],
+    "no-var": "error",
+    "prefer-const": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "lib/",
+    "*.min.js"
+  ]
 }
