@@ -7,8 +7,10 @@
  * In production code, NEVER hardcode passwords, API keys, or private keys.
  */
 
-const Wallet = require('./wallet');
+const { Wallet, GLOBAL_WALLET_LOCK } = require('./wallet');
 const { test, assertEqual, assertNotNull, assertThrows, printSummary } = require('./test-helpers');
+
+const TEST_RECIPIENT = '0xRecipient1234567890123456789012345678';
 
 console.log('Running Wallet Encryption Tests...\n');
 
@@ -196,6 +198,204 @@ test('should validate cryptographic random number generator availability', () =>
   // which it should be in a Node.js environment
   const encryptedData = wallet.encrypt('TestPassword123');
   assertNotNull(encryptedData, 'Should encrypt successfully with available CSPRNG');
+});
+
+// -------------------------------------------------------------------------
+// Tests 17-32: lock / unlock / pause / unpause / send / global lock
+// -------------------------------------------------------------------------
+
+// Test 17: Wallet starts unlocked and unpaused
+test('should start in unlocked and unpaused state', () => {
+  const wallet = new Wallet();
+  assertEqual(wallet.isLocked, false, 'Wallet should start unlocked');
+  assertEqual(wallet.isPaused, false, 'Wallet should start unpaused');
+});
+
+// Test 18: Lock wallet clears private key
+test('should lock the wallet and clear private key', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.encrypt('SecurePassword123');
+
+  assertNotNull(wallet.privateKey, 'Private key should exist before locking');
+  wallet.lock();
+
+  assertEqual(wallet.isLocked, true, 'Wallet should be locked after lock()');
+  assertEqual(wallet.privateKey, null, 'Private key should be cleared after lock()');
+});
+
+// Test 19: Unlock with correct password restores wallet
+test('should unlock the wallet with correct password', () => {
+  const wallet = new Wallet();
+  const originalData = wallet.generate();
+  const password = 'UnlockPassword123';
+  wallet.encrypt(password);
+  wallet.lock();
+
+  wallet.unlock(password);
+  assertEqual(wallet.isLocked, false, 'Wallet should be unlocked');
+  assertEqual(wallet.address, originalData.address, 'Address should be restored after unlock');
+});
+
+// Test 20: Unlock with wrong password fails
+test('should fail to unlock with wrong password', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.encrypt('CorrectPassword123');
+  wallet.lock();
+
+  assertThrows(() => wallet.unlock('WrongPassword123'), 'Invalid password');
+  assertEqual(wallet.isLocked, true, 'Wallet should remain locked after failed unlock');
+});
+
+// Test 21: Pause wallet (owner only)
+test('should allow owner to pause the wallet', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  wallet.pause(wallet.ownerAddress);
+  assertEqual(wallet.isPaused, true, 'Wallet should be paused');
+});
+
+// Test 22: Non-owner cannot pause wallet
+test('should reject pause from non-owner', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(
+    () => wallet.pause('0x0000000000000000000000000000000000000001'),
+    'Only the owner can pause'
+  );
+  assertEqual(wallet.isPaused, false, 'Wallet should remain unpaused');
+});
+
+// Test 23: Unpause wallet (owner only)
+test('should allow owner to unpause the wallet', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+
+  wallet.unpause(wallet.ownerAddress);
+  assertEqual(wallet.isPaused, false, 'Wallet should be unpaused');
+});
+
+// Test 24: Non-owner cannot unpause wallet
+test('should reject unpause from non-owner', () => {
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+
+  assertThrows(
+    () => wallet.unpause('0x0000000000000000000000000000000000000001'),
+    'Only the owner can unpause'
+  );
+  assertEqual(wallet.isPaused, true, 'Wallet should remain paused');
+});
+
+// Test 25: Send is blocked when per-wallet locked (when global lock is off)
+test('should block send when wallet is locked (per-wallet)', () => {
+  if (GLOBAL_WALLET_LOCK) {
+    // Global lock takes precedence; skip per-wallet lock test
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.encrypt('LockPassword123');
+  wallet.lock();
+
+  assertThrows(() => wallet.send(TEST_RECIPIENT, 1.0), 'Wallet is locked');
+});
+
+// Test 26: Send is blocked when per-wallet paused (when global lock is off)
+test('should block send when wallet is paused (per-wallet)', () => {
+  if (GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+  wallet.pause(wallet.ownerAddress);
+
+  assertThrows(() => wallet.send(TEST_RECIPIENT, 1.0), 'Wallet is paused');
+});
+
+// Test 27: GLOBAL_WALLET_LOCK is enabled and exported
+test('GLOBAL_WALLET_LOCK should be exported and be a boolean', () => {
+  assertEqual(typeof GLOBAL_WALLET_LOCK, 'boolean', 'GLOBAL_WALLET_LOCK should be a boolean');
+});
+
+// Test 28: Send is always blocked when GLOBAL_WALLET_LOCK is active
+test('should block send with security message when GLOBAL_WALLET_LOCK is active', () => {
+  if (!GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(
+    () => wallet.send(TEST_RECIPIENT, 1.0),
+    'paused for security reasons'
+  );
+});
+
+// Test 29: Global lock message is informative
+test('global lock error message should mention administrator contact', () => {
+  if (!GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+
+  let caught = null;
+  try {
+    wallet.send(TEST_RECIPIENT, 1.0);
+  } catch (e) {
+    caught = e;
+  }
+  assertNotNull(caught, 'Should throw when global lock is active');
+  if (!caught.message.includes('administrator')) {
+    throw new Error(`Expected 'administrator' in error message, got: "${caught.message}"`);
+  }
+});
+
+// Test 30: Send validates recipient address (when global lock is off)
+test('should reject send with invalid recipient address', () => {
+  if (GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.send('', 1.0), 'non-empty string');
+  assertThrows(() => wallet.send(null, 1.0), 'non-empty string');
+});
+
+// Test 31: Send validates amount (when global lock is off)
+test('should reject send with invalid amount', () => {
+  if (GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+
+  assertThrows(() => wallet.send('0xRecipient', 0), 'positive number');
+  assertThrows(() => wallet.send('0xRecipient', -1), 'positive number');
+  assertThrows(() => wallet.send('0xRecipient', 'abc'), 'positive number');
+});
+
+// Test 32: Successful send (when global lock is off)
+test('should return transaction details on successful send', () => {
+  if (GLOBAL_WALLET_LOCK) {
+    return;
+  }
+  const wallet = new Wallet();
+  wallet.generate();
+
+  const tx = wallet.send(TEST_RECIPIENT, 0.5);
+  assertNotNull(tx, 'Transaction should not be null');
+  assertEqual(tx.to, TEST_RECIPIENT, 'Recipient should match');
+  assertEqual(tx.amount, 0.5, 'Amount should match');
+  assertEqual(tx.from, wallet.address, 'From address should match wallet address');
+  assertNotNull(tx.timestamp, 'Timestamp should be set');
 });
 
 // Summary

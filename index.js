@@ -10,7 +10,7 @@
  */
 
 // Wallet utilities
-const wallet = require('./src/wallet.js');
+const { Wallet, GLOBAL_WALLET_LOCK } = require('./src/wallet.js');
 
 // Feature flags management
 const featureFlags = require('./src/feature-flags.js');
@@ -89,7 +89,8 @@ const TokenManager = require('./src/token-manager.js');
  */
 module.exports = {
   // Wallet utilities
-  wallet,
+  Wallet,
+  GLOBAL_WALLET_LOCK,
   
   // Feature flags (exported as object with methods)
   featureFlags,
