@@ -54,7 +54,6 @@ npm run docs:build
 │   ├── feature-flags.mdx
 │   └── ...
 └── guides/                      # User guides
-    ├── chatops.mdx
     ├── publishing.mdx
     ├── deployment.mdx
     └── security.mdx
@@ -287,7 +286,6 @@ When contributing documentation:
 - [Mintlify Documentation](https://mintlify.com/docs)
 - [MDX Documentation](https://mdxjs.com/)
 - [Repository README](./README.md)
-- [ChatOps Guide](./CHATOPS.md)
 
 ## 🐛 Troubleshooting
 

@@ -1325,7 +1325,7 @@ console.log(validator.formatAggregatedResult(ethResult));
 - ⛓️ **Multi-chain**: Bitcoin, Ethereum, Litecoin, Dogecoin, and more
 - 💾 **Caching**: 60-second TTL to avoid redundant API calls
 - ✅ **Input validation**: Strict hash format checks with clear error messages
-- 🤖 **ChatOps integration**: Trigger validation from GitHub issues/PRs with `/validate-tx`
+- 🤖 **GitHub Actions integration**: Trigger validation from issues/PRs with `/validate-tx`
 ### GitHub Actions Integration (Self-Hosted Runner)
 
 Trigger validation directly from a GitHub issue or PR comment:
