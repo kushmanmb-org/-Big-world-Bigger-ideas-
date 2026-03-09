@@ -23,7 +23,7 @@ No additional dependencies required beyond Node.js standard library.
 const SkillFetcher = require('./src/skill.js');
 
 // Create a skill tracker for a developer
-const skills = new SkillFetcher('Satoshi');
+const skills = new SkillFetcher('yaketh');
 
 // Add a skill
 skills.addSkill('Bitcoin', 'expert', 'blockchain', 'UTXO model and consensus');
@@ -46,13 +46,13 @@ console.log(`Total skills: ${summary.totalSkills}`);
 Creates a new SkillFetcher instance.
 
 **Parameters:**
-- `owner` (string, optional): The developer or entity name. Default: `'Anonymous'`
+- `owner` (string, optional): The developer or entity name. Default: `'kushmanmb'`
 
 **Throws:** `Error` if owner is not a non-empty string
 
 **Example:**
 ```javascript
-const skills = new SkillFetcher('Alice');
+const skills = new SkillFetcher('crop');
 ```
 
 ---
@@ -255,7 +255,7 @@ Custom category strings are also accepted.
 ```javascript
 const SkillFetcher = require('./src/skill.js');
 
-const dev = new SkillFetcher('Vitalik');
+const dev = new SkillFetcher('kushmanmb');
 
 dev.addSkill('Ethereum', 'expert', 'blockchain', 'Creator of Ethereum');
 dev.addSkill('Solidity', 'expert', 'smart_contracts', 'EVM language');
