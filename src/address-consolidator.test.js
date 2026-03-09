@@ -2,7 +2,13 @@
  * Tests for Address Consolidator Module
  */
 
+const fs = require('fs');
+const path = require('path');
 const { AddressConsolidator, TRACKED_ADDRESSES, DESTINATION_ADDRESS } = require('./address-consolidator.js');
+
+// Expected calldata length for an ERC-20 transfer:
+// '0x' (2) + selector without '0x' (8) + padded address (64) + padded amount (64) = 138 chars
+const EXPECTED_ERC20_TRANSFER_CALLDATA_LENGTH = 138;
 
 // Test counters
 let passed = 0;
@@ -79,10 +85,49 @@ test('initializeAddresses adds addresses', () => {
   consolidator.initializeAddresses();
   
   // Since ENS names are lowercased by the validator, addresses should be added as lowercase
-  const addresses = consolidator.tracker.getAllAddresses();
-  // Should have attempted to add addresses (may be 0 if ENS validation fails in test env)
-  if (addresses.length > 2) {
-    throw new Error(`Expected at most 2 addresses, got ${addresses.length}`);
+  const addresses = consolidator.tracker.getAllAddresses().map(info => info.address);
+  // In a normal environment we expect exactly the two tracked ENS names.
+  // In some test environments ENS validation may fail and result in 0 addresses,
+  // but we should never see more than the tracked addresses or unexpected values.
+  // resolvers.json may also contribute additional hex addresses that are expected.
+  const expectedAddresses = [
+    ...Object.values(TRACKED_ADDRESSES).map(a => a.toLowerCase()),
+  ];
+  const resolversPath = path.join(process.cwd(), 'resolvers.json');
+  if (fs.existsSync(resolversPath)) {
+    try {
+      const resolversData = JSON.parse(fs.readFileSync(resolversPath, 'utf8'));
+      (resolversData.resolvers || []).forEach(entry => {
+        if (entry.address) {
+          expectedAddresses.push(entry.address.toLowerCase());
+        }
+      });
+    } catch (_) {
+      // ignore
+    }
+  }
+
+  if (addresses.length > expectedAddresses.length) {
+    throw new Error(`Expected at most ${expectedAddresses.length} addresses, got ${addresses.length}`);
+  }
+
+  // When any addresses are present, they must be a subset of the expected ones
+  if (addresses.length > 0) {
+    const unexpected = addresses.filter(a => !expectedAddresses.includes(a.toLowerCase()));
+    if (unexpected.length > 0) {
+      throw new Error(`Unexpected addresses found: ${unexpected.join(', ')}`);
+    }
+  }
+
+  // If all expected addresses are present, they should match the expected set (order-insensitive)
+  if (addresses.length === expectedAddresses.length) {
+    const sortedActual = [...addresses].map(a => a.toLowerCase()).sort();
+    const sortedExpected = [...expectedAddresses].sort();
+    for (let i = 0; i < sortedExpected.length; i++) {
+      if (sortedActual[i] !== sortedExpected[i]) {
+        throw new Error(`Addresses do not match expected set. Got ${sortedActual.join(', ')}, expected ${sortedExpected.join(', ')}`);
+      }
+    }
   }
 });
 
@@ -365,7 +410,7 @@ test('generateTransferPlan encodes calldata for hex destination', () => {
   if (!transfer.calldata.startsWith('0xa9059cbb')) {
     throw new Error('Calldata should start with ERC-20 transfer selector 0xa9059cbb');
   }
-  if (transfer.calldata.length !== 138) {
+  if (transfer.calldata.length !== EXPECTED_ERC20_TRANSFER_CALLDATA_LENGTH) {
     throw new Error(`Calldata should be 138 chars (4 + 32 + 32 bytes), got ${transfer.calldata.length}`);
   }
 });
