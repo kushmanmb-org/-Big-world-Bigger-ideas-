@@ -107,7 +107,6 @@
     {
       "group": "Guides",
       "pages": [
-        "guides/chatops",
         "guides/publishing",
         "guides/deployment",
         "guides/security"

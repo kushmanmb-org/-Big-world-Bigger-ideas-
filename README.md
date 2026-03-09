@@ -269,7 +269,7 @@ This project features a comprehensive **Mintlify documentation portal** with int
 - **📚 Interactive Docs**: Modern, searchable documentation with live code examples
 - **🚀 Quick Start**: Get started in under 5 minutes
 - **📖 API Reference**: Detailed documentation for all modules
-- **📝 Guides**: Best practices, ChatOps, security, and more
+- **📝 Guides**: Best practices, security, and more
 
 **Run Documentation Locally:**
 
@@ -1325,7 +1325,7 @@ console.log(validator.formatAggregatedResult(ethResult));
 - ⛓️ **Multi-chain**: Bitcoin, Ethereum, Litecoin, Dogecoin, and more
 - 💾 **Caching**: 60-second TTL to avoid redundant API calls
 - ✅ **Input validation**: Strict hash format checks with clear error messages
-- 🤖 **ChatOps integration**: Trigger validation from GitHub issues/PRs with `/validate-tx`
+- 🤖 **GitHub Actions integration**: Trigger validation from issues/PRs with `/validate-tx` (see `transaction-validation.yml`)
 
 ### GitHub Actions Integration (Self-Hosted Runner)
 
@@ -1369,21 +1369,17 @@ For complete documentation, see [TRANSACTION-VALIDATOR.md](src/TRANSACTION-VALID
 
 ---
 
-## 🤖 ChatOps & Feature Flags
+## 🚩 Feature Flags
 
-This repository includes a powerful ChatOps system for managing feature flags directly from GitHub issues and pull requests.
+This repository includes a feature flag system for managing features at runtime without code changes.
 
 ### Quick Start
 
-Use these commands in any issue or PR comment:
+Manage feature flags programmatically:
 
-- **Enable a feature:** `/chatops run feature set <flag_name>`
-- **Disable a feature:** `/chatops run feature unset <flag_name>`
-- **List all flags:** `/chatops run feature list`
-
-**Example:**
-```
-/chatops run feature set dark_mode
+```javascript
+const ff = require('./src/feature-flags');
+ff.setFlag('dark_mode', true);
 ```
 
 ### Why Feature Flags?
@@ -1399,8 +1395,7 @@ Use these commands in any issue or PR comment:
 The following feature flags are currently supported:
 
 - **`dark_mode`**: Enables dark mode theme in the web editor
-- **`new_ui`**: Enables enhanced UI styling in the web editor  
-- **`test_chatops`**: Test flag for ChatOps workflow validation
+- **`new_ui`**: Enables enhanced UI styling in the web editor
 
 ### Web Editor Integration
 
@@ -1410,10 +1405,6 @@ The web editor (`editor.html`) automatically loads feature flags from `feature-f
 - When `new_ui` is enabled, enhanced styling is applied
 - Active features are displayed in the editor header
 - Changes take effect on page reload
-
-### Documentation
-
-For complete documentation on ChatOps and feature flags, see [CHATOPS.md](./CHATOPS.md)
 
 ### Testing
 

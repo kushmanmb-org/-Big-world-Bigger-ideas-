@@ -12,6 +12,7 @@ on:
 jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.actor == 'kushmanmb'
     permissions:
       contents: read
     steps:

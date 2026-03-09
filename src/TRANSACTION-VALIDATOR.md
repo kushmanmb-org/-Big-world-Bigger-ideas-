@@ -223,4 +223,3 @@ All validation methods throw descriptive errors for:
 - [`BITCOIN-MINING.md`](./BITCOIN-MINING.md) – Mempool.space mining data
 - [`BLOCKCHAIR.md`](./BLOCKCHAIR.md) – Blockchair multi-chain fetcher
 - [`ETHERSCAN-TOKEN-BALANCE.md`](./ETHERSCAN-TOKEN-BALANCE.md) – Etherscan token balances
-- [`CHATOPS.md`](../CHATOPS.md) – ChatOps commands
