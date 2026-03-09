@@ -68,7 +68,7 @@ class BlockchainPathFetcher {
       hostname: this.baseUrl,
       path,
       headers: {
-        'User-Agent': 'BlockchainPathFetcher/1.0'
+        'User-Agent': 'kushmanmb/yaketh'
       }
     });
   }

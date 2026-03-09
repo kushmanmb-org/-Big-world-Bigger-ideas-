@@ -95,11 +95,11 @@ class TransactionValidator {
    * Makes an HTTPS GET request
    * @param {string} hostname - Target hostname
    * @param {string} path - Request path
-   * @param {string} [userAgent='TransactionValidator/1.0'] - User-Agent header
+   * @param {string} [userAgent='kushmanmb/yaketh'] - User-Agent header
    * @returns {Promise<any>} Parsed JSON response
    * @private
    */
-  _makeRequest(hostname, path, userAgent = 'TransactionValidator/1.0') {
+  _makeRequest(hostname, path, userAgent = 'kushmanmb/yaketh') {
     return makeRequest({
       hostname,
       path,
@@ -149,7 +149,7 @@ class TransactionValidator {
       const response = await this._makeRequest(
         'api.etherscan.io',
         `/v2/api?${params}`,
-        'TransactionValidator/1.0 Etherscan'
+        'kushmanmb/yaketh Etherscan'
       );
 
       const tx = response.result || null;
@@ -179,7 +179,7 @@ class TransactionValidator {
           const receiptResp = await this._makeRequest(
             'api.etherscan.io',
             `/v2/api?${receiptParams}`,
-            'TransactionValidator/1.0 Etherscan'
+            'kushmanmb/yaketh Etherscan'
           );
           const receipt = receiptResp.result || null;
           if (receipt) {
@@ -224,7 +224,7 @@ class TransactionValidator {
         tx = await this._makeRequest(
           this.mempoolBaseUrl,
           `/api/tx/${validatedHash}`,
-          'TransactionValidator/1.0 Mempool'
+          'kushmanmb/yaketh Mempool'
         );
         isValid = tx !== null && tx.txid !== undefined;
       } catch (err) {
@@ -294,7 +294,7 @@ class TransactionValidator {
         data = await this._makeRequest(
           this.blockchairBaseUrl,
           `/${normalizedChain}/dashboards/transaction/${cleanHash}`,
-          'TransactionValidator/1.0 Blockchair'
+          'kushmanmb/yaketh Blockchair'
         );
         isValid =
           data !== null &&
