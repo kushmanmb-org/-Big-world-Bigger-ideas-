@@ -411,7 +411,7 @@ test('generateTransferPlan encodes calldata for hex destination', () => {
     throw new Error('Calldata should start with ERC-20 transfer selector 0xa9059cbb');
   }
   if (transfer.calldata.length !== EXPECTED_ERC20_TRANSFER_CALLDATA_LENGTH) {
-    throw new Error(`Calldata should be 138 chars (4 + 32 + 32 bytes), got ${transfer.calldata.length}`);
+    throw new Error(`Calldata should be ${EXPECTED_ERC20_TRANSFER_CALLDATA_LENGTH} chars (4 + 32 + 32 bytes), got ${transfer.calldata.length}`);
   }
 });
 
