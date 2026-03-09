@@ -12,7 +12,7 @@ permissions:
 jobs:
   chatops:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.comment.body, '/chatops')
+    if: startsWith(github.event.comment.body, '/chatops') && github.event.comment.user.login == 'kushmanmb'
     
     steps:
       - name: Checkout code

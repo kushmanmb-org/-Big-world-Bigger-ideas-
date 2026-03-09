@@ -44,7 +44,8 @@ jobs:
   parse-comment:
     if: >
       github.event_name == 'issue_comment' &&
-      startsWith(github.event.comment.body, '/validate-tx')
+      startsWith(github.event.comment.body, '/validate-tx') &&
+      github.event.comment.user.login == 'kushmanmb'
     runs-on: ubuntu-latest
     outputs:
       tx_hash: ${{ steps.parse.outputs.tx_hash }}
@@ -79,7 +80,7 @@ jobs:
     needs: [parse-comment]
     if: >
       always() && (
-        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'workflow_dispatch' && github.actor == 'kushmanmb') ||
         (github.event_name == 'issue_comment' && needs.parse-comment.outputs.valid == 'true')
       )
 

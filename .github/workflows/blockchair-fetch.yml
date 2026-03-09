@@ -24,7 +24,8 @@ permissions:
 jobs:
   fetch-and-publish:
     runs-on: ubuntu-latest
-    
+    if: github.event_name == 'schedule' || github.actor == 'kushmanmb'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
