@@ -46,7 +46,7 @@ async function runTests() {
   console.log('\n📦 Testing Constructor with API Key...');
   try {
     const stats = new EtherscanStats('test-api-key');
-    assert(stats !== null, 'Should create stats instance');
+    assert(stats instanceof EtherscanStats, 'Should create stats instance');
     assertEqual(stats.chainId, 1, 'Should default to Ethereum mainnet (chain ID 1)');
     assertEqual(stats.apiBaseUrl, 'api.etherscan.io', 'Should use Etherscan API URL');
     assert(stats.cache instanceof Map, 'Should initialize cache as Map');
