@@ -27,3 +27,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Build CSS assets
+        run: npm run build:css
+
+      - name: Verify package loads correctly
+        run: npm run verify-install
