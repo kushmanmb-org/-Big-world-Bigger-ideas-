@@ -116,7 +116,8 @@ const MultiSigWallet = require('./src/multi-sig-wallet');
 
 const { abi, bytecode } = MultiSigWallet;
 
-const provider = new ethers.JsonRpcProvider('http://localhost:8545');
+// Use HTTPS endpoint in production; http://localhost:8545 is for local development only
+const provider = new ethers.JsonRpcProvider('https://YOUR_RPC_ENDPOINT_HERE');
 const signer = await provider.getSigner();
 
 const owners = [
@@ -139,7 +140,8 @@ console.log('Deployed to:', await contract.getAddress());
 const { ethers } = require('ethers');
 const MultiSigWallet = require('./src/multi-sig-wallet');
 
-const provider = new ethers.JsonRpcProvider('http://localhost:8545');
+// Use HTTPS endpoint in production; http://localhost:8545 is for local development only
+const provider = new ethers.JsonRpcProvider('https://YOUR_RPC_ENDPOINT_HERE');
 const signer = await provider.getSigner();
 
 const contract = new ethers.Contract(
